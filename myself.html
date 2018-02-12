@@ -9,14 +9,30 @@
  
     <!-- Bootstrap -->
     <link href="css/bootstrap1.css" rel="stylesheet">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.js"></script>
  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
     <![endif]-->
+
+    
+    
+
+
+<!-- <div class="scroll">
+    <div class="scrollingtext"> Flash message without marquee tag using javascript!  </div>
+ </div>
+ -->
     <style>
     	div #main{
     		width:80%;
@@ -168,22 +184,43 @@
 
                 <p>Even picutres of common sites in Beijing are beautiful, Aren't they?</p>
 	    		 <div id="image_block">
-
-	    		 <marquee behavior="alternate" onmouseover=stop()  onmouseout=start()  scrollAmount=5 >
+<!-- 
+	    		 <marquee width="auto" height="auto" behavior="alternate" onmouseover=stop()  onmouseout=start()  scrollAmount=5 >
 	    		  <img src="images/beijing1.jpg" >
 	    		  <img src="images/beijing2.jpg" >
 	    		  <img src="images/beijing3.jpg" >
-	    		 </marquee>
+	    		 </marquee> -->
 
-	    		   <br>
-	    			
+	    		 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+					<script type="text/javascript">
+			    		$(document).ready(function() {
 
+			         $('.scrollingtext').bind('marquee', function() {
+			             var ob = $(this);
+			             var tw = ob.width();
+			             var ww = ob.parent().width();
+			             ob.css({ right: -tw });
+			             ob.animate({ right: ww }, 20000, 'linear', function() {
+			                 ob.trigger('marquee');
+			             });
+			         }).trigger('marquee');
+			         
+			     });
+			     </script>
+	    		 <!-- <div id="marquee">
+	    		  
+	    		  
+	    		 </marquee> -->
+	    		 <div class="cycle-slideshow"  data-cycle-fx="scrollHorz" data-cycle-speed="9000" data-cycle-timeout="1"  data-cycle-easing="linear" data-cycle-pause-on-hover="true" data-cycle-slides="> div" >
+				  <div>  <img src="images/beijing1.jpg" >  </div>
+				  <div> <img src="images/beijing2.jpg" ></div>
+	    		  <div><img src="images/beijing3.jpg" >  </div>
+				</div>   
 	    		</div>
 
 	    </div>
 	</div>
-
-
+		
 
 
 
@@ -192,12 +229,6 @@
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Importing bootstrap, jquery p5 and d3 online repository -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
-
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.js"></script>
+   
   </body>
 </html>
