@@ -17,11 +17,74 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+    	div #main{
+    		width:80%;
+    		height:80%;
+    		align-content:center;
+            vertical-align: middle;
+    		margin-top:100px;
 
+    	}
+
+        div #top_block{
+            
+            text-align: center;
+            margin: auto;
+            width:90%;
+            height:30%;      
+            padding:10px;
+            border: 5px  solid azure;
+        }
+
+    	#left_block{
+    		text-align: left; 
+    		border: 5px  solid cyan;
+    		margin-top:5%;
+    		margin-left:10%;
+    		padding:10px;
+    		width:35%;
+    		height:50%;
+    		float:left;
+
+    	}
+
+    	#right_block{
+    		text-align: left; 
+    		border: 5px  solid #90EE90;
+    		margin-top:5%;
+    		margin-right:10%;
+    		padding:10px;
+    		width:35%;
+    		height:50%;
+    		float:right;
+    	}
+
+    	p{
+    		font-weight: 1000px;
+    		font-size:15px;
+
+    	}
+
+    	#image_block{
+    		
+    		border: 5px groove gray ;
+    		text-align: center;
+
+    	}
+
+
+
+    </style>
    
+
+      
+
   </head>
+
   <body>
-     <div class="navbar navbar-fixed-top">
+    
+<div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -33,11 +96,12 @@
 
           <ul class="nav">
             <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="projects.html">Projects</a></li>
+            <!-- <li><a href="projects.html">Projects</a></li> -->
             <li><a href="research.html">Research</a></li>
-            <li><a href="http://u.osu.edu/tang.794/">Blog</a></li>
+            <li><a href="myself.html">My Life</a></li>
+            <!-- <li><a href="http://u.osu.edu/tang.794/">Blog</a></li> -->
             <li><a href="https://www.linkedin.com/in/peiyuan-tang-313204a6/">Linked_In</a></li>
-            <li><a href="application_materials/peiyuang_cv.pdf">C.V.</a></li>
+            <!-- <li><a href="application_materials/peiyuang_cv.pdf">C.V.</a></li> -->
             <li><a href="application_materials/peiyuang_resume.pdf">Resume</a></li>
           </ul>
           <div class="nav-collapse">
@@ -46,48 +110,85 @@
       </div>
     </div>
 
-
     <!-- Using D3 and SVG -->
 
-    <div id = "blog">
+    <div id="main"  style="margin-top:5%">
+
+       
+
+
+        <div id="top_block" >
+
+            <h1 style="color:orange">Welcome to Pei-yuan's blog</h1>
+            <br>
+            <p>Apart from studying for my curriculum coursework, I also spent time reading literatures and histories in my spare time. I played many sports as well, basketball, badminton, and table tennis. I played for high school flag-football team as well. 
+
+            Moreover, I love travelling and indeed travel a lot. I have been to 20 provinces in China, 15 states in United state, and 3 countries of the world.  
+
+            I like to learn about the culture and history of cities that I visit. I normally will walk along the main stree of the downtown to feel the cultural ambience, also tasting the food, visiting the worth-going places. 
+            </p>
+        </div>
+
+	    <div id="left_block">
+
+	    	<h3>Xiangyang - My First Home</h3>
+	    	<br>
+	    		<p>I was born in Xiangyang (/Hs'iang yang/) (襄阳), used to be called Xiang Fan，in Hubei province. I lived in Xiangyang for about 9 years. It holds tons of my precious childhood memories.
+	    		 </p> 
+	    		 <p>XiangFan is an integration of two ancient city: Xiangyang  （襄阳） and Fancheng(樊城). The name was changed to Xiangyang,probably for attracting tourists.
+	    		  Xiangyang is famous through the history because it is right on the "border line"
+	    		  dividing not only south and north, but also east and west. This "border line" is meaningful, because it partitions climates, landscapes, and even cultures. However, its specific features also contribute to its importance in the war. It is the inevitable city to be conquered in all civil wars of through Chinese history. 
+	    		</p>
+	    		 <p>It used to be known because Luo Guanzhong (罗贯中)'s novel, <i>Romance of Three Kingdoms</i> and Zhuge Kongming. (诸葛亮/诸葛孔明）The place where Zhuge kongming lives when he farms, Crouching Dragon (卧龙岗), is located in Xiangyang. Now, it is famous because it is a main city in Louis Cha(金庸) ‘s novel, <i>The Romance of the Condor Heroes</i> (神雕侠侣). </p>
+	    		
+	    		 <p>Xiangyang is the "center" of China. From this beautiful section of Google map, every one can feel it<a href= 'https://www.google.com/maps/place/Xiangyang,+Hubei,+China/@48.6714043,78.3649305,3.5z/data=!4m5!3m4!1s0x3680439de5297b49:0xbf2e8f9bfc4114f4!8m2!3d32.009016!4d112.122426'> (The location of Xiangyang).
+	    		  </a></p>
+
+	    		 <div id="image_block">
+
+	    		  <img src="images/xiangyang_tangcheng.jpg" >
+	    		   <br>
+	    			<p>citation: Tangcheng (唐城)- <cite>http://jingchu.baike.com/article-842833.html</cite> </p>
+	    		</div>
+	    </div>
+
+	    <div id="right_block">
+	    	<h3>Beijing - My Second Home</h3>
+            <br>
+	    		<p>
+	    		I moved to Beijing when I was 9, with my family.
+	    		I loved "Beijing" so much as well. It is the place for me to 
+	    		level up my horizon. And the most fascinating thing is that it is also an ancient city, with history and culture. 
+            </p><p>
+                I lived in Peiyuan for 9 years as well, before I came to the US for college. I indeed appreciate my parents for the ideal living and studying environment they created. I was accepted in a top middle school in Dongcheng district and went to High School Attached to Tsinghua University thereafter. 
+            </p><p>
+                If you plan to visit Beijing, I would be happy to become your tour guide. I really enjoy travelling, and therefore I know all different kinds of fun places in Beijing, including ancient spots, museums, parks, and even shopping marts.
+	    		</p>
+
+                <p>Even picutres of common sites are beautiful, Aren't they?</p>
+	    		 <div id="image_block">
+
+	    		 <marquee behavior="alternate" loop='infinite' onmouseover=stop()  onmouseout=start()  scrollAmount=5 >
+	    		  <img src="images/beijing1.jpg" >
+	    		  <img src="images/beijing2.jpg" >
+	    		  <img src="images/beijing3.jpg" >
+	    		 </flash>
+
+	    		   <br>
+	    			
+
+	    		</div>
+
+	    </div>
+	</div>
 
 
 
 
-    </div>
 
 
 
 
-
-
-
-
-   <!--   
-    <div id="project-content" style="margin-top:5%; margin-left:10%; margin-right:10%">
-     
-      <ul id="project-list"> -->
-        
-      <!-- <li>The Carton Optimization Project</li>
-	
-      <li>The Stochastic Gradient Descnet Algorithm</li>
-
-      <li>Order Grouping Project</li>
- --><!-- 
-      <li>Computational Linguistic Project</li> -->
-
-      <!-- <li>   </li> -->
-   <!--    </ul>
-      
-    </div> -->
-
-  <!--  <script>
-     $(project-list).append('<li><p>'Optimization Research Project+'</p></li>');
-   </script> -->
-    
-<!-- Link to a blog that introduces myself -->
-    <!-- <a href= ""></a> -->
-      
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Importing bootstrap, jquery p5 and d3 online repository -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
