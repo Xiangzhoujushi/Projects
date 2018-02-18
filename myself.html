@@ -44,7 +44,6 @@
     	}
 
         div #top_block{
-            
             text-align: center;
             margin: auto;
             width:90%;
@@ -53,9 +52,11 @@
             border: 5px  solid azure;
         }
 
-    	#left_block{
+    	#left_block{ 
+    		display:block;
+    		float:left;      
     		text-align: left; 
-    		border: 5px  solid cyan;
+    		/*border: 5px  solid cyan;*/
     		margin-top:5%;
     		margin-left:10%;
     		padding:10px;
@@ -65,9 +66,10 @@
 
     	}
 
-    	#right_block{
+    	#right_block{ 
+    		display:block;
     		text-align: left; 
-    		border: 5px  solid #90EE90;
+    		/*border: 5px  solid #90EE90;*/
     		margin-top:5%;
     		margin-right:10%;
     		padding:10px;
@@ -90,6 +92,198 @@
     	}
 
 
+
+		#cf {
+		  position:relative;
+		  margin: auto;
+		  padding: 2px;
+		}
+
+		#cf div{
+			position: relative;
+		}
+
+		#cf img {
+		  position: relative;
+		  left:0;
+		  -webkit-transition: opacity 1s ease-in-out;
+		  -moz-transition: opacity 1s ease-in-out;
+		  -o-transition: opacity 1s ease-in-out;
+		  transition: opacity 1s ease-in-out;
+		}
+
+		#cf img.top:hover {
+		  opacity:0;
+		}
+
+
+
+@-webkit-keyframes cf4FadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+@-moz-keyframes cf4FadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+@-o-keyframes cf4FadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}
+
+/*@keyframes cf4FadeInOut {
+ 0% {
+   opacity:1;
+ }
+ 17% {
+   opacity:1;
+ }
+ 25% {
+   opacity:0;
+ }
+ 92% {
+   opacity:0;
+ }
+ 100% {
+   opacity:1;
+ }
+}*/
+
+	#cf4a {
+	  position:relative;
+	  /*height: 30%;
+	  width: 30%;*/
+	  margin: auto;
+	  /*display: inline-block;*/
+	}
+
+
+
+	#cf4a img {
+	/*border-collapse: collapse;*/
+
+	  position: absolute;
+	  left:0;
+	}
+
+	#cf4a img {
+	  -webkit-animation-name: cf4FadeInOut;
+	  -webkit-animation-timing-function: ease-in-out;
+	  -webkit-animation-iteration-count: infinite;
+	  -webkit-animation-duration: 8s;
+
+	  -moz-animation-name: cf4FadeInOut;
+	  -moz-animation-timing-function: ease-in-out;
+	  -moz-animation-iteration-count: infinite;
+	  -moz-animation-duration: 8s;
+
+	  -o-animation-name: cf4FadeInOut;
+	  -o-animation-timing-function: ease-in-out;
+	  -o-animation-iteration-count: infinite;
+	  -o-animation-duration: 8s;
+
+	  animation-name: cf4FadeInOut;
+	  animation-timing-function: ease-in-out;
+	  animation-iteration-count: infinite;
+	  animation-duration: 8s;
+	}
+	#cf4a img:nth-of-type(1) {
+	  -webkit-animation-delay: 6s;
+	  -moz-animation-delay: 6s;
+	  -o-animation-delay: 6s;
+	  animation-delay: 6s;
+	}
+	#cf4a img:nth-of-type(2) {
+	  -webkit-animation-delay: 4s;
+	  -moz-animation-delay: 4s;
+	  -o-animation-delay: 4s;
+	  animation-delay: 4s;
+	}
+	#cf4a img:nth-of-type(3) {
+	  -webkit-animation-delay: 2s;
+	  -moz-animation-delay: 2s;
+	  -o-animation-delay: 2s;
+	  animation-delay: 2s;
+	}
+	#cf4a img:nth-of-type(4) {
+	  -webkit-animation-delay: 0;
+	  -moz-animation-delay: 0;
+	  -o-animation-delay: 0;
+	  animation-delay: 0;
+	}
+
+
+		@keyframes cf4FadeInOut {
+		  0% {
+		    opacity:1;
+		  }
+		  17% {
+		    opacity:1;
+		  }
+		  25% {
+		    opacity:0;
+		  }
+		  92% {
+		    opacity:0;
+		  }
+		  100% {
+		    opacity:1;
+		  }
+		}
+
+		#cf4a img:nth-of-type(1) {
+		  animation-delay: 6s;
+		}
+		#cf4a img:nth-of-type(2) {
+		  animation-delay: 4s;
+		}
+		#cf4a img:nth-of-type(3) {
+		  animation-delay: 2s;
+		}
+		#cf4a img:nth-of-type(4) {
+		  animation-delay: 0s;
+		}
 
     </style>
    
@@ -183,14 +377,14 @@
 	    		</p>
 
                 <p>Even picutres of common sites in Beijing are beautiful, Aren't they?</p>
-	    		 <div id="image_block">
+	    		 <!-- <div id="image_block"> -->
 <!-- 
 	    		 <marquee width="auto" height="auto" behavior="alternate" onmouseover=stop()  onmouseout=start()  scrollAmount=5 >
 	    		  <img src="images/beijing1.jpg" >
 	    		  <img src="images/beijing2.jpg" >
 	    		  <img src="images/beijing3.jpg" >
 	    		 </marquee> -->
-
+<!-- 
 	    		 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 					<script type="text/javascript">
 			    		$(document).ready(function() {
@@ -204,18 +398,19 @@
 			                 ob.trigger('marquee');
 			             });
 			         }).trigger('marquee');
-			         
+
 			     });
-			     </script>
+			     </script> -->
 	    		 <!-- <div id="marquee">
-	    		  
-	    		  
+	    		  	    		  
 	    		 </marquee> -->
-	    		 <div class="cycle-slideshow"  data-cycle-fx="scrollHorz" data-cycle-speed="9000" data-cycle-timeout="1"  data-cycle-easing="linear" data-cycle-pause-on-hover="true" data-cycle-slides="> div" >
-				  <div>  <img src="images/beijing1.jpg" >  </div>
-				  <div> <img src="images/beijing2.jpg" ></div>
-	    		  <div><img src="images/beijing3.jpg" >  </div>
-				</div>   
+	    		 <div  id="cf4a">
+	    		 <div>
+				    <img src="images/beijing1.jpg" > 
+					<img src="images/beijing2.jpg" >
+	    		  	<img src="images/beijing3.jpg" >
+	    		  	<img src="images/beijing4.jpg" >
+	    		  </div>
 	    		</div>
 
 	    </div>
