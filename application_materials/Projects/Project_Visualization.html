@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+ 	<!-- import J-query -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+
+	<style>
+		div #problem3 {
+			height: 750px;
+			/*height: 300px;*/
+			width:1000px;
+		}
+		div #main {
+			height:100%;
+			width:1000px;
+		}
+
+		#arrow{
+		/*stroke-width:5;*/
+		/*stroke:blue;*/
+		/*stroke-dasharray:5, 5;*/
+		}
+
+	/*	div #*/
+
+		h4{
+			text-align:center;
+		}
+
+
+		table {
+			border-width: 1px;
+			border-style:solid;
+			border-color:black;
+			border-collapse:collapse;
+			/*width: 12.5%;*/
+			/*border-collapse: collapse;*/
+		}
+
+		/*table#percentage {
+			border-width: 1px;
+			border-style:solid;
+			border-color:black;
+			border-collapse:collapse;
+			/*width: 12.5%;*/
+			/*border-collapse: collapse;*/
+
+
+		 th {
+			padding: 2px;
+			width:150px;
+			border-width: 1px;
+			border-style:solid;
+			border-color:black;
+			border-collapse:collapse;
+		}
+
+		 td {
+			text-align:center;
+			vertical-align:middle;
+			padding:2px;
+			width:150px;
+			height:20px;
+			border: 1px solid black;
+			border-collapse:collapse;
+			
+		}
+
+		svg {
+			position:relative;
+			height:700px;
+			width:1500px;
+
+		}
+
+		svg g{
+			position: relative;
+
+		}
+
+		#problem4 svg{
+
+			height:300px;
+			width:1500px;
+
+		}
+
+		#problem6 svg{
+
+			height:900px;
+			width:1000px;
+
+		}
+		#problem4 h4{
+			text-align: left;
+			text-indent:300px;
+
+		}
+		
+		#problem3{
+			margin:10px;
+
+
+		}
+		#problem4 text{
+			font-size:13px;
+		}
+
+		#problem5 h4{
+			text-align: left;
+			text-indent:400px;
+
+		}
+
+		#problem5 g{
+			transform: translate(0,20)
+		}
+
+		#problem5 text{
+
+			font-size:15px;
+		}
+
+
+		svg text{
+			/*white-space:normal;*/
+
+			font-size:12px;
+			text-indent:10px;
+			font-weight:700;
+
+		}
+
+
+		/*#problem5 svg*/
+		
+	
+	</style>
+
+</head>
+
+
+
+<body>
+	<script>
+	// the data array from the two json cleaned 
+
+     
+    var expenditure_data = [{"Item":"Food","Lowest 20 percent":3861.63,"Second 20 percent":4978.29,"Third 20 percent":6223.92,"Fourth 20 percent":8435.86,"Highest 20 percent":12513.09,"Total expenditure":36012.79},{"Item":"Alcoholic beverages","Lowest 20 percent":157.73,"Second 20 percent":260.84,"Third 20 percent":349.95,"Fourth 20 percent":568.81,"Highest 20 percent":1082.0,"Total expenditure":2419.33},{"Item":"Housing","Lowest 20 percent":10267.07,"Second 20 percent":13551.71,"Third 20 percent":16315.23,"Fourth 20 percent":20687.24,"Highest 20 percent":33653.4,"Total expenditure":94474.65},{"Item":"Apparel and services","Lowest 20 percent":860.48,"Second 20 percent":1163.57,"Third 20 percent":1519.21,"Fourth 20 percent":1959.14,"Highest 20 percent":3511.31,"Total expenditure":9013.71},{"Item":"Transportation","Lowest 20 percent":3767.46,"Second 20 percent":5992.15,"Third 20 percent":8464.07,"Fourth 20 percent":10931.04,"Highest 20 percent":16114.23,"Total expenditure":45268.95},{"Item":"Healthcare","Lowest 20 percent":2155.71,"Second 20 percent":3528.01,"Third 20 percent":4266.24,"Fourth 20 percent":5441.55,"Highest 20 percent":7676.84,"Total expenditure":23068.35},{"Item":"Entertainment","Lowest 20 percent":1146.29,"Second 20 percent":1783.09,"Third 20 percent":2344.28,"Fourth 20 percent":3408.94,"Highest 20 percent":5887.75,"Total expenditure":14570.35},{"Item":"Personal care products and services","Lowest 20 percent":333.43,"Second 20 percent":489.75,"Third 20 percent":569.42,"Fourth 20 percent":777.39,"Highest 20 percent":1364.33,"Total expenditure":3534.32},{"Item":"Reading","Lowest 20 percent":64.38,"Second 20 percent":85.67,"Third 20 percent":96.26,"Fourth 20 percent":114.66,"Highest 20 percent":228.68,"Total expenditure":589.65},{"Item":"Education","Lowest 20 percent":681.37,"Second 20 percent":758.7,"Third 20 percent":617.67,"Fourth 20 percent":988.18,"Highest 20 percent":3604.86,"Total expenditure":6650.78},{"Item":"Tobacco products and smoking supplies","Lowest 20 percent":304.57,"Second 20 percent":334.86,"Third 20 percent":361.6,"Fourth 20 percent":382.52,"Highest 20 percent":302.43,"Total expenditure":1685.98},{"Item":"Miscellaneous","Lowest 20 percent":335.73,"Second 20 percent":646.22,"Third 20 percent":1007.94,"Fourth 20 percent":1062.41,"Highest 20 percent":1747.55,"Total expenditure":4799.85},{"Item":"Cash contributions","Lowest 20 percent":557.97,"Second 20 percent":1430.91,"Third 20 percent":1301.49,"Fourth 20 percent":1890.54,"Highest 20 percent":5232.59,"Total expenditure":10413.5},{"Item":"Personal insurance and pensions","Lowest 20 percent":644.57,"Second 20 percent":1766.42,"Third 20 percent":4227.2,"Fourth 20 percent":8261.58,"Highest 20 percent":19302.4,"Total expenditure":34202.17}];
+
+    
+    
+    var percentage_data=[{"Item":"Food","Lowest 20 percent":0.1072294038,"Second 20 percent":0.1382367209,"Third 20 percent":0.1728252657,"Fourth 20 percent":0.234246222,"Highest 20 percent":0.3474623877},{"Item":"Alcoholic beverages","Lowest 20 percent":0.065195736,"Second 20 percent":0.1078149736,"Third 20 percent":0.144647485,"Fourth 20 percent":0.2351105471,"Highest 20 percent":0.4472312582},{"Item":"Housing","Lowest 20 percent":0.108675396,"Second 20 percent":0.1434428177,"Third 20 percent":0.1726942624,"Fourth 20 percent":0.2189713325,"Highest 20 percent":0.3562161913},{"Item":"Apparel and services","Lowest 20 percent":0.0954634662,"Second 20 percent":0.1290889101,"Third 20 percent":0.1685443619,"Fourth 20 percent":0.217351124,"Highest 20 percent":0.3895521378},{"Item":"Transportation","Lowest 20 percent":0.0832239316,"Second 20 percent":0.1323677708,"Third 20 percent":0.1869729693,"Fourth 20 percent":0.2414688213,"Highest 20 percent":0.3559665068},{"Item":"Healthcare","Lowest 20 percent":0.0934488162,"Second 20 percent":0.1529372495,"Third 20 percent":0.1849391049,"Fourth 20 percent":0.2358881324,"Highest 20 percent":0.3327866969},{"Item":"Entertainment","Lowest 20 percent":0.0786727841,"Second 20 percent":0.1223779799,"Third 20 percent":0.1608938701,"Fourth 20 percent":0.2339641807,"Highest 20 percent":0.4040911852},{"Item":"Personal care products and services","Lowest 20 percent":0.094340637,"Second 20 percent":0.1385697956,"Third 20 percent":0.1611116141,"Fourth 20 percent":0.2199546164,"Highest 20 percent":0.3860233369},{"Item":"Reading","Lowest 20 percent":0.1091834139,"Second 20 percent":0.1452895786,"Third 20 percent":0.1632493852,"Fourth 20 percent":0.1944543373,"Highest 20 percent":0.387823285},{"Item":"Education","Lowest 20 percent":0.1024496375,"Second 20 percent":0.1140768451,"Third 20 percent":0.0928718135,"Fourth 20 percent":0.1485810687,"Highest 20 percent":0.5420206352},{"Item":"Tobacco products and smoking supplies","Lowest 20 percent":0.1806486435,"Second 20 percent":0.1986144557,"Third 20 percent":0.2144746676,"Fourth 20 percent":0.2268828812,"Highest 20 percent":0.1793793521},{"Item":"Miscellaneous","Lowest 20 percent":0.0699459358,"Second 20 percent":0.134633374,"Third 20 percent":0.2099940623,"Fourth 20 percent":0.2213423336,"Highest 20 percent":0.3640842943},{"Item":"Cash contributions","Lowest 20 percent":0.0535814087,"Second 20 percent":0.1374091324,"Third 20 percent":0.1249810342,"Fourth 20 percent":0.1815470303,"Highest 20 percent":0.5024813943},{"Item":"Personal insurance and pensions","Lowest 20 percent":0.0188458802,"Second 20 percent":0.0516464306,"Third 20 percent":0.1235944971,"Fourth 20 percent":0.2415513402,"Highest 20 percent":0.5643618519}];
+		
+		// edit the table using the javascipt
+		
+     	// var incomeWithExpenditure = [];
+		// var percentage_array = JSON.parseJ(SON.stringfy(percentage_data));
+
+
+		$(document).ready(function(e){
+			appendExpenditureTable();
+			appendPercentageTable();
+			$('text').text().replace(/ /g,'\r\n');
+		});
+
+		generateGraphs();
+		// processingProblem5();
+
+		// global variables.
+
+
+		function initiate1(d){
+
+					// var val;
+					result ={}
+					
+					for (var key in d){
+						new_key = key;
+						if(key!='Item'){
+						var title = key;
+						result.title = title;
+						new_key = 'value';			
+						}
+						result[new_key] = d[key];			
+					}
+					// console.log(result);
+					// switch(d.keys[1]){
+					// 	val = d[keys]
+					// }
+					// console.log(d);
+					// result = [{Item: d.Item},
+					// {name: 'Lowest 20 Percent', value: +d["Lowest 20 percent"]},
+					// {name: 'Second 20 Percent', value: +d["Second 20 percent"]},
+					// {name: 'Third 20 Percent', value: +d["Third 20 percent"]},
+					// {name: 'Fourth 20 Percent',value : +d["Fourth 20 percent"]},
+					// {name: 'Highest 20 Percent', value: +d["Highest 20 percent"]}
+					// ];
+					// incomeWithExpenditure.push(result);
+					// console.log(result)
+					return result;
+		} 	
+
+		
+
+			
+
+			// max = max+100;
+			// real_max
+			
+
+
+			// add scale on the text
+
+			// append text of the index
+			// graph_bar.selectAll('text').data(data).enter().append("text")
+			// .attr('text-anchor','left')
+			// .text(function(d,i){
+			// 	return i+1;
+			// }
+			// ).attr("transform",function(d,i){
+			// 	var yCoord =  interval_size*i
+			// 	var result = "translate("+50+","+yCoord+")"
+			// 	return result;
+			// })
+			// ;
+
+
+			//create a mapping lists from value to data
+			// var graph_tag = svg.append('g');
+			// graph_tag.selectAll('text').data(data).enter()
+			// .append("text")
+			// .attr("transform","translate("+shift_graph[0]+","+shift_graph[1]+")")
+			// .attr('text-anchor','left')
+			// .text(function(d,i){
+			// 	// map from index to value
+			// 	return i+": "+d.Item;
+			// }
+			// ).attr("transform",function(d,i){
+			// 	var yCoord = interval_size*i+10
+			// 	var result = "translate("+50+","+yCoord+")"
+			// 	return result;
+			// });
+
+
+			// find the 
+			// find the max of the data
+
+			// .attr('x',function(d,i){
+			// 	// align it to the right hand side.
+			// 	return (180-d.value*scale)+i*180+20;
+			// var yaxis = d3.axisLeft().scale(scaler);	
+			// d3.select('#problem6').append('svg').append('g').call(axis).attr("transform", "translate(" +600+ "," +600+ ")").select('path')
+			
+			// y-axis
+			// then draw x-axis			
+			// });
+
+
+		function getPercentage(value){
+			 var r=" "+Math.round(value*10000)/100+"%";
+			 return r;
+		}
+		
+
+		function appendExpenditureTable(){
+			
+			// d3.csv('out1.csv',expenditure_data);
+			$('#Problem2_1').append('<table id = expenditure></table>');
+			$('#expenditure').append($('<tr>'));
+
+			keys= Object.keys(expenditure_data[0]);
+			// console.log(keys);
+			for ( var i = 0; i<keys.length;i++){
+				$('#expenditure > tr').append('<th>'+keys[i]+'</th>');
+			}
+			// $('expenditure').append('</tr>');
+
+			// format the header
+
+			// format the data entries
+			for (var j =0;j<expenditure_data.length;j++ ){
+				$('#expenditure').append('<tr>')
+
+				for (var k =0;k<keys.length;k++){
+					$('#expenditure > tr:last').append('<td>'+expenditure_data[j][keys[k]]+'</td>');
+				}
+
+			}
+
+		}
+
+		function appendPercentageTable(){
+			// var percentage_data;
+			// d3.csv('out2.csv',percentage_data);
+			$('#Problem2_2').append('<table id = percentage></table>');
+
+			$('#percentage').append($('<tr>'));
+			// debugger
+
+			
+			keys= Object.keys(percentage_data[0]);
+			// console.log(keys);
+			for ( var i = 0; i<keys.length;i++){
+				$('#percentage > tr').append('<th>'+keys[i]+'</th>');
+
+			}
+			// $('expenditure').append('</tr>');
+
+			// format the header
+
+			// format the data entries
+			for (var j =0;j<percentage_data.length;j++ ){
+				$('#percentage').append('<tr>')
+
+				for (var k =0;k<keys.length;k++){
+					var value = percentage_data[j][keys[k]]
+					if(k!=0)
+					{
+						 value =" "+Math.round(percentage_data[j][keys[k]]*10000)/100+"%";
+					}
+					$('#percentage > tr:last').append('<td>'+value+'</td>');
+				}
+
+			}
+
+		}
+
+		function generateGraphs(){
+			// only create the first pie chart at the beginning
+			// for(var i = 0; i<1;i++){
+			// 	// process the data.
+			// 	data = percentage_data[i];
+				// a hash map.
+			 // d3.select('#problem3').append('svg')
+			// console.log(document.getElementsByTagName('svg').firstElementChild);
+			// document.getElementsByTagName('svg').firstElementChild.innerHTML = 'Analysis of Compositions on Expenditures for 14 categories';
+			// processing problem 3,4 and 5
+			d3.csv("out2.csv", initiate, processPieCharts);
+			d3.csv("out3.csv", initiate, processingProblem4);
+			d3.csv("out4.csv",initiate, processingProblem5);
+			// on problem 6
+			d3.csv("out5_1.csv", initiate1, processingProblem6);
+			d3.csv("out5_2.csv", initiate1, processingProblem6);
+			d3.csv("out5_3.csv", initiate1, processingProblem6);		
+			d3.csv("out5_4.csv", initiate1, processingProblem6);
+			d3.csv("out5_5.csv", initiate1, processingProblem6);		
+			
+		
+			// d3.csv("out5.3.csv", initiate, processingProblem6);
+			// d3.csv("out5.4.csv", initiate, processingProblem6);
+			// d3.csv("out5.4.csv", initiate, processingProblem6);
+			// d3.csv("out2.csv").row(function (d){return {key:d.key, value: d.value};})
+			// .get(function(error,rows){console.log(rows);});
+				// }							
+		}
+
+		// function for formating csv files
+
+		function initiate(d){
+					result = [{Item: d.Item},
+					{name: 'Lowest 20 Percent', value: +d["Lowest 20 percent"]},
+					{name: 'Second 20 Percent', value: +d["Second 20 percent"]},
+					{name: 'Third 20 Percent', value: +d["Third 20 percent"]},
+					{name: 'Fourth 20 Percent',value : +d["Fourth 20 percent"]},
+					{name: 'Highest 20 Percent', value: +d["Highest 20 percent"]}
+					];
+					// incomeWithExpenditure.push(result);
+					return result;
+				} 
+		
+
+		function processPieCharts(error,data){
+			// var percentage = ds.csvParse
+			if (error) throw error;
+			//data.length
+
+			for (var j = 0; j <data.length ;j++){
+				// console.log(data[j]);				
+				processSinglePieChart(data[j],j);
+
+			}
+			//create a legend with circles for all the pie charts
+			var color = d3.scaleOrdinal(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099"]);
+
+			var width = d3.select("#problem3>svg").style("width");
+			d3.select("#problem3>svg").append('g').attr("transform","translate("+600+","+500+")").style("background-color", "#fffacd");
+			// data[0].shift();
+			datum=data[0].sort();
+			// console.log(datum);
+
+			d3.select('g:last-child').selectAll("text")
+	        .data(datum,function(d) { return d.key})
+	       	.enter().append("text")
+	        .attr("y",function(d,i) { return i*23+2})
+	        .attr("x","2em")
+	        .text(function(d) { ;return d.name});
+
+			d3.select('g:last-child').selectAll('circle').data(datum, function(d){return d.name;}).enter().append('circle')
+			.attr("cy",function(d,i) { return i*22;})
+       		.attr("cx",0)
+        	.attr("r","10")
+			.attr('fill', function(d,i){return color(i);});
+		}
+
+		function processSinglePieChart(datum,j){
+			// row is a hash map
+			// var g = d3.select('#problem3 > svg').append('g');
+			var arcGenerator = d3.arc().outerRadius(75).innerRadius(0);
+			// create a data array
+			var labelPair = datum.shift();
+
+			var color = d3.scaleOrdinal(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099"]);
+			// console.log(datum[0]);
+			var pie = d3.pie().value(function(d){
+				
+				// console.log(Object.values(d)[0]);
+				return d.value;
+			}).sort(function (a,b) { return a.name.localeCompare(b.name);})
+			// .labels(function (d) {return d.keys.first;});
+
+			// normalize the translations for all those graphs
+			var x = j;
+			var y =0;
+			if(j>6){
+				x = j - 7;
+				y = 1
+			}
+			d3.select('#problem3>svg').append('g').attr("transform","translate("+200*x+","+y*250+")");
+
+			//store current color a
+			// var current_color;
+			// var name = d.name
+			// array of all values
+			var arr =[]
+			datum.forEach(function(d,i){arr.push(d.value);})
+			var xplace = x*200+20
+			var yplace  = y*250+20
+
+			d3.select('#problem3>svg').select('g:last-child').selectAll('path').data(pie(datum)).enter().append('path')
+			.attr('d',arcGenerator)
+			.attr('transform',"translate("+100+","+100+")")
+			.attr('fill', function(d,i){return color(i);})
+			.each(function(d){this._current = d})
+			.on('mouseover',function(d,i){
+				d3.select(this).style('fill','violet');
+				var text = d3.select('#problem3>svg').append('g').attr('id','label_tag')
+				.attr("transform","translate("+xplace+","+yplace+")")	
+				// var val = Math.floor(d.value*1000)/1000;
+				text.append('text').text(datum[arr.indexOf(d.value)].name+": "+getPercentage(d.value));
+			}).on('mouseout',function(d,i){
+				// console.log("d: "+ color(arr.indexOf(d.value)))		
+				d3.select(this).style('fill',color(arr.indexOf(d.value)))
+				d3.select('#label_tag').remove()
+				;})
+
+			// var str = labelPair.Item.replace(/ /g,'\r\n');
+			var str = labelPair.Item;
+			// console.log(str);
+			d3.select('#problem3>svg').select('g:last-child').append('text').text(str)
+			.attr('text-anchor','middle')
+			.attr("transform","translate("+104	+","+200+")");
+			// add le
+		}
+
+		function processingProblem4(error,data){
+
+			// var percentage = ds.csvParse
+			if (error) throw error;
+
+			var arcGenerator = d3.arc().outerRadius(75).innerRadius(0);
+			// create a data array
+				
+			var color = d3.scaleOrdinal(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099"]);
+			var pie = d3.pie().value(function(d){
+				
+				// console.log(d);
+			return d.value;
+			}).sort(function (a,b) { return a.name.localeCompare(b.name);})
+				// .labels(function (d) {return d.keys.first;});
+
+				// normalize the translations for all those graphs
+			
+			//data.length
+			var datum;
+
+  			
+			for (var j = 0; j <data.length;j++){
+
+				datum = data[j]
+				var labelPair = datum.shift();
+				var arr =[]
+				datum.forEach(function(d,i){arr.push(d.value);})
+				// formulate the tablex`
+				// var table = d3.select('#problem4').append('table')
+				// // .attr("transform","translate("+0+","+0+")");
+				// table.append('thead').append('tr').selectAll('th').data(['Income Group','Percentage of All']).enter().append('th').text(function(d){return d;});
+				// table.append('tr').selectAll('td').data(datum,function(d){return d.value;}).enter().append('td');
+	
+				d3.select('#problem4>svg').append('g').attr("transform","translate("+200+","+0+")");
+				d3.select('#problem4>svg').select('g:last-child').selectAll('path').data(pie(datum)).enter().append('path')
+				.attr('d',arcGenerator)
+				.attr('transform',"translate("+100+","+100+")")
+				.attr('fill', function(d,i){return color(i);})
+				.each(function(d){this._current = d})
+				.on('mouseover',function(d,i){
+				d3.select(this).style('fill','violet');
+				var text = d3.select('#problem4>svg').append('g')
+				.attr('id','label_tag_2')
+				.attr("transform","translate("+10+","+100+")");
+				// var val = Math.floor(d.value*1000)/1000;
+				text.append('text').text("Total Incomes to Whole Groups:");
+
+				text.append('text').attr("transform","translate("+0+","+15+")").text("Group: "+datum[arr.indexOf(d.value)+1].name);
+				text.append('text').attr("transform","translate("+0+","+30+")").text("Percentage: "+getPercentage(d.value));
+				}).on('mouseout',function(d,i){
+				// console.log("d: "+ color(arr.indexOf(d.value)))		
+				d3.select(this).style('fill',color(arr.indexOf(d.value)))
+				d3.select('#label_tag_2').remove()
+				;})
+				;
+
+				// var str = labelPair.Item.replace(/ /g,'\r\n');
+				var str = labelPair.Item;
+				// console.log(str);
+				d3.select('#problem4>svg').select('g:last-child').append('text').text(str)
+				.attr('text-anchor','middle')
+				.attr("transform","translate("+100+","+200+")")
+
+
+				//create a table
+			}
+
+			// var width = d3.select("#problem4>svg").style("width");
+			var g = d3.select("#problem4>svg").append('g').attr("transform","translate("+500+","+70+")").style("background-color", "#fffacd");
+			// data[0].shift();
+			datum.sort();
+
+			g.selectAll('circle').data(datum, function(d){return d.name;}).enter().append('circle')
+			.attr("cy",function(d,i) { return i*22;})
+       		.attr("cx",0)
+        	.attr("r","10")
+			.attr('fill', function(d,i){return color(i);})
+			;
+
+
+			datum.unshift({name: 'Income Perentage in Decimals', value:'By Groups'})
+			g.selectAll("text")
+	        .data(datum)
+	       	.enter().append("text")
+	        .attr("y",function(d,i) {return i*23-20})
+	        .attr("x","2em")
+	        .text(function(d,i) { 
+	        	var result = (i!=0) ? d.name+"  value: "+d.value : d.name+" "+d.value;
+	        	return result;
+	        })
+	        ;
+
+		}
+
+		
+
+		// processing everything in problem 5
+		function processingProblem5(incomeWithExpenditure){
+			// append the graph
+			// put income at the beginning of the graph
+			var income = incomeWithExpenditure.pop();
+			incomeWithExpenditure.unshift(income);
+			//
+			incomeWithExpenditure.forEach(function(d,j){
+				// apply function for each element in the array.
+				processingSingleRow(d,j);
+			})
+
+			
+			var scale = 300;
+			var data0 =  incomeWithExpenditure[0];
+			var data1 =  incomeWithExpenditure[15];
+  			// compare with data0
+  			
+  			//append another rectangle for color difference
+  			incomeWithExpenditure.forEach(function(d,j){
+				// apply function for each element in the array.
+
+				var yCoord = j==0 ? j*28+40 :j*28+60;		
+				if(j>0&&j<15){
+					var graph4 = d3.select("#problem5>svg").append('g');
+
+					graph4.selectAll('rect')
+					.data(d).enter().append('rect')
+					.attr('x',function (d,i){
+						return (180-d.value*scale)+i*180+20;
+					})
+					.attr('y', yCoord).attr('width',function(d,i){
+					var width = 0;
+					if(d.value>data0[i].value){
+						width = (d.value-data0[i].value)*scale;
+					}
+					return width;
+					})
+					.attr('height',function(d,i){
+						var height;
+						if(d.value>data0[i].value)
+							height = 25
+						else{
+						 height = 0;
+						}
+						return height;
+					})	
+					.style('fill','salmon')
+					.on('mouseover',function(d,i){
+				// d3.select(this).style('fill','violet');
+					var text = d3.select('#problem5>svg').append('g')
+					.attr('id','label_tag_3')
+					.attr("transform","translate("+(180*i+30)+","+(yCoord+10)+")");
+				// var val = Math.floor(d.value*1000)/1000;
+				// text.append('text').text("Total Incomes to Whole Groups:");			
+				// text.append('text').attr("transform","translate("+0+","+15+")").text("Group: "+datum[arr.indexOf(d.value)].name);
+					text.append('text').attr("transform","translate("+0+","+30+")").text(getPercentage(d.value))
+					.style('fill',"yellowGreen");
+					}).on('mouseout',function(d,i){
+				// console.log("d: "+ color(arr.indexOf(d.value)))		
+				// d3.select(this).style('fill',color(arr.indexOf(d.value)))
+					d3.select('#label_tag_3').remove()
+				;});
+				}
+
+
+				
+			});
+  			//dashed-line for income
+  			var graph2 = d3.select('#problem5>svg').append('g');			
+			graph2.selectAll("path")
+			.data(data1).enter().append('path')
+			.attr('d', function(d,i){
+				// console.log(d.value);
+				var str = "M ";
+				str+= (180-d.value*scale)+i*180+20;
+				str+="," +88;
+				str+=" V 513 Z";
+				return str;
+			})
+			.attr("stroke", "orange")
+  			.attr("stroke-width", 1.8)
+  			.style("stroke-dasharray", "3,4") 
+  			.style("stroke-linecap","round")
+  			;	
+
+  			// dashed line for income
+  			var graph = d3.select('#problem5>svg').append('g');
+			graph.selectAll("path").data(data0).enter().append('path')
+			.style("stroke-dasharray", "3,4") 
+			.attr('d', function(d,i){
+				// console.log(d.value);
+				var str = "M ";
+				str+= (180-d.value*scale)+i*180+20;
+				str+="," +65;
+				str+=" V 477 Z";
+				return str;
+			})
+			.attr("stroke", "purple")
+  			.attr("stroke-width", 1.8)
+  			
+  			;
+
+  			var graph3=d3.select("#problem5>svg").append('g')
+  			graph3.append('path').attr('d', 'M 20,78, H 920 Z')
+  			.attr("stroke", "lime")
+  			.attr("stroke-width", 3);
+
+  			graph3.append('path').attr('d', 'M 20,497, H 920 Z')
+  			.attr("stroke", "lime")
+  			.attr("stroke-width", 3);
+
+  			d3.select('#problem5>svg').selectAll('g').attr("transform", "translate(" +0+ "," +20+ ")");
+  			// shifted every part to create spaces
+
+  			graph.append('text').attr('text-anchor','left').text('Percentage Scale (%)').attr("transform", "translate(" +600+ "," +640+ ")");	
+
+  			// the 
+  			var scaler= d3.scaleLinear().domain([0,100]).range([300,0]);
+			var axis = d3.axisBottom().scale(scaler);	
+			d3.select('#problem5>svg').append('g').call(axis).attr("transform", "translate(" +600+ "," +600+ ")").select('path')
+				// .attr("marker-end", "url(#arrow)");
+				//axis line
+			
+  			// grids
+			
+
+
+  			// arrow heads
+  			d3.select('#problem5>svg').append("defs").append("marker")
+				.attr("id","arrow")
+					.attr("viewBox","0 -5 10 10")
+					.attr("refX",5)
+					.attr("refY",0)
+					.attr("markerWidth",4)
+					.attr("markerHeight",4)
+					.attr("orient",'0').append("path")
+					.attr("d", "M0,-5L10,0L0,5")
+					.attr("stroke", "black")
+					.attr("class","arrowHead");
+				
+			// the first line label with error heads
+  			var graphTitle = d3.select("#problem5>svg").append("g");
+  			graphTitle
+  			.attr("transform", "translate("+0+"," +0+ ")")
+  			.append('path').attr('d', 'M 20,25, H 350 Z')
+  			.attr("stroke", "black")
+  			.attr("stroke-width", 2)
+
+  			graphTitle
+  			.attr("transform", "translate("+0+"," +0+ ")")
+  			.append('path').attr('d', 'M 920,25, H 500 Z')
+  			 .attr("stroke-width", 2).attr("stroke", "black")
+  			 .attr("marker-end", "url(#arrow)");
+  			// .attr("marker-end", "url(#arrow)");
+
+  			 graphTitle
+  			 .append('text')
+  			 .attr("transform", "translate("+360+"," +25+ ")")
+  			 .text('Income' +" "+'Range (up)')
+  			 .style("font-color",'grey')
+  			 ;
+  			// .append('text').text("Income Groups");
+  			array = [180,360,540,720,900]
+
+  			//append the grid dashed line
+  			var graphGrid = d3.select("#problem5>svg").append("g");
+  			graphGrid.selectAll("path").data(array).enter().append('path')
+  			.attr('d', function(d,i){
+  				var str = "M ";
+  				// console.log(d)
+				str+= d+20
+				str+="," +35;
+				str+=" V 555 Z";
+  				return str;
+  			})
+  			.attr("stroke-width", 1.5)
+  			 // .style("stroke-dasharray", ("3, 3")) 
+  			// .style("stroke-linecap","round")
+  			.attr("stroke", "black");
+
+
+
+		}
+
+
+
+		//processing single row of the bar charts
+		function processingSingleRow(datum,j){
+
+			// j is the index along the vertical dimension
+
+			// i is the index along the horizontal dimension
+			var graph = d3.select('#problem5>svg').append('g');
+
+			var scale = 300;
+
+			var labelPair = datum.shift();
+		
+			//format the y coordinates
+
+				// adjust the position.
+			var yCoord = j==0 ? j*28+40 :j*28+60;
+
+			var arr =[]
+			datum.forEach(function(d,i){arr.push(d.value);})
+			// return result;
+			
+			if(j==15){
+				yCoord += 30;
+				labelPair.Item = "Percentage of Consumer";
+			}
+
+			// append all rectangles 
+			graph.selectAll('rect')
+			.data(datum).enter().append('rect')
+			.attr('x',function (d,i){
+				return i*180;
+			})
+			.attr('y', yCoord).attr('width',function(d){
+				return d.value*scale;
+			})
+			.attr('height',25)	
+			.style('fill','teal')
+			.attr('x',function(d,i){
+				// align it to the right hand side.
+				return (180-d.value*scale)+i*180+20;
+			}).each(function(d){this._current = d})
+			.on('mouseover',function(d,i){
+				// d3.select(this).style('fill','violet');
+				var text = d3.select('#problem5>svg').append('g')
+				.attr('id','label_tag_3')
+				.attr("transform","translate("+(180*i+30)+","+(yCoord+10)+")");
+				// var val = Math.floor(d.value*1000)/1000;
+				// text.append('text').text("Total Incomes to Whole Groups:");			
+				// text.append('text').attr("transform","translate("+0+","+15+")").text("Group: "+datum[arr.indexOf(d.value)].name);
+				text.append('text').attr("transform","translate("+0+","+30+")").text(getPercentage(d.value))
+				.style('fill',"yellowGreen")
+				.style()
+				;
+				}).on('mouseout',function(d,i){
+				// console.log("d: "+ color(arr.indexOf(d.value)))		
+				// d3.select(this).style('fill',color(arr.indexOf(d.value)))
+				d3.select('#label_tag_3').remove()
+			;});
+
+	
+			
+
+			if(j==0){
+				// create the column  titles
+				graph.selectAll('text').data(datum)
+	       		.enter().append("text")
+				.attr('text-anchor','right')
+				.attr('x', function(d,i){return i*180+60;}).attr('y',33)
+				.text(function(d,i){return d.name;});
+				// var lineData = [];
+				// datum.forEach(function(d,i){
+				// 	lineData.push([{x:(180-d.value*scale)+i*180+20,y:yCoord},{x:(180-d.value*scale)+i*180+20,y:}]);
+				// }
+				// var lineGenerator = d3.svg.line().x(function(d){
+				// 	// return
+				// }).y(function(d)){}
+				// draw vertical dash line
+				// d3.select('#problem5>svg').append("defs").append("marker")
+			 //    .attr("id", "arrow")
+			 //    .attr("refX", 6 + 3) /*must be smarter way to calculate shift*/
+			 //    .attr("refY", 2)
+			 //    .attr("markerWidth", 6)
+			 //    .attr("markerHeight", 4)
+			 //    .attr("orient", "auto")
+			 //    .append("path")
+			 //    .attr("d", "M 0,0 L -4,0 Z");
+				//create an axis for measuring the percentage.
+				//add the dot line
+			}
+
+
+		// append texts at the end of the lines of the graph
+		graph.append("text")
+		.attr('text-anchor','left')
+		.text(labelPair.Item).attr("transform","translate("+950+","+(yCoord+20)+")");
+			var pathD = 'M 20,' + (yCoord+25)+'H 920 Z';
+			// append the blaock color grid
+			var graph = d3.select('#problem5>svg').append('g');
+			graph.append('path').attr('d', pathD)
+			.attr("stroke-width", 1.5)
+  			// .style("stroke-dasharray", ("3, 6")) 
+  			// .style("stroke-linecap","round")
+  			.attr("stroke", "black");
+
+		}
+
+		// process the visulization of problem 6	
+		function processingProblem6(error,rawdata){
+
+			if (error) throw error;
+			
+			const data = rawdata.slice(0);
+			 
+			var color = d3.scaleOrdinal(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099"]);
+			 // the patter of the data should be an array of {name: Income groups, value: value of expenditures}
+			 var height_size= 13;
+			 var interval_size =15;
+			 // var scale = 300;
+
+			var id = data[0].title;
+			var shift_graph = [60,60]
+
+			var svg = d3.select('#problem6').append('svg')
+			.attr("width", 900)
+			.attr("height", 800)
+			.style('background','#fffacd')
+			.attr('id',id)
+			;
+
+
+
+			//create a title
+			svg.append('g')
+			.append('text').text(data[0].title+" group: Top 50 Highest Expenditure Types")
+			.attr("transform","translate("+shift_graph[0]+","+(shift_graph[1]-40)+")")
+			.style('font-size',20)
+			.style('fill','blue')
+			;
+
+			var graph_bar = svg.append('g')
+			.attr("transform","translate("+shift_graph[0]+","+shift_graph[1]+")")
+			;
+
+
+			//create scaler for x
+
+			// as the first one is the biggest
+			var max = data[0].value+200;
+
+			max = Math.ceil(max/100.00)*100;
+			// console.log(max)
+			// max =4500
+
+			var scaler= d3.scaleLinear().domain([0,max]).range([0,800]);
+			var x_axis = d3.axisBottom().scale(scaler).ticks(15);
+			// append xaxis
+			graph_bar.append('g')
+			.call(x_axis)
+			.attr("transform","translate("+-1+","+760+")")
+			;
+
+			graph_bar.append('g').attr("transform","translate("+300+","+800+")")
+			.append('text')
+			.text(
+				'Average Annual Consumer Units'
+			)
+			.style('font-size',15);
+
+			graph_bar.append('g').attr("transform","translate("+(-40)+","+500+")")
+			.append('text')
+			.attr("transform","rotate(270)")	
+			.text(
+				'Top 50 Highest Expenditure Categories'
+			)
+			.style('font-size',15);
+
+
+
+			var height =760
+			//create y axis
+			var y_axis= d3.scaleBand().domain(data.map(function(d,i) { return i+1; }))
+			.rangeRound([0, height]).padding(0.2);
+
+			graph_bar.append("g").call(d3.axisLeft(y_axis))
+			.attr("transform","translate("+(-1)+","+0+")")
+			;
+
+			// graph.append rectangle
+			graph_bar.selectAll('rect')				
+			.data(data).enter().append('rect')
+			.attr('y',function (d,i){
+				return (interval_size)*i+8;
+			})
+			.attr('x',0)
+			.attr('width',function(d){
+				return scaler(d.value);
+			})
+			.attr('height',height_size)	
+			.style('fill', function(d,i){
+				//get the same color, initially
+				return "lime";
+			}).each(function(d){return this._current = d;})
+			// add mouseover 
+			.on('mouseover',function(d,i){
+				d3.select(this).style('fill','red');
+
+				var text = graph_bar.append('g').attr('id','label_tag_6')
+				.attr("transform","translate("+0+","+(0)+")");
+
+				text.append('rect').style('fill','azure')
+				.attr('x',0).attr('y',-30).attr('height',25)
+				.attr('width',1000);
+
+				// var val = Math.floor(d.value*1000)/1000;
+				var val = d.value;
+				var name = d.Item;
+				var index =i;
+				text.append('text').attr("transform","translate("+10+","+(-20)+")")
+				.text("Data Box:");
+
+				text.append('text').attr("transform","translate("+10+","+(-10)+")")
+				.attr('font-size','17')
+				.text(function(d,i){
+					return "("+(index+1)+")-"+name+": "+val+" (units)";
+				})
+			}).on('mouseout',function(d,i){
+				// console.log("d: "+ color(arr.indexOf(d.value)))		
+					d3.select(this).style('fill','lime');
+					d3.select('#label_tag_6').remove();
+				;})
+			;	
+		}
+		// $('expenditure').append('<tr>'++'</tr>');
+
+	</script>
+
+	<div id="content">
+
+
+
+		<h3 style="text-indent:500px">CSE 5544 - Lab3: Visulization of Consumer expenditure data</h3><br>
+
+		<div id= "problem1">
+		<h3>14 Main Top Level Expenditure Categories </h3>
+
+		<p>There are 14 top level expenditure categories: Food, Alcoholic beverages, Housing, Apparel and servicess, Transportation,Healthcare, Entertainment, Personal care products and services, Reading, Education, Miscellaneous,Tobacco products and smoking supplies, Cash contributions, Personal insurance and pensions.</p><br>
+		</div>
+
+		<!-- <h3>2)For each of the top level expenditure categories, calculate the total expenditure and then the 
+		percentage of expenditure from each of the five income groups. </h3> -->
+
+		<div id = "Problem2_1" >
+			<h4 style='text-indent:350px;text-align:left'>The Expenditure Data On 14 Top Level Categories</h4> 
+
+			<!-- <tabe id='expenditure' >
+				
+
+			</tabe>
+
+ -->
+	</div>
+
+	<div id = "Problem2_2">
+		<h4 style='text-indent:300px;text-align:left'>The Percentage Data On 14 Top Level Categories</h4> 
+
+		<!-- <tabe id='percentage'  >
+			
+
+		</tabe> -->
+		
+		
+	</div>
+	<br>
+	
+	
+
+ 	<div id= "problem3">
+ 		<!-- <h3> 
+		 </h3><br> -->
+		 <h4 style="text-indent: 300px">Visulization of the Compositions of 5 Income Groups on Expenditures for 14 main categories </h4>
+		<svg> 
+			
+		</svg>
+		
+
+	</div>
+
+<div id= "problem4">
+		<!-- <h3>4) Based on the after tax income, calculate the percentage for each of the 5 income group. Create a pie chart that show the income percentages using D3</h3> -->
+		<h4 >Analysis of income gaps for 5 income groups</h4>
+		<svg> 
+			
+		</svg>
+	</h3><br>
+	</div>
+
+<div id= "problem5">
+	<h3>Comparison between each Income Groups in US (2016)	
+		
+
+		<h4 style='text-indent:300px;text-align:left'>Income Groups (Percentages in Each Categories)</h4>
+	</h3><br>
+	<svg>
+		
+	</svg>
+</div>
+
+<div id= "problem6">
+	<h3> Top Level Spending Items for different Income Groups in US (2016)
+	</h3><br>
+	<!-- <svg></svg> -->
+</div>
+
+
+<!-- <a href ="https://docs.google.com/document/d/1rf4E9ZAj5w1HePB20wVO9eIOBA5N7Z1yVcNopL45uIo/edit" target="_blank"> Lab Instruction</a>
+ -->
+</div>
+</body>
+</html>
