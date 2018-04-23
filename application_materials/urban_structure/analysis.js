@@ -51,7 +51,7 @@ function load_data(error,data){
 
 	console.log(data[0])
 	//Create a hash 
-	buildingHash = {};
+	var buildingHash = {};
 
 	// print the original data
 	// console.log(data[0].count+1)
@@ -65,8 +65,8 @@ function load_data(error,data){
 		}
 	})	
 
-	data1 = [];
-	data2 = [];
+	var data1 = [];
+	var data2 = [];
 	// console.log(buildingHash)
 	// iterate over the key, building the objects
 	for(var key in buildingHash){
@@ -78,7 +78,7 @@ function load_data(error,data){
 		);
 	}
 
-	yearHash = {}
+	var yearHash = {}
 	for(key in buildingHash){
 			yearHash[key] = []
 			data.forEach(function(d,i){
@@ -92,7 +92,7 @@ function load_data(error,data){
 	console.log(data1[0])
 	
 	// build the data for the first layer
-	dataByBuilding = [{
+	var dataByBuilding = [{
 		"name":"Buildings",
 		"colorByPoint":true,
 		"data":data1 }]
