@@ -35,10 +35,6 @@
 
 
     <script>
-      let fileName = 'buildings_group.csv'
-
-    d3.csv(fileName, initiate, load_data);
-
     function initiate(d){
       //X,Y,B1_PER_TYPE,ISSUED_YEAR
       result = {year: d['ISSUED_YEAR'],type: d['B1_PER_TYPE'], count:parseInt(d['count']), percent: parseFloat(d['percentage'])}  
@@ -144,10 +140,10 @@
       }
       // loading the high charts
       loadingHighCharts(dataByBuilding, data2)
-
-      
-
     }
+
+    let fileName = 'buildings_group.csv'
+    d3.csv(fileName, initiate, load_data);
 
 // read the files
       
