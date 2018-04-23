@@ -79,7 +79,7 @@ function load_data(error,data){
 	}
 
 	var yearHash = {}
-	for(key in buildingHash){
+	for(var key in buildingHash){
 			yearHash[key] = []
 			data.forEach(function(d,i){
 				if(d.type==key){
