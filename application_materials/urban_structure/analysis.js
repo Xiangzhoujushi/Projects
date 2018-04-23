@@ -49,6 +49,7 @@ function loadingHighCharts(data1, data2){
 function load_data(error,data){
 	if (error) throw error;
 
+	console.log(data[0])
 	//Create a hash 
 	buildingHash = {};
 
