@@ -109,7 +109,6 @@ function load_data(error,data){
 	// loading the high charts
 	loadingHighCharts(dataByBuilding, data2)
 
-	
 
 }
 

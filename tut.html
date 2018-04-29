@@ -1,0 +1,150 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	</head>
+
+
+<body>
+<!-- the nav bar -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <a class="navbar-brand" href="#">DBpedia</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		    <ul class="navbar-nav">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="tut.html">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="app.html">Application</a>
+		      </li>
+		      <!-- <li class="nav-item">
+		        <a class="nav-link" href="#">Pricing</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link disabled" href="#">Disabled</a>
+		      </li> -->
+		    </ul>
+		  </div>
+		</nav>
+<!-- The main page -->
+<div style="margin-left:10%;margin-right:10%;margin-top:5%">
+	<h1>DBpedia Tutorial</h1>
+	<br>
+	<h2>Introduction</h2>
+	<p>
+	DBpedia is a crowd-sourced community effort to extract structured content from the information created in various Wikimedia projects. This structured information resembles an open knowledge graph (OKG) which is available for everyone on the Web. A knowledge graph is a special kind of database which stores knowledge in a machine-readable form and provides a means for information to be collected, organised, shared, searched and utilised. Google uses a similar approach to create those knowledge cards during search. We hope that this work will make it easier for the huge amount of information in Wikimedia projects to be used in some new interesting ways. 	
+	</p>
+
+	<p>
+	DBpedia data is served as Linked Data, which is revolutionizing the way applications interact with the Web. One can navigate this Web of facts with standard Web browsers, automated crawlers or pose complex queries with SQL-like query languages (e.g. SPARQL). Have you thought of asking the Web about all cities with low criminality, warm weather and open jobs? That's the kind of query we are talking about.
+	</p>
+
+	<p>
+	It is basically extracting and summarizing information and data from wikipedia documents. And it break all those factual information into N-tuple dumps, where everyone is related to each other somehow? In such cases, people can search elements and information from different wikipedia passages and search for something they are not sure as all related information is collected together with internal links.		
+	</p>
+
+	<br>
+	<h2>SPARQL</h2>
+	<br>
+	<h3>Okay... So what is</h3>
+	<p>
+	SPARQL is a query language for data stored in the Resource Description Framework (RDF) format. RDF is a labeled and directed graph format designed specifically for representing data on the web. It can be used to encode information about almost anything, and more importantly, it allows for loose integration between differing sources of information. It uses Universal Resource Identifiers (URIs) to name not only the endpoints of a link in the graph but also the link itself. This grouping of information, usually called a RDF triple, forms the basis for how information is stored in RDF and queried using SPARQL.
+	</p>
+
+	<p>
+	The SPARQL schema can be found <a href = "https://www.w3.org/TR/rdf-sparql-query/#basicpatterns">here</a>. You may also find the Virtuoso <a href="http://dbpedia.org/sparql">online SPARQL editor</a> useful for playing around with SPARQL syntax and the <a href= "http://dbpedia.org/fct/facet.vsp">faceted browser</a> useful for exploring the database.
+	</p>
+
+	<p>
+	The first step of building a SPARQL query is to define one or more <code>prefixes</code>. This is done using the <code>PREFIX</code> keyword. Prefixes are essentially namespaces; if you have some experience programming, you can think of a <code>PREFIX</code> statement as being more or less equivalent to an <code>import</code> or <code>include</code> statement common to many programming languages. It tells the SPARQL processor where to find the names of resource in your query. The following prefixes are often useful:
+	</p>
+
+	<p>
+		<code><ul>
+		<li>PREFIX dbo: &lt;http://dbpedia.org/ontology&gt; % concepts/categories</li>
+		<li>PREFIX dbr: &lt;http://dbpedia.org/resource&gt; % specific resource names</</li>
+		<li>PREFIX dbp: &lt;http://dbpedia.org/property&gt; % properties/descriptors of objects<</li>
+		</ul></code>
+	</p>
+	<!-- The next section -->
+	<p>Now let's start with something really simple:</p>
+
+	<p>
+		<code>
+		SELECT ?x WHERE { ?x ?v 42 .} LIMIT 100
+		</code>
+	</p>
+	<p>A <code>?</code> in SPARQL denotes a _variable_, i.e. something that we intend to fill with data. In this case, we <code>SELECT x</code> as the variable we want populated in our results, and we ask the processor to match all results satisfying the triple <code>?x ?v 42</code>, which could be pretty much anything involving 42 (and we know anything involving 42 must be pretty important!).
+	</p><!-- The  -->
+	
+	<p>Let's modify our query a bit to get more focused results:</p>
+
+	<code><ul>
+		<li>PREFIX dbo: &lt;http://dbpedia.org/ontology&gt;</li>
+		<li>PREFIX dbr: &lt;://dbpedia.org/resource&gt;</li>
+		<li>SELECT ?x<
+		WHERE {
+  		?x dbo:genre dbr:Rock_music.
+		}LIMIT 100</li>
+	
+	</ul></code>
+
+	<p>This will return all results <code>x</code> that have <code>Rock_music</code> as the value a property labeled <code>genre</code>.</p>
+
+	<p>As a full example, this is a query that finds all songs by Green Day paired with the albums they are found on.</p>
+	<code>
+	PREFIX: &lt;http://dbpedia.org/resource&gt;
+	PREFIX dbpedia2: &lt;http://dbpedia.org/property/&gt;
+	PREFIX albums: &lt;http://dbpedia.org/resource/Category:Green_Day_albums&gt;
+	<p>SELECT ?album ?title WHERE {
+    	?album ?property albums: .
+    	?album dbpedia2:title ?title .
+    	?title dbo:musicalArtist :Green_Day
+	} ORDER BY ?album</p>
+</code>
+
+
+	<p>Long words short, a SPARQL query consists of five parts, in order:</p>
+	<!-- <br> -->
+	<ul>
+		<li>Prefix declarations: for abbreviating URIs</li>
+		<li>Dataset definition: states what RDF graph(s) are being queried</li>
+		<li>Result clause: identifies what information to return from the query</li>
+		<li>Query pattern: specifies what to query for in the underlying dataset</li>
+		<li>Modifiers: slices orders and otherwise rearranges query results</li>	
+	</ul>
+
+	<p>Structurally, it looks like:</p>
+	<code>
+	<ul>
+	<li>%1. prefix declarations
+	PREFIX foo: &lt;http://example.com/resources/&gt;
+	</li>
+	<li>
+	%2. dataset definition
+	FROM
+	 </li>
+	<li>
+	%3. result clause
+	SELECT
+	</li>
+	<li>
+	%4. query pattern
+	WHERE {
+	    ...
+	}
+	</li>
+	<li>%5. modifiers ORDER BY ...</li>
+	</ul>
+	</code>
+
+	</div>
+
+
+	</body>
+
+
+
+</html>

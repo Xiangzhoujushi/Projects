@@ -1,0 +1,210 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+	</head>
+
+
+
+
+
+	<body>
+
+<!-- the nav bar -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <a class="navbar-brand" href="tut.html">DBpedia</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+		    <ul class="navbar-nav">
+		      <li class="nav-item">
+		        <a class="nav-link" href="tut.html">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <li class="nav-item active">
+		        <a class="nav-link" href="app.html">Application</a>
+		      </li>
+		      <!-- <li class="nav-item">
+		        <a class="nav-link" href="#">Pricing</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link disabled" href="#">Disabled</a>
+		      </li> -->
+		    </ul>
+		  </div>
+		</nav>
+<!-- The main page -->
+<div style="margin-left:10%;margin-right:10%;margin-top:5%">
+	<h1>Insert In The Project</h1>
+	<br>
+	<h2>Okay then... How do I put it into my project?</h2>
+	<p>
+	"SPARQLWrapper" (information can be found <a href = "https://rdflib.github.io/sparqlwrapper/">here</a>) is one convenient resource for integrating SPARQL queries into your project. Simply install the SPARQLWrapper package with
+	</p>
+
+	<p><code>pip install SPARQLWrapper</code></p>
+
+	<p>
+	and you are on your way! This package allows you to make SPARQL queries (and thus query DBpedia) from Python without any further hassle! An example is shown below, using a query from earlier in the tutorial:
+	</p>
+
+
+	<p>
+	<code>
+	<ul>
+	<li>from SPARQLWrapper import SPARQLWrapper, JSON</li>
+	<li>sparql = SPARQLWrapper("http://dbpedia.org/sparql")</li>
+	<li>sparql.setQuery("""</li>
+	<li>PREFIX dbpedia2: &lt;http://dbpedia.org/property&gt;</li>
+	<li>PREFIX : &lt;http://dbpedia.org/resource/&gt; </li>
+	<li>PREFIX albums: &lt;http://dbpedia.org/resource/&gt;Category:Green_Day_albums></li>
+	<li>SELECT ?album ?title WHERE {
+		    ?album ?property albums: .
+		    ?album dbpedia2:title ?title .
+		    ?title dbo:musicalArtist :Green_Day
+		} ORDER BY ?album
+		""")
+	</li>
+	<li>sparql.setReturnFormat(JSON)</li>
+	<li>results = sparql.query().convert()</li>
+
+	<li>for result in results["results"]["bindings"]:</li>
+	<li style="text-indent: 40px">print("%s %s" % (result["album"]["value"], result["title"]["value"]))</li>
+	</code>
+	</ul>
+	</p>
+
+
+
+	<br>
+	<!-- <h2>SPARQL</h2> -->
+	<!-- <h3>Okay... So what is</h3> -->
+	<p>
+	If you are copying this example, you will have to change the "album" or "title" to whatever your variables are in your SPARQL query.
+	When this code is run, you will get an output with each line containing the album and title of the result, like
+	</p>
+
+	<p>http://dbpedia.org/resource/Warning_(Green_Day_album) http://dbpedia.org/resource/Warning_(Green_Day_song)</p>
+	<p>http://dbpedia.org/resource/21st_Century_Breakdown http://dbpedia.org/resource/East_Jesus_Nowhere</p>
+	<p>http://dbpedia.org/resource/Awesome_as_Fuck http://dbpedia.org/resource/East_Jesus_Nowhere</p>
+
+
+	<p>These results are returned as links, which are resources in dbpedia, referring to the objects / properties.</p>
+
+	<p>This is just one way to integrate these queries into your project, but hopefully it's a good foothold to get started!</p>
+
+	<h2>How do we improve our own knowledge and horizon using DBpedia?</h2>
+
+	<p>Use RelFIinder to discover internal relationship between objects. The RelFinder is based on the open source framework Adobe Flex, easy-to-use and works with any RDF dataset that provides standardized SPARQL access.</p>
+
+	<p>Use it for knowledge, for research paper, for projects, and for your own interest.</p>
+
+	<p>For example, if we want to know the relationship between Valadmir Putin and Donald Trump, we can directly pu </p>
+
+<!-- 	<p></p> -->
+	<h2>Configurations for datasets you want to use and environment of the frame work</h2>
+
+	<p>Option:</p>
+
+	<ul>
+		<li>1. use simple (non-code) API</li>
+		<li>2. edit xml (configuration) files</li>
+	</ul>
+
+	<p><code>
+	<!-- <xml> -->
+	&lt;xml version="1.0" encoding="utf-8" &gt;
+		&lt;data&gt;
+		&lt;proxy&gt;
+		&lt;url&gt;http://www.visualdataweb.org/relfinder/proxy.php&lt;/url&gt;
+		&lt;/proxy&gt;
+		&lt;endpoints&gt;
+		&lt;endpoint>&gt;
+		&gt;name&gt;DBpedia&lt;/name&gt;
+		&lt;abbreviation&gt;dbp&lt;/abbreviation&gt;
+		&lt;descriptionLinked&gt;Data version of Wikipedia.&lt;/description&gt;
+		&lt;endpointURI&gt;http://dbpedia.org&lt;/endpointURI&gt;
+		&lt;dontAppendSPARQL&gt;true&lt;/dontAppendSPARQL&gt;
+		&lt;defaultGraphURI&gt;http://dbpedia.org&lt;/defaultGraphURI&gt;
+		&lt;isVirtuoso&gt;true&lt;/isVirtuoso&gt;
+		&lt;useProxy&gt;false&lt;/useProxy&gt;
+		&lt;method&gt;POST&lt;/method&gt;
+		&lt;autocompleteURIs&gt;
+		&lt;autocompleteURI&gt;http://www.w3.org/2000/01/rdf-schema#label&lt;/autocompleteURI&gt;
+		...
+		&lt;/autocompleteURIs&gt;
+		&lt;autocompleteLanguage&gt;en&lt;/autocompleteLanguage>
+		&lt;ignoredProperties&gt;
+		&lt;ignoredProperty&gt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&lt;/ignoredProperty&gt;
+		...
+		&lt;/ignoredProperties&gt;
+		&lt;abstractURIs&gt;
+		&lt;abstractURI&gt;http://dbpedia.org/property/abstract&lt;/abstractURI&gt;
+		...
+		&lt;/abstractURIs&gt;
+		&lt;imageURIs&gt;
+		&lt;imageURI&gt;http://dbpedia.org/ontology/thumbnail&lt;/imageURI&gt;
+		...
+		&lt;/imageURIs&gt;
+		&lt;linkURIs&gt;
+		&lt;linkURI&gt;http://purl.org/ontology/mo/wikipedia&lt;/linkURI&gt;
+		...
+		&lt;/linkURIs&gt;
+		&lt;maxRelationLength&gt;2&lt;/maxRelationLength&gt;
+		&lt;/endpoint&gt;
+		&lt;endpoint&gt;
+		...
+		&lt;/endpoint&gt;
+		&lt;/endpoints&gt;
+	<!-- </xml> -->
+		
+
+	</code></p>
+
+	<h2>Integrate into projects and host the environment locally</h2>
+	<p>Downloads all those files from this open source</p>
+
+	<p><a href = "https://github.com/VisualDataWeb/RelFinder/tree/master/bin">Link</a></p>
+
+	<p><a href = "https://raw.githubusercontent.com/VisualDataWeb/RelFinder/master/bin/config/Config.xml">configuration File</a>
+	</p>
+	<p>Note: Make sure that you use the same folder structure and file names (incl. capital and small letters) and that you set the access rights properly. If you start your server now and enter the URL of the RelFinder.swf in your Web browser (e.g. http://localhost/relfinder/RelFinder.swf), it should access the DBpedia dataset by default. You can then edit the Config.xml so that it works with your dataset(s).</p>
+
+	<p>Then, it will work, and go to discover the relevance between everything in the universe.
+	</p>
+
+	<h2>Questions for you guys </h2>
+
+	<p>Why DBPedia is a revoluntionized technology?</p>
+	<p>How does DBPedia reflect decentralization?</p>
+
+	<h2>Reference</h2>
+
+	<p>https://web.archive.org/web/20100202094110/http://www.wiwiss.fu-berlin.de/en/institute/pwo/bizer/research/publications/Bizer-etal-DBpedia-CrystallizationPoint-JWS-Preprint.pdf</p>
+	
+	<p>http://www.visualdataweb.org/integrating.php</p>
+
+	<h2>Thank you for visiting our tutorials!</h2>
+	<!-- <p>
+	The SPARQL schema can be found <a href = "https://www.w3.org/TR/rdf-sparql-query/#basicpatterns">here</a>. You may also find the Virtuoso <a href="http://dbpedia.org/sparql">online SPARQL editor</a> useful for playing around with SPARQL syntax and the <a href= "http://dbpedia.org/fct/facet.vsp">faceted browser</a> useful for exploring the database.
+	</p> -->
+
+
+	<!-- <ul>
+	<li><code>PREFIX dbo: &lt;http://dbpedia.org/ontology&gt; % concepts/categories</code></li>
+	<li><code>PREFIX dbr: &lt;http://dbpedia.org/resource&gt; % specific resource names</code></li>
+	<li><code>PREFIX dbp: &lt;http://dbpedia.org/property&gt; % properties/descriptors of objects</code></li>
+	</ul> -->	
+
+<!-- The addition -->
+	
+
+	
+</div>
+
+	</body>
+
+
+
+</html>
