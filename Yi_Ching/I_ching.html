@@ -1,0 +1,1133 @@
+<html>
+	<head>
+		<!-- The Portion defining Styles-->
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<style>
+
+			.node circle {
+			  fill: #262626;;
+			  /*fill-opacity: .25;*/
+			  stroke: rgb(31, 119, 180,0.5);
+			  stroke-width: 0.5px;
+			}
+
+			.leaf-node circle{
+				fill: grey;
+				opacity: 0.25;
+				stroke:#262626;
+			}
+			.node text{
+				font-size:10px;
+
+			}
+			body{
+				/*set up the body*/
+				background-color: white
+			}
+			#BieGua{
+				margin-left:100px:;
+				left:100px;
+				width:1000px;
+				position:absolute;
+				/*background:grey;
+				margin-left:100px;*/
+				/*float:left;*/
+				/*width:1000px;
+				height:1000px;*/
+				/*display:block;*/
+				/*position:absolute;*/
+
+			}
+			#mainText{
+				/*margin-left:100px:;*/
+				left:1200px;
+				position:absolute;
+				/*left:1000px;*/
+				/*margin-left:50px;*/
+				/*float:left;
+				display:block;
+				position:absolute;
+				width:400px;*/
+			}
+
+			#Guaci{
+				margin-left:50px;
+				float:left;
+				width:600px;
+			}
+		</style>
+
+
+		<!-- External Library Used for the file Jquery, D3 currently included -->
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+		<!-- 爻辞相关的数据 -->
+		<script src="yaoci.js"></script>
+		<!-- this is the link to all 卦辞相关的数据 -->
+		<script src="data.js"></script>
+		<!-- keywords related 数据 -->
+		<script src = "keyword.js"></script>
+		<!-- Main functions -->
+		<script>
+			// Can apply trigram of fuxi to generate the hexagram of fuxi
+			var hasdetails =  0;
+			
+			// function renderYaoCi(){
+
+
+			// }
+
+			// draw all details on themes
+			function drawThemeClusters(){
+				// all themes
+				var themes = {
+					name: "theme", value:91,
+					children:[
+						{name:"Mindset",value:20,
+						children:[
+							{name:2,value:1},
+							{name:3,value:1},
+							{name:4,value:1},
+							{name:5,value:1},
+							{name:6,value:1},
+							{name:34,value:1},
+							{name:9,value:1},
+							{name:10,value:1},
+							{name:11,value:1},
+							{name:12,value:1},
+							{name:15,value:1},
+							{name:61,value:1},
+							{name:17,value:1},
+							{name:41,value:1},
+							{name:51,value:1},
+							{name:25,value:1},
+							{name:29,value:1},
+							{name:30,value:1},
+							{name:63,value:1},
+							{name:64,value:1}
+						]	
+						},
+							{name:"Behavior",value:38,
+							children:[
+								{name:4,value:1},
+								{name:6,value:1},
+								{name:7,value:1},
+								{name:10,value:1},
+								{name:11,value:1},
+								{name:12,value:1},
+								{name:20,value:1},
+								{name:21,value:1},
+								{name:22,value:1},
+								{name:23,value:1},
+								{name:24,value:1},
+								{name:25,value:1},
+								{name:26,value:1},
+								{name:27,value:1},
+								{name:28,value:1},
+								{name:29,value:1},
+								{name:30,value:1},
+								{name:31,value:1},
+								{name:32,value:1},
+								{name:33,value:1},
+								{name:34,value:1},
+								{name:36,value:1},
+								{name:37,value:1},
+								{name:39,value:1},
+								{name:40,value:1},
+								{name:41,value:1},
+								{name:42,value:1},
+								{name:43,value:1},
+								{name:44,value:1},
+								{name:45,value:1},
+								{name:48,value:1},
+								{name:52,value:1},
+								{name:53,value:1},
+								{name:55,value:1},
+								{name:57,value:1},
+								{name:60,value:1},
+								{name:61,value:1},
+								{name:62,value:1}
+							]},
+							{name:"Relationship",value:7,
+							children:[
+								{name:38,value:1},
+								{name:8,value:1},
+								{name:12,value:1},
+								{name:13,value:1},
+								{name:49,value:1},
+								{name:52,value:1},
+								{name:24,value:1}
+								]
+							},
+						{name:"Journey",value:10, 
+							children:[
+								{name:2,value:1},
+								{name:5,value:1},
+								{name:6,value:1},
+								{name:56,value:1},
+								{name:24,value:1},
+								{name:25,value:1},
+								{name:26,value:1},
+								{name:59,value:1},
+								{name:28,value:1},
+								{name:61,value:1}
+							]
+						},
+						{name:"Family",value:1,
+							children:[
+								{name:37,value:1}
+							]
+						},
+						{name:"Orientation",value:4,
+							children: [
+								{name:2,value:1},
+								{name:46,value:1},
+								{name:39,value:1},
+								{name:40,value:1}
+							]
+						},
+						{name:"Career",value:5,
+							children:[
+								{name:57,value:1},
+								{name:35,value:1},
+								{name:45,value:1},
+								{name:46,value:1},
+								{name:47,value:1}
+						]
+						},
+						{name:"Politics",value:5,
+							children:
+							[
+								{name:3,value:1},
+								{name:16,value:1},
+								{name:45,value:1},
+								{name:59,value:1},
+								{name:8,value:1}
+							]
+						},
+						{name:"Military",value:2,
+							children:
+							[
+								{name:54,value:1},
+								{name:7,value:1},
+								{name:16,value:1}
+							]
+						}
+					]
+				}
+
+
+
+				// var sumReducer = (accum,d)=> {accum+d.count;}
+				// var numberOfClusters = themes.reduce(sumReducer,0);
+				// Add force, 
+				var padding  = 10;
+				// the radius for small circle
+				var circleRadius = 3;
+				// separation between different color circles
+				var clusterPadding = 8;
+				// maximum radius
+				var maxRadius = 12;
+
+				var width = 300
+				var height = 300
+				// Use d3 pack APIs 
+				var pack = d3.pack()
+				.size([width, height])
+				.padding(padding);
+
+				var themesGraph = d3.select('#BieGua>svg').append('g').attr("transform",
+					function(){
+						var result = "translate("+250+","+250+")";
+						return result;
+					}
+				)
+
+				 themes= d3.hierarchy(themes)
+			      .sum(function(d) { return d.value; })
+			      .sort(function(a, b) { return b.value - a.value; });
+				// var nodes = pack.nodes(themes)
+				var node = themesGraph.selectAll(".node")
+  	  			.data(pack(themes).descendants()).enter()
+  				.append("g")
+  				.attr('id',function(d){return d.parent? d.parent.data.name+"-"+d.data.name : d.data.name})
+  	 		 	.attr("class", function(d) { return d.children ? "node" : "leaf-node"; })
+  	  			.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+				// Add user interaction, hover over the themes, add links between gua to theme points
+				node.append("circle")
+			  	.attr("r",function(d) { return d.r; })
+			  	// .attr("fill", "steel-blue")
+			  	.attr("opacity", 0.5)
+			  	.attr("stroke", "#ADADAD")
+			  	.attr("stroke-width", 2);
+
+			  	var texts = node.filter(function(d) {
+			  		var check = d.children && d.data.name !== "theme";
+			  	 return check }).append("text")
+			  	.attr("dx","-0.5em")
+     			.attr("dy", "0.2em")
+     			.style('fill','white')
+      			.text(function(d) { return d.data.name; })
+      			.on('mouseover',
+      				function(d,i){
+      					// for each d connecting the objects
+      					// console.log(d)
+      					// get the theme name
+      					var themeName = this.innerHTML
+      					// var node = d3.select("#BieGua>svg #"+themeName)
+      					// console.log(node)
+      					var nodeList = []
+      					d.data.children.forEach(
+      						(d1,i) =>{
+      							nodeList.push(themeName+"-"+d1.name)
+      						}
+      					)
+      					// console.log(nodeList)
+      					var lineLink = d3.select('#BieGua>svg').append('g').attr("transform",
+							function(){
+								var result = "translate("+250+","+250+")";
+								return result;
+							}
+						)
+						.attr('class','linksToGua');
+      					nodeList.forEach(
+      						function(d2,i){
+      							var translate = d3.select("#BieGua>svg #"+d2).attr('transform');
+      							var arr= translate.split(/[:;?!~,`"&|()<>{}\[\]\r\n/\\]+/)
+      							// console.log(arr)
+      							var num = d2.split('-')[1]				
+      							// console.log(num)
+      							var x = -250+400+(200)*Math.cos((num-1)/64*2*Math.PI)
+      							var y =-250+400+(200)*Math.sin((num-1)/64*2*Math.PI)
+      							var graph = lineLink.append('line')
+      							.attr('x1',arr[1])
+      							.attr('y1',arr[2])
+      							.attr('x2', function(){
+      								
+      								return x
+      							})
+      							.attr('y2',function(){
+      								return y
+      							})
+      							.style('stroke','blue');
+      							// console.log(node)
+      						}
+
+      					)
+      					
+      					// console.log(this.innerHTML)
+      					// append the circle to the graph in case
+
+      				}
+
+      			).on('mouseout',function(){
+      						d3.select('#BieGua>svg').select('.linksToGua').remove()
+
+      			})
+
+      			// add user interaction between 
+				
+			}
+				
+
+			function getNumOfLayer(i){
+				return guaci[i].length;
+			}
+			// }
+
+
+			function renderTagCloudsForSentiments(){
+
+				// var width = 300;
+				// var height = 1000;
+				// //Tag clouds For all chinese characters
+				// var svg = d3.select('#MainText').append('svg').style("background-color", background)
+				// .attr('height',height).attr('width',width);
+				// get the counts for each elements in positive group
+				positiveData =[];
+				neutralData =[];
+				negativeData =[];	
+				for (var key in sentimentsCount){
+					// console.log(key)
+					if (sentimentsCount[key][1] == "positive"){
+						positiveData.push(
+							{"name":key+"("+sentimentsCount[key][0]+")",
+							"chinese":sentimentsCount[key][0],
+							"count":sentimentsCount[key][2],
+							"weight":normalizeCount(sentimentsCount[key][2])}
+							);
+					}
+					if (sentimentsCount[key][1] == "neutral"){
+						neutralData.push(
+							{"name":key+"("+sentimentsCount[key][0]+")",
+							"chinese":sentimentsCount[key][0],
+							"count":sentimentsCount[key][2],
+							"weight":normalizeCount(sentimentsCount[key][2])}
+							);
+					}
+					if (sentimentsCount[key][1] == "negative"){
+						negativeData.push(
+							{"name":key+"("+sentimentsCount[key][0]+")",
+							"chinese":sentimentsCount[key][0],
+							"count":sentimentsCount[key][2],
+							"weight":normalizeCount(sentimentsCount[key][2])}
+							);
+					}
+
+				}
+				// console.log(positiveData)
+				//A link to the mouseover, mouse on events
+
+				//http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-point-events-mouseover/
+
+				//All groups: positive, neutral, and negative
+				Highcharts.chart('Positive', {
+					maxFontSize: 40,
+					// minFontSize:15,
+					plotOptions:{
+						series: {
+							point: {
+								events: {
+								mouseOver: function () {
+								var chart = this.series.chart;
+								var chineseName = this.chinese;
+								highLightKeyWord(chineseName);
+								// console.log(chineseName)
+								
+								},
+								mouseOut: function () {
+									unhighLightKeyWord()
+								}
+							}	
+							}
+						}
+					},
+					chart: {
+						backgroundColor: colorForGua[0]
+					},
+					series: [{
+						type: 'wordcloud',
+						data: positiveData,
+						name: 'Occurrences in Guaci'
+					}],
+					title: {
+						text: 'Positive Key Words',
+						style: {color: "white"}
+					},
+					tooltip: {
+						headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+						pointFormat: '<span >{point.name}</span>: <b>{point.count}</b> of total<br/>'
+					},
+					credits:{
+						enabled: false
+					}
+				});
+
+
+				// neutral Key Words
+				Highcharts.chart('Neutral', {
+					maxFontSize: 40,
+					// minFontSize:15,
+					plotOptions:{
+						series: {
+							point: {
+								events: {
+								mouseOver: function () {
+								var chart = this.series.chart;
+								var chineseName = this.chinese;
+								highLightKeyWord(chineseName);
+								// console.log(chineseName)
+								
+								},
+								mouseOut: function () {
+									unhighLightKeyWord()
+								}
+							}	
+							}
+						}
+					},
+					//
+					chart: {
+						backgroundColor: colorForGua[1]
+
+					},
+					series: [{
+						type: 'wordcloud',
+						data: neutralData,
+						name: 'Occurrences in Guaci'
+					}],
+					tooltip: {
+						headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+						pointFormat: '<span >{point.name}</span>: <b>{point.count}</b> of total<br/>'
+					},
+					title: {
+						text: 'Neutral Key Words',
+						style: {color: "white"}
+					},
+					credits:{
+						enabled: false
+					}
+				});
+
+				//negative Key Words
+				Highcharts.chart('Negative', {
+					maxFontSize: 40,
+					// minFontSize:15,
+					plotOptions:{
+						series: {
+							point: {
+								events: {
+								mouseOver: function () {
+								var chart = this.series.chart;
+								var chineseName = this.chinese;
+								highLightKeyWord(chineseName);
+								// console.log(chineseName)
+								
+								},
+								mouseOut: function () {
+									unhighLightKeyWord()
+								}
+							}	
+							}
+						}
+					},
+
+					//
+					chart: {
+						backgroundColor: colorForGua[2]
+					},
+					series: [{
+						type: 'wordcloud',
+						data: negativeData,
+						name: 'Occurrences in Guaci'
+					}],
+					title: {
+						text: 'Negative Key Words',
+						style: {color: "white"}
+					},
+					tooltip: {
+						headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+						pointFormat: '<span >{point.name}</span>: <b>{point.count}</b> of total<br/>'
+					},
+					credits:{
+						enabled: false
+					}
+				});
+				//Generate the tag clouds
+				//click function call will render the highlight of the guaci's colors
+
+			}
+
+
+
+			function highLightKeyWord(word){
+				// go over the hexagrams and color the rectangle
+				var svg = d3.select('#BieGua>svg')
+				var newGraph = svg.append('g')
+				.attr("transform",
+					function(){
+						var result = "translate("+200+","+200+")";
+						return result;
+					}
+				)
+				.attr('class','highlight');
+				var squareLength = 7;
+				// the interval between each rectangel
+				var interval = 1;
+				// the number of yao in each layer
+				var guaLayer = 3;
+				// the width of the layer
+				var layerWidth = 7;
+
+				var centerX = 200;
+				var centerY = 200;
+				hexagrams.forEach(function(data,iprime){
+					ci = guaci[iprime]
+					var index = ci.indexOf(word)
+					// console.log(ci)
+					if(index>-1 && ci[index-1]!="不" && ci[index-1]!="无"){
+						// console.log("enter")
+						var angle = 360/64.0*iprime;
+						var subgraph = newGraph.append('g');
+						// rotate through the graph
+						subgraph.attr("transform",
+							function(){
+								var result = "rotate("+(1*angle)+","+centerX+","+centerY+") ";
+								result+="translate("+400+","+200+")"
+								return result;
+							}
+						);
+						var numberOfLayer1 = getNumOfLayer(iprime);
+						var startX =guaLayer*squareLength+guaLayer*interval;
+						var startY = -1;
+						var endY = -1;
+						var endX = startX+numberOfLayer1*layerWidth;
+						subgraph.append('rect')
+							.attr('x',startX+layerWidth*index+0.5)
+							.attr('y',-0.5)
+							.attr('width',function(){
+								// return squareLength;
+								return layerWidth * word.length-1;
+							})
+							.attr('height',function(){
+								// return squareLength;
+								return 2*layerWidth+interval+1;
+							})
+							.style('fill', function(){
+								// highlight using white
+								return "white";
+						});
+
+					}
+
+				})
+			}
+			function unhighLightKeyWord(){
+				d3.select('.highlight').remove()
+			}
+
+			function normalizeCount(count){
+				// return
+				var weight = Math.log2(count*10)/Math.log2(5)
+				return weight
+			}
+			// generating the pop up window
+			function popUpWindow(){
+
+			}
+
+			// function for appending the legends
+			function appendLegends(){
+				//fomulate a list
+				var width = 200
+				var interval = 100
+				var locationArr = [1,2,3,4,5,6]
+				var svg = d3.select('#legends').append('svg')
+				.style("background-color", 'black')
+				.attr('height',200).attr('width',2*width+interval);
+				var graph = svg.append('g').attr('transform',
+				d => {
+					return "translate("+10+","+10+")";
+				});
+
+				// appends the side length fo the graph
+				var sideLength = 50
+				var interval = 10
+				graph.selectAll('rect')
+				.data(locationArr).enter().append('rect')
+				.attr('x',d =>
+				{
+					return (d-1)%3*(sideLength+interval)
+				})
+				.attr('y',
+				d =>{
+					return Math.floor((d-1)/3)*(sideLength+interval)
+				})
+				.attr('width',sideLength)
+				.attr('height',sideLength)
+				.style('fill','green');
+
+				//use the svg path to draw the right angle rectangles. using polygons
+				//for yang gua
+				graph.selectAll('polygon').data(locationArr).enter()
+				.append('polygon').style('fill',colorList[1])
+				.attr('points',
+					function(d2,i){
+						points =""
+						p1x = (d2-1)%3*(sideLength+interval)
+						p1y =Math.floor((d2-1)/3)*(sideLength+interval)
+						p1 = p1x+","+p1y+" "
+						p2 = (p1x+sideLength)+","+p1y+" "
+						p3 = p1x+","+(p1y+sideLength)+" "
+						points+=p1+p2+p3
+						return points
+					}
+				);
+				//for all yin gua
+				var graph2 = svg.append('g').attr('transform',
+				d => {
+					return "translate("+10+","+10+")";
+				});
+				graph2.selectAll('polygon').data(locationArr).enter()
+				.append('polygon').style('fill',colorList[0])
+				.attr('points',
+					function(d2,i){
+						points =""
+						p1x = (d2-1)%3*(sideLength+interval)
+						p1y =Math.floor((d2-1)/3)*(sideLength+interval)
+						p1 = (p1x+sideLength)+","+(p1y+sideLength)+" "
+						p2 = (p1x+sideLength)+","+p1y+" "
+						p3 = p1x+","+(p1y+sideLength)+" "
+						points+=p1+p2+p3
+						return points
+					}
+				);
+				// append the text
+				var explainText= svg.append('g').attr('transform',
+				d => {
+					return "translate("+250+","+10+")";
+				});
+
+				var textList =  ['4th','5th','top','initial','2nd','3rd']
+				var yingAndYang = ['nine','six']
+				explainText.selectAll('line').data(locationArr).enter().append('line').
+				attr(
+					"x1",d=>{return (d-1)%3*(sideLength+interval)}
+				)
+				.attr('x2', d=>{return (d-1)%3*(sideLength+interval)+sideLength})
+				.attr('y1', d=>{return Math.floor((d-1)/3)*(sideLength+interval)+sideLength})
+				.attr('y2', d=>{return Math.floor((d-1)/3)*(sideLength+interval)})
+				.style('stroke','white');
+				// first line
+				explainText.selectAll('text').data(textList).enter()
+				.append('text')
+				.text((d,i)=>{
+					return textList[i]
+				})
+				.style('font-size','10px')
+				.style('fill','white')
+				.attr('x', (d,i)=>{
+					return i%3*(sideLength+interval)
+				})
+				.attr('y', (d,i)=>{
+					return Math.floor((i)/3)*(sideLength+interval)+10
+				});
+				// second line
+				var explainText2 = svg.append('g').attr('transform',
+				d => {
+					return "translate("+250+","+10+")";
+				});
+				explainText2.selectAll('text').data(textList).enter()
+				.append('text')
+				.text((d,i)=>{
+					return yingAndYang[0]
+				})
+				.style('font-size','10px')
+				.style('fill','white')
+				.attr('x', (d,i)=>{
+					return i%3*(sideLength+interval)
+				})
+				.attr('y', (d,i)=>{
+					return Math.floor((i)/3)*(sideLength+interval)+20
+				})
+				// for all the ying parts
+				var explainText3 = svg.append('g').attr('transform',
+				d => {
+					return "translate("+250+","+10+")";
+				});
+				// first line
+				explainText3.selectAll('text').data(textList).enter()
+				.append('text')
+				.text((d,i)=>{
+					return textList[i]
+				})
+				.style('font-size','10px')
+				.style('fill','white')
+				.attr('x', (d,i)=>{
+					return i%3*(sideLength+interval)+25
+				})
+				.attr('y', (d,i)=>{
+					return Math.floor((i)/3)*(sideLength+interval)+10+25
+				});
+				// second line
+				var explainText4 = svg.append('g').attr('transform',
+				d => {
+					return "translate("+250+","+10+")";
+				});
+				explainText4.selectAll('text').data(textList).enter()
+				.append('text')
+				.text((d,i)=>{
+					return yingAndYang[1]
+				})
+				.style('font-size','10px')
+				.style('fill','white')
+				.attr('x', (d,i)=>{
+					return i%3*(sideLength+interval)+25
+				})
+				.attr('y', (d,i)=>{
+					return Math.floor((i)/3)*(sideLength+interval)+20+25
+				})
+
+			}
+			// function for appending interactive gua
+			function renderGuaInteractive(){
+
+				var svgHeight = 400;
+				var svgWidth = 400;
+				var centerY = svgHeight/2;
+				var centerX = svgWidth/2;
+				var background = '#262626';
+				//draw rectangels based on the 吉，凶，中
+				
+				//create a svg canvas, move the graph to the center
+				var svg = d3.select('#BieGua').append('svg').style("background-color", background)
+				.attr('height',svgHeight+900).attr('width',svgWidth+600);
+
+				var graph = svg.append('g')
+				.attr("transform",
+					function(){
+						var result = "translate("+200+","+200+")";
+						return result;
+					}
+				);
+				// the length of the small square
+				var squareLength = 7;
+				// the interval between each rectangel
+				var interval = 1;
+				// the number of yao in each layer
+				var guaLayer = 3;
+
+				// the width of the layer
+				var layerWidth = 7;
+				// list of colors for ying and yang
+
+				// list to store all the subgraphs, in order for forcing translation 
+				// and rotations
+				subgraphList = [];
+				var radius = svgHeight/4;
+				//iterate over the array of guas and draw 6 rectangles representing yaos
+				hexagrams.forEach(function(data,iprime){
+					var angle = 360/64.0*iprime;
+					var subgraph = graph.append('g');
+					// rotate through the graph
+					subgraph.attr("transform",
+						function(){
+							var result = "rotate("+(1*angle)+","+centerX+","+centerY+") ";
+							result+="translate("+400+","+200+")"
+							return result;
+						}
+					);
+					//append the line according to the length of the sentence
+					var numberOfLayer1 = getNumOfLayer(iprime);
+					// var nextLayer = getNumOfLayer((iprime+1)%64);
+					// var previousLayer = getNumOfLayer((iprime+63)%64);
+					// the start of the arcs and the lines
+					var startX =guaLayer*squareLength+guaLayer*interval;
+					// var numberOfLayer = Math.max(numberOfLayer1,previousLayer);
+					// console.log(numberOfLayer);
+					var startY = -1;
+					var endY = -1;
+					var endX = startX+numberOfLayer1*layerWidth;
+					//gridborder color
+					var guaciColor = '#454545'
+					// append the line of the left
+					subgraph.append('line')
+					.style('stroke',guaciColor)
+					.attr('x1',startX)
+					.attr('x2',endX)
+					.attr('y1',-1)
+					.attr('y2',-1);
+
+					// append the line of the right
+					subgraph.append('line')
+					.style('stroke',guaciColor)
+					.attr('x1',startX)
+					.attr('x2',endX)
+					.attr('y1',2*layerWidth+interval+1)
+					.attr('y2',2*layerWidth+interval+1);
+
+					//connect to formulate the rectangles
+					var k = 0;
+					while(k<=numberOfLayer1){
+						var arcRadius = startX+k*layerWidth;
+						subgraph.append('line')
+							.style('stroke',guaciColor)
+							.attr('x1',arcRadius)
+							.attr('x2',arcRadius)
+							.attr('y1',-1)
+							.attr('y2',2*layerWidth+interval+1);
+							k++;
+					}
+
+					//label out the 卦名
+					var guaminglayer = gua[iprime].length;
+					subgraph.append('line')
+					.style('stroke',guaciColor)
+					.attr('x1',startX)
+					.attr('x2',startX+guaminglayer*layerWidth)
+					.attr('y1',-1)
+					.attr('y2',2*layerWidth+interval+1);
+
+					// create the rectangles of the gua
+					var rectanglesGraph = subgraph.append('g');
+					rectanglesGraph.attr('class','overview')
+					rectanglesGraph.selectAll('rect').data(data).enter().append('rect')
+					.attr('x',function(d,i){
+						return (i%guaLayer)*(squareLength+interval);
+					})
+					.attr('y',function(d,i){
+						return Math.floor(i/guaLayer)*(squareLength+interval);
+					})
+					.attr('width',function(d,i){
+						return squareLength;
+					})
+					.attr('height',function(d,i){
+						return squareLength;
+					})
+					.style('fill', function(d,i){
+						// d is the index of the color
+						return colorList[d];
+					})
+					rectanglesGraph.on('click',
+						function(){
+							console.log('click, lock: '+ !hasdetails)
+							// console.log(hasdetails)
+							// register the current event
+							var currentEvent = d3.select(this);
+							if (currentEvent.attr('class')=='overview' && !hasdetails){
+								// not incurring details
+								currentEvent.attr('class','details');
+								// 只能展现一个detail
+								hasdetails=1;
+								
+								currentEvent.attr('transform', function(d,i){
+									var s = "translate("+(-40)+","+0+")";
+									return s;
+								});
+								// var rectangles = currentEvent.selectAll('rect').remove();
+								// // draw new rectangles
+								// currentEvent.selectAll('rect').data(data).enter().append('rect')
+								// .attr('x',function(d,i){
+								// 	return (i%guaLayer)*(squareLength+interval);
+								// })
+								// .attr('y',function(d,i){
+								// 	return Math.floor(i/guaLayer)*(squareLength+interval);
+								// })
+								// .attr('width',function(d,i){
+								// 	return squareLength;
+								// })
+								// .attr('height',function(d,i){
+								// 	return squareLength;
+								// })
+								// .style('fill', function(d,i){
+								// 	// d is the index of the color
+								// 	return colorList[d];
+								// });
+								// console.log(rectangles);
+								var yaociDetail = currentEvent.append('g').attr('class','yaociDetail');
+								// yaociDetail.selectAll('line')
+								var width2 = 3; // layer width on the rectangles
+								var strokeWidth = 0.5;
+								yaociAll.forEach(
+
+								function(yaoci,index){
+									var numOfXian = yaoci[iprime].length;
+									// get the number of yao xian
+
+									var currentGram = hexagrams[iprime]
+									// gua
+									// 
+									var color = colorList[currentGram[index]]
+									var lineYao = yaociDetail.append('g')
+									var x = (index%guaLayer)*(squareLength+interval);
+									var y;
+									var multiplier = 1;
+									if(index<3){
+										// 用 multiplier 来调整上下分卦的爻辞的stack方向
+										multiplier = -1
+										y = Math.floor(index/guaLayer)*(squareLength+interval);
+										
+									}else{
+										y = Math.floor(index/guaLayer)*(squareLength+interval)+squareLength;
+									}
+									lineYao.append('line')
+									.attr('x1', x)
+									.attr('y1',y)
+									.attr('y2',y+numOfXian*multiplier*width2)
+									.attr('x2',x)
+									.style('stroke',color)
+									.style('stroke-width',strokeWidth)
+									;
+
+
+									lineYao.append('line')
+									.attr('x1', x+squareLength)
+									.attr('y1',y)
+									.attr('y2',y+numOfXian*multiplier*width2)
+									.attr('x2',x+squareLength)
+									.style('stroke-width',strokeWidth)
+									.style('stroke',color);
+									
+									// append lines
+									// formulate the none-fill empty stacks
+									var k2 = 1;
+									while(k2<=numOfXian){
+										var startPos = y+(multiplier)*k2*width2;
+										lineYao.append('line')
+											.style('stroke',color)
+											.style('stroke-width',strokeWidth)
+											.attr('x1',x)
+											.attr('x2',x+squareLength)
+											.attr('y1',startPos)
+											.attr('y2',startPos);
+										k2++;
+									}
+								});
+								// var ength = iprime
+								// var text = 
+							}
+							else{
+								// if already incurring details
+								// var currentEvent = d3.select(this)
+								hasdetails=0;
+								// console.log(hasdetails)
+								currentEvent.attr('class','overview');
+								currentEvent.attr('transform', null);
+								d3.select('.yaociDetail').remove()
+							}
+							// console.log(this)
+						}
+					)
+					/*************************************************/
+					// objects storing all the characters representing sentiments
+					var labelArr = [];
+					for (var m = 0; m<numberOfLayer1;m++){
+						labelArr.push(false)
+					}			
+					var adjustment = 0.5
+					// highlight the characters by sentiments
+					ci = guaci[iprime];
+					sentimentsArray.forEach(
+						function(d,i){
+							var color = colorForGua[sentimentTable[d['label']]];
+							var sentiment = d.id;
+							index = ci.indexOf(sentiment);
+							if (index>-1){
+								var coloredBefore = false;
+								j = index;
+								while (j<index+sentiment.length){
+									if(labelArr[j]){
+										coloredBefore = true;
+									}
+									j++;
+								}
+								if(!coloredBefore){
+									// update the count of the sentiments
+									key = findTranslation(sentiment)
+									sentimentsCount[key][2]++;
+									// update the
+									subgraph.append('rect')
+									.attr('x',startX+layerWidth*index+0.5)
+									.attr('y',-0.5)
+									.attr('width',function(){
+										// return squareLength;
+										return layerWidth * sentiment.length-1;
+									})
+									.attr('height',function(){
+										// return squareLength;
+										return 2*layerWidth+interval+1;
+									})
+									.style('fill', function(){
+										return color;
+									})
+									var j2 = index;	
+									while (j2<index+sentiment.length){
+										labelArr[j2] = true;
+										j2++;
+									}
+								}
+							}
+						}
+					);
+					
+					//append text to some gua and the dots 
+					if ((iprime+1)%8==0||(iprime+1)==1){
+						subgraph.append('text')
+						.attr('x',-15)
+						.attr('y',2*layerWidth+interval/2-4)
+						.style("font-size", "10px")
+						.style('fill', 'white')
+						// .attr("dy", ".35em")
+						// .attr("d", ".35em")
+						.text(function(){
+							if ((iprime+1)/10<1){
+								return "0"+(iprime+1);
+							}else{
+								return ""+(iprime+1);
+							}
+						})
+						.attr('transform',
+							function(){
+							var arr = [24,32,40,48]
+							var pivot = iprime+1
+							var value = arr.indexOf(pivot)>=0 ? 180:0
+							var result = "rotate("+value+","+-10+","+(2*layerWidth+interval/2-7)+")";
+							return result;
+						});
+					}else{
+						// append the dots 
+						subgraph.append('circle')
+						.style('fill','white')
+						.attr('cx',-13)
+						.attr('cy',2*layerWidth+interval/2-5)
+						.attr('r',1)
+					}
+					
+				});
+				//generate the arc, can also be used to generate the color, also add the characters in iterate
+				
+				// generate the d3 pack
+				drawThemeClusters();
+				renderTagCloudsForSentiments();
+
+			}
+
+			function renderRadarMap(){
+
+
+			}
+
+			function renderSentimentsTexts(){
+
+
+			}
+
+			function renderGuaci(){
+
+
+			}
+
+			$(document).ready(function() {
+				// renderGua()
+				appendLegends()
+				renderGuaInteractive()
+			});
+			// call the render gua function
+			
+			
+		</script>
+
+
+	</head>
+
+
+	<body>
+		<div id = "legends">
+			
+
+		</div>
+
+		<div id = "BieGua">
+
+		</div>
+
+		<div id  = "mainText">
+			<div id = "Positive"></div>
+			<div id = "Neutral"></div>
+			<div id = "Negative"></div>
+
+			
+
+		</div>
+
+		<div id = "GuaCi">
+			
+
+		</div>
+		
+	</body>
+
+
+</html>
