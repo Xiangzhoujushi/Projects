@@ -68,6 +68,7 @@
 			}*/
 			/*the body and whole formatings*/
 			body{
+				font-family: "PT Sans Bold"
 				/*set up the body*/
 				/*background-color: silver;*/
 			}
@@ -380,11 +381,9 @@
 				var interval = 1;
 				// the number of yao in each layer
 				var guaLayer = 3;
-
 				// the width of the layer
 				var layerWidth = 7;
 				// list of colors for ying and yang
-
 				// list to store all the subgraphs, in order for forcing translation 
 				// and rotations
 				subgraphList = [];
@@ -406,24 +405,35 @@
 					// var nextLayer = getNumOfLayer((iprime+1)%64);
 					// var previousLayer = getNumOfLayer((iprime+63)%64);
 					// the start of the arcs and the lines
-					var startX =guaLayer*squareLength+guaLayer*interval;
+					var startX = guaLayer*squareLength+guaLayer*interval;
 					// var numberOfLayer = Math.max(numberOfLayer1,previousLayer);
 					// console.log(numberOfLayer);
 					var startY = -1;
 					var endY = -1;
 					var endX = startX+numberOfLayer1*layerWidth;
 					//gridborder color
-					var guaciColor = '#454545'
+					var guaciColor = '#454545';
+
+					var moveToMid = (squareLength*2+interval)/2;
 					// append the line of the left
-					subgraph.append('line')
+
+					var yaoXian = subgraph.append('g')
+					.attr('transform',
+						function(){
+							var str = "translate("+0+","+-1*moveToMid+")";
+							return str;
+						}
+					);
+					// the line of the right and left
+					yaoXian.append('line')
 					.style('stroke',guaciColor)
 					.attr('x1',startX)
 					.attr('x2',endX)
-					.attr('y1',-1)
-					.attr('y2',-1);
+					.attr('y1',-1*interval)
+					.attr('y2',-1*interval);
 
 					// append the line of the right
-					subgraph.append('line')
+					yaoXian.append('line')
 					.style('stroke',guaciColor)
 					.attr('x1',startX)
 					.attr('x2',endX)
@@ -434,7 +444,7 @@
 					var k = 0;
 					while(k<=numberOfLayer1){
 						var arcRadius = startX+k*layerWidth;
-						subgraph.append('line')
+						yaoXian.append('line')
 							.style('stroke',guaciColor)
 							.attr('x1',arcRadius)
 							.attr('x2',arcRadius)
@@ -445,7 +455,7 @@
 
 					//label out the 卦名
 					var guaminglayer = gua[iprime].length;
-					subgraph.append('line')
+					yaoXian.append('line')
 					.style('stroke',guaciColor)
 					.attr('x1',startX)
 					.attr('x2',startX+guaminglayer*layerWidth)
@@ -460,7 +470,7 @@
 						return (i%guaLayer)*(squareLength+interval);
 					})
 					.attr('y',function(d,i){
-						return Math.floor(i/guaLayer)*(squareLength+interval);
+						return Math.floor(i/guaLayer)*(squareLength+interval)-moveToMid;
 					})
 					.attr('width',function(d,i){
 						return squareLength;
@@ -610,7 +620,7 @@
 									key = findTranslation(sentiment)
 									sentimentsCount[key][2]++;
 									// update the
-									subgraph.append('rect')
+									yaoXian.append('rect')
 									.attr('x',startX+layerWidth*index+0.5)
 									.attr('y',-0.5)
 									.attr('width',function(){
@@ -633,12 +643,19 @@
 							}
 						}
 					);
-					
+
+
+					var shiftLeft = -15;
+					var shiftDown = 0;
+					// var
 					//append text to some gua and the dots 
 					if ((iprime+1)%8==0||(iprime+1)==1){
+
+						var adjust = 4
+						// append the text
 						subgraph.append('text')
-						.attr('x',-15)
-						.attr('y',2*layerWidth+interval/2-4)
+						.attr('x',shiftLeft-adjust)
+						.attr('y',shiftDown+adjust)
 						.style("font-size", "10px")
 						.style('fill', 'white')
 						// .attr("dy", ".35em")
@@ -655,15 +672,15 @@
 							var arr = [24,32,40,48]
 							var pivot = iprime+1
 							var value = arr.indexOf(pivot)>=0 ? 180:0
-							var result = "rotate("+value+","+-10+","+(2*layerWidth+interval/2-7)+")";
+							var result = "rotate("+value+","+(shiftLeft+1)+","+(shiftDown+adjust-3)+")";
 							return result;
 						});
 					}else{
 						// append the dots 
 						subgraph.append('circle')
 						.style('fill','white')
-						.attr('cx',-13)
-						.attr('cy',2*layerWidth+interval/2-5)
+						.attr('cx', shiftLeft)
+						.attr('cy',shiftDown)
 						.attr('r',1)
 					}
 					

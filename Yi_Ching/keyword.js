@@ -294,7 +294,8 @@ function highLightKeyWord(word){
 	var guaLayer = 3;
 	// the width of the layer
 	var layerWidth = 7;
-
+	// shifted the rectangles
+	var moveToMid = (2*layerWidth+interval)/2
 	var centerX = 200;
 	var centerY = 200;
 	hexagrams.forEach(function(data,iprime){
@@ -318,7 +319,14 @@ function highLightKeyWord(word){
 			var startY = -1;
 			var endY = -1;
 			var endX = startX+numberOfLayer1*layerWidth;
-			subgraph.append('rect')
+
+			var highLight = subgraph.append('g').attr('transform',
+						function(){
+							var str = "translate("+0+","+-1*moveToMid+")";
+							return str;
+						});
+
+			highLight.append('rect')
 				.attr('x',startX+layerWidth*index+0.5)
 				.attr('y',-0.5)
 				.attr('width',function(){

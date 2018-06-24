@@ -171,7 +171,7 @@ function forceRadialThemeClusters(){
 		var shift = 7.5
 		// generate the curve and add user interactions
 
-		var len = 200;
+		var len = 200-15;
 
 		// apply line gnerator on all of the lines
 		console.log("current theme: "+name);
@@ -307,7 +307,8 @@ function highlightLine(){
 
 	d3.select(parent).select('circle')
 	.style('stroke-opacity',1.0)
-	.style('stroke','blue')
+	.style('fill','#ffffff')
+	.style('stroke','white')
 	.style('stroke-width',0.6);
 
 	d3.select(parent).select('text').style('font-size',10)
@@ -323,7 +324,12 @@ function unhighlightLine(){
 	.style('stroke-opacity',0.5); // the color
 
 	d3.select(parent).select('circle')
+	.style('fill',
+		function(){
+			return 'grey'
+	})
 	.style('stroke','none')
+	;
 	// .style('stroke-opacity',1.0)
 	// .style('stroke','blue')
 	// .style('stroke-width',0.6);
