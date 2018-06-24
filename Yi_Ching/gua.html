@@ -493,9 +493,10 @@
 								currentEvent.attr('class','details');
 								// 只能展现一个detail
 								hasdetails=1;
+
 								
 								currentEvent.attr('transform', function(d,i){
-									var s = "translate("+(-40)+","+0+")";
+									var s = "translate("+(-50)+","+0+")";
 									return s;
 								});
 								// code for changing the size and the position of the tectangles
@@ -522,7 +523,12 @@
 								// 	return colorList[d];
 								// });
 								// console.log(rectangles);
-								var yaociDetail = currentEvent.append('g').attr('class','yaociDetail');
+								var yaociDetail = currentEvent.append('g').attr('class','yaociDetail')
+								.attr('transform', function(d,i){
+									var s = "translate("+(0)+","+(-1*moveToMid)+")";
+									return s;
+								});
+								;
 								// yaociDetail.selectAll('line')
 								var width2 = 3; // layer width on the rectangles
 								var strokeWidth = 0.5;
