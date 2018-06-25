@@ -2,8 +2,17 @@
 	<head>
 		<!-- The Portion defining Styles-->
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="about/assets/css/main.css" />
+		<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 		<style>
 
+			#bodyContent{
+				font-family: 'PT Sans', sans-serif;
+				background-color:none;
+				/*set up the body*/
+				/*background-color: silver;*/
+			}
 			.node circle {
 			  fill: #262626;;
 			  /*fill-opacity: .25;*/
@@ -67,11 +76,6 @@
 
 			}*/
 			/*the body and whole formatings*/
-			body{
-				font-family: "PT Sans Bold"
-				/*set up the body*/
-				/*background-color: silver;*/
-			}
 
 			#topNav{
 				float:top;
@@ -79,7 +83,7 @@
 				position:absolute;
 				top:0px;
 				left:50px;
-				width:1251px;
+				width:1151px;
 				background-color:black;
 			}
 			/*左侧的navigation side*/
@@ -124,19 +128,21 @@
 			div#mainText{
 				/*overflow: auto*/
 				/*margin-left:100px:;*/
-				height:800px;
+				height:900px;
 				top:20px;
-				left:950px;
+				left:1000px;
+				/*width*/
 				position:absolute;
 				text-align:left;
 				vertical-align: top;
 				/*border-left: 1px  solid grey;*/
 				/*left:1000px;*/
+				background: linear-gradient(#262626, #5c5c5c);
 				/*margin-left:50px;*/
 				float:left;
 				display:block;
 				position:absolute;
-				width:400px;
+				width:300px;
 				margin:0 auto;
 			}
 
@@ -725,7 +731,7 @@
 	</head>
 
 
-	<body>
+	<body id = "bodyContent" style = "background-color:none;">
 		<div id = "topNav">
 			
 		</div>
@@ -746,10 +752,46 @@
 		</div>
 		<!--modal blocks  -->
 		<div id="myModal" class="modal">
-			<div class="modal-content">
+			<div class="modal-content" style = "background-color:#1e1f23" >
 		    <span class="close">&times;</span>
-		    <p>Introductions</p>
-		  </div>
+		    <!-- Content goes here -->
+		    	<section id="main">
+				<div class="inner">
+					<div class="wrapper style1">
+						<div class="content">
+
+							<!-- Elements -->
+								<h2 id="elements">About this Project</h2>
+							<p>I-Ching is one of the most important books in Chinese history published in the late 9th century BC. While originally used as a divination system, I-Ching is also considered to have a direct inspiration to much of Chinese culture and philosophy including the famous Confucius and the Taoism founder Lao-Tzu.</p>
+							<p><span class="image left"><img src="images/guaExp.png" alt="" /></span>One unique attribute about I-Ching is that it uses graphic representations- the Hexagrams- to conceal the meaning of its oracular language. It is built around sixty-four hexagrams with a group of six lines for each. Each hexagram has a statement, and each of the six lines also contains comments that correspond to the six stages of a particular situation. The statements and comments provide a vast set of possible interpretations for I-Ching.</p>
+							<p>This project uses text mining and modern interactive data visualization techniques to reveal new patterning insights of I-Ching from both divinatory and philosophical perspectives. We consider the pattern of hexagrams and their relationships as a binary coding system. The lines in I-Ching describe life as cyclical movement, and each line represents one of the fundamental assertions of the Changes.</p>
+							<p>A hexagram in the original I-Ching is a formation of six straight or split lines representing the stages and combinations of Yin and Yang- the world of opposites. They are arranged in numerical order from one to sixty-four. Adding an additional dimension (from lines to forms) and another color channel to the graphic symbols can better reveal the sequence structures and the reverse orders (binary) and inverse orders (symmetry) of the patterns of the neighboring hexagrams.</p>
+							<span class="image fit"><img src="images/updatedHexagram.png" alt="" /></span>
+							<p>The Gua text, sometimes is called the "Decision", is analyzed by filtering out the divination-related keywords. The fortune-telling keywords are listed in three categories on the right panel of the screen: <strong>positive</strong> &#40;keywords indicate good fortunes&#41;, <strong>neutral</strong> &#40;keywords relate to a state that is neither pleasant nor painful&#41; , and <strong>negative</strong> &#40;keywords relates to danger, warning, and other unfortunate events&#41;. The contents of the Dicision is also classified into different themes: <strong>behavior</strong> &#40;actions should be taken&#41;, <strong>mindset</strong> &#40;psychological attitudes or faith related suggestions&#41;, <strong>journey</strong> &#40;the cycle of change or movements, it can be either physical or metaphorical&#41;, <strong>orientation</strong> &#40;when navigation system such as north, east, west, and south is mentioned&#41;, <strong>career</strong> &#40;often relates to seeing a superior&#41;, <strong>politics</strong>, <strong>family</strong>, and <strong>military</strong>. Each theme is connected to the corresponding Gua/Hexagrams to show connections and frequency.</p>
+							
+								
+							</div>
+
+						</div>
+					</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+		
+				<div class="copyright">
+					&copy; Visualizing I-Ching. All rights reserved. 
+				</div>
+			</footer>
+			
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+			<!-- Content goes here -->
+		  	</div >
 		</div>
 
 		<div id  = "mainText">

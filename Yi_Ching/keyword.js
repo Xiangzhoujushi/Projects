@@ -396,15 +396,16 @@ function renderTagCloudsForSentiments(){
 	AllData = positiveData.concat(neutralData,negativeData)
 	//http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-point-events-mouseover/
 	var fontSize = 14;
-	var width = 400;
+	var width = 300;
 	var background = '#262626';
 	var height = 900;
-	var space  = 8;
+	var space  = 5;
 	var margin = 30;
 	var marginLeft = 50;
 	var factor = 0;
 	// //Tag clouds For all chinese characters
-	var svg = d3.select('#MainText').append('svg').style("background-color", background)
+	var svg = d3.select('#MainText').append('svg')
+	// .style("background-color", background)
 	.attr('height',height).attr('width',width)
 	.style('opacity',0.95)
 	;
@@ -421,7 +422,7 @@ function renderTagCloudsForSentiments(){
 		return d.name
 	})
 	.attr('x', d =>  {
-		x = Math.random()*(width*0.2)+100;
+		x = Math.random()*(width*0.2);
 		return x;
 	})
 	.attr('y', (d,i)=>{

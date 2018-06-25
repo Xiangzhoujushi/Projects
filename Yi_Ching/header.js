@@ -81,7 +81,7 @@ function navigation(){
 
 function appendHeader(){
 	var background = "black"
-	var svg = d3.select('#topNav').append('svg').attr('width',1300)
+	var svg = d3.select('#topNav').append('svg').attr('width',1250)
 	.attr('x',0)
 	.attr('y',-20)
 	.attr('height',20)
