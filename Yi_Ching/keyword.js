@@ -414,7 +414,7 @@ function renderTagCloudsForSentiments(){
 	// space between words
 	
 	var textGraph = svg.append('g').attr('transform',
-		'translate(50,20)'
+		'translate(20,20)'
 	)
 	var wordClouds = textGraph.selectAll('text')
 	.data(AllData).enter().append('text')
