@@ -87,19 +87,19 @@ function appendHeader(){
 	.attr('height',20)
 	.style("background-color", background);
 
-	var label1 = svg.append('g').attr('transform','translate(600,0)');
-	label1.append('text').text('HEXAGRAMS & THE STATEMENT (GUA)')
-	.style('fill','white')
-	.style('fill-opacity','0.8')
-	.attr('x',0)
-	.attr('y',15)
-	.style('font-size',10);
+	// var label1 = svg.append('g').attr('transform','translate(600,0)');
+	// label1.append('text').text('HEXAGRAMS & THE STATEMENT (GUA)')
+	// .style('fill','white')
+	// .style('fill-opacity','0.8')
+	// .attr('x',0)
+	// .attr('y',15)
+	// .style('font-size',10);
 
-	var label2 = svg.append('g').attr('transform','translate(1100,0)');
-	label2.append('text').text('DIVINATION KEYWORDS')
-	.style('fill','white')
-	// .style('fill-opacity','')
-	.attr('x',0)
-	.attr('y',15)
-	.style('font-size',10)
+	// var label2 = svg.append('g').attr('transform','translate(1100,0)');
+	// label2.append('text').text('DIVINATION KEYWORDS')
+	// .style('fill','white')
+	// // .style('fill-opacity','')
+	// .attr('x',0)
+	// .attr('y',15)
+	// .style('font-size',10)
 }

@@ -143,7 +143,7 @@ function forceRadialThemeClusters(){
 		}
 	)
 	var numberOfClusters = themes.children.length;
-	console.log(numberOfClusters);
+	// console.log(numberOfClusters);
 	// all themes
 
 	var centerX = 200
@@ -174,7 +174,7 @@ function forceRadialThemeClusters(){
 		var len = 200-15;
 
 		// apply line gnerator on all of the lines
-		console.log("current theme: "+name);
+		// console.log("current theme: "+name);
 		var current = d.children; // current object 
 		// console.log(len(current))
 		// console.log(d.children)
@@ -185,7 +185,7 @@ function forceRadialThemeClusters(){
 				var y1 = 0;
 				// the x1 and x2 in some cases
 				var num = d_line.name;
-				console.log(d_line)
+				// console.log(d_line)
 				var unshiftHorizontal = -1*Math.cos(angle)*rad;
 				var unshiftVertical = -1* Math.sin(angle)*rad;
 				var shiftHorizontal = len*Math.cos((num-1)/64*2*Math.PI);
@@ -195,7 +195,7 @@ function forceRadialThemeClusters(){
 				// var x = -250+400+(200)*Math.cos((num-1)/64*2*Math.PI);
 				// var y = -250+400+(200)*Math.sin((num-1)/64*2*Math.PI);
 				// x points and y points
-				console.log('')
+				// console.log('')
 				// xs =[x1,x2];
 				// ys =[y1,y2];
 				// console.log([x1,y1])
