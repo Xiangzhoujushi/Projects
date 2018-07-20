@@ -396,7 +396,7 @@ function renderTagCloudsForSentiments(){
 	AllData = positiveData.concat(neutralData,negativeData)
 	//http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-point-events-mouseover/
 	var fontSize = 14;
-	var width = 200;
+	var width = 300;
 	var background = '#262626';
 	var height = 900;
 	var space  = 5;
@@ -412,7 +412,6 @@ function renderTagCloudsForSentiments(){
 	// get the counts for each elements in positive group
 	// var svg = d3.select()
 	// space between words
-
 	
 	var textGraph = svg.append('g').attr('transform',
 		'translate(20,20)'
@@ -423,70 +422,48 @@ function renderTagCloudsForSentiments(){
 		return d.name
 	})
 	.attr('x', d =>  {
-		// x start from 20
-		x = 20;
+		x = Math.random()*(width*0.2);
 		return x;
 	})
 	.attr('y', (d,i)=>{
 		// console.log(AllData[i-1])
-		// add the rectangels here
 		// var prevData = 
 		if (i<=0 || (AllData[i-1].tag!= d.tag)){
 			// labels for classification of keywords 
-			factor += 27;
+			factor += 25;
 			textGraph.append('rect')
-			.attr('x',-20)
-			.attr('y',i*(fontSize+space)+factor-33)
-			.attr('height',22)
-			.attr('width',width)
+			.attr('x',width-width/2)
+			.attr('y',i*(fontSize+space)+factor-30)
+			.attr('height',15)
+			.attr('width',width/2)
 			.style('fill',d.color);
 
 			textGraph.append('text')
-			.attr('x',-18)
-			.attr('y',i*(fontSize+space)+factor-35/2+1)
+			.attr('x',width-width/2)
+			.attr('y',i*(fontSize+space)+factor-35/2)
 			.style('fill','white')
 			.style('fill-opacity',0.8)
-			.text(sentimentClass[d.tag].toUpperCase())
-			.style('font-size', fontSize+2)
-			factor += 5;
+			.text(sentimentClass[d.tag])
+			.style('font-size', fontSize-2)
+			factor += 4;
 			// .attr('height',15)
 			// .attr('width',width/2)
 			// .style('fill',d.color);
 			// append the title
-
 		}
 		var  yPosition = i*(fontSize+space)+factor
-		// append the rectangels in the front
-		var rectangle = textGraph
-		.append('rect')
-		.attr('x',-10)
-		.attr('y',yPosition-7)
-		.attr('height',8)
-		.attr('width',20)
-		.style('fill',d.color)
-		.on('mouseover',function(){
-			var name = d.chinese;
-			highLightKeyWord(name)
-	// console.log(d)
-		}).on('mouseout',function(){
-			unhighLightKeyWord();
-		});
-		
 		// yPosition+=factor;
 		return yPosition;
 	})
 	.style('fill',d=> {return d.color})
 	.style('font-size', fontSize)
 	.on('mouseover',function(d){
-		var name = d.chinese;
-		highLightKeyWord(name)
+	var name = d.chinese;
+	highLightKeyWord(name)
 	// console.log(d)
 	}).on('mouseout',function(d){
 		unhighLightKeyWord();
 	});
-
-
-
 	// append the title for the key words
 				// append the 
 }
