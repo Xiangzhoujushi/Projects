@@ -1,0 +1,809 @@
+<html>
+	<head>
+		<!-- The Portion defining Styles-->
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="about/assets/css/main.css" />
+		<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+		<style>
+
+			#bodyContent{
+				font-family: 'PT Sans', sans-serif;
+				background-color:none;
+				/*set up the body*/
+				/*background-color: silver;*/
+			}
+			.node circle {
+			  fill: #262626;;
+			  /*fill-opacity: .25;*/
+			  stroke: rgb(31, 119, 180,0.5);
+			  stroke-width: 0.5px;
+			}
+			.leaf-node circle{
+				fill: grey;
+				opacity: 0.25;
+				stroke:#262626;
+				overflow: auto;
+			}
+			.node text{
+				font-size:10px;
+
+			}	
+
+			/* The Modal (background) */
+			.modal {
+			    display: none; /* Hidden by default */
+			    position: fixed; /* Stay in place */
+			    z-index: 1; /* Sit on top */
+			    padding-top: 100px; /* Location of the box */
+			    left: 0;
+			    top: 0;
+			    width: 100%; /* Full width */
+			    height: 100%; /* Full height */
+			    overflow: auto; /* Enable scroll if needed */
+			    background-color: rgb(0,0,0); /* Fallback color */
+			    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+			}
+
+			/* Modal Content */
+			.modal-content {
+			    background-color: #fefefe;
+			    margin: auto;
+			    padding: 20px;
+			    border: 1px solid #888;
+			    width: 80%;
+			}
+
+			/* The Close Button */
+			.close {
+			    color: #aaaaaa;
+			    float: right;
+			    font-size: 28px;
+			    font-weight: bold;
+			}
+
+			.close:hover,
+			.close:focus {
+			    color: #000;
+			    text-decoration: none;
+			    cursor: pointer;
+			}
+			/*vertical aligned text*/
+			/*.vertical-text{
+				font-size:10px;
+				 transform-origin: right;
+    			transform: translate(100, 50%) rotate(-90deg) ;
+
+			}*/
+			/*the body and whole formatings*/
+
+			#topNav{
+				float:top;
+				display:block;
+				position:absolute;
+				top:0px;
+				left:50px;
+				width:1151px;
+				background-color:black;
+			}
+			/*左侧的navigation side*/
+			#leftNav{
+				overflow: auto;
+				height:920px;
+				top:0px;
+				text-align: left;
+				display:block;
+				position:absolute;
+				left:0px;
+				width:50px;
+				background: silver;
+			}
+
+			div#BieGua{
+				top:20px;
+				height:800px;
+				/*margin-left:0px:;*/
+				float:left;
+				left:50px;
+				width:1000px;
+				overflow: auto;
+				position:absolute;
+				/*background:grey;
+				margin-left:100px;*/
+				text-align: left;
+				/*width:1000px;
+				height:1000px;*/
+				display:block;
+				height:900px;
+				/*position:absolute;*/
+			}
+
+			#legends{
+				left:800px;
+				text-align: left;
+				float:left;
+				display:block;
+				position: absolute;
+			}
+			div#mainText{
+				/*overflow: auto*/
+				/*margin-left:100px:;*/
+				height:900px;
+				top:20px;
+				left:1000px;
+				/*width*/
+				position:absolute;
+				text-align:left;
+				vertical-align: top;
+				/*border-left: 1px  solid grey;*/
+				/*left:1000px;*/
+				background: linear-gradient(#262626, #5c5c5c);
+				/*margin-left:50px;*/
+				float:left;
+				display:block;
+				position:absolute;
+				width:300px;
+				margin:0 auto;
+			}
+
+			#Guaci{
+				margin-left:50px;
+				float:left;
+				width:600px;
+			}
+		</style>
+
+
+		<!-- External Library Used for the file Jquery, D3 currently included -->
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+		<!-- 爻辞相关的数据 -->
+		<script src="yaoci.js"></script>
+		<!-- this is the link to all 卦辞相关的数据 -->
+		<script src="data.js"></script>
+		<!-- keywords related 数据 -->
+		<script src = "keyword.js"></script>
+
+		<script src= "themes.js"></script>
+
+		<script src= "header.js"></script>
+		<!-- Main functions -->
+		<script>
+			// Can apply trigram of fuxi to generate the hexagram of fuxi
+			var hasdetails =  0;
+			
+			// function renderYaoCi(){
+
+			// }
+			// draw all details on themes
+
+				
+
+			function getNumOfLayer(i){
+				return guaci[i].length;
+			}
+			// }
+
+
+			function normalizeCount(count){
+				// return
+				var weight = Math.log2(count+20)/Math.log2(5)
+				return weight
+			}
+			// generating the pop up window
+			function popUpWindow(){
+
+			}
+
+			// function for appending the legends
+			function appendLegends(){
+				//fomulate a list
+				var width = 200
+				var interval = 100
+				var locationArr = [1,2,3,4,5,6]
+				var svg = d3.select('#BieGua>svg');
+				var fontSize = 8
+				var locX = 600
+				var locY = 10
+
+				var graphExp = svg.append('g').attr('transform',
+				() => {
+					return "translate("+locX+","+locY+")";
+				});
+				var w = 300
+				var boxPadding = 10
+				var boxL = 320
+				var boxW = 120
+				var frameBox = graphExp.append('g')
+				.append('rect').style('fill','rgb(0,0,0,0.5)')
+				.attr('x',(0-boxPadding))
+				.attr('y',(0-boxPadding))
+				.attr('width',(boxL-boxPadding))
+				.attr('height',(boxW-boxPadding))
+				// appedn the graphExp
+				graph1 = graphExp.append('g')
+				// appends the side length fo the graph
+				var sideLength = 40
+				var interval = 10
+				graph1.selectAll('rect')
+				.data(locationArr).enter().append('rect')
+				.attr('x',d =>
+				{
+					return (d-1)%3*(sideLength+interval)
+				})
+				.attr('y',
+				d =>{
+					return Math.floor((d-1)/3)*(sideLength+interval)
+				})
+				.attr('width',sideLength)
+				.attr('height',sideLength)
+				.style('fill','green');
+
+				//use the svg path to draw the right angle rectangles. using polygons
+				//for yang gua
+				graph1.selectAll('polygon').data(locationArr).enter()
+				.append('polygon').style('fill',colorList[1])
+				.attr('points',
+					function(d2,i){
+						points =""
+						p1x = (d2-1)%3*(sideLength+interval)
+						p1y =Math.floor((d2-1)/3)*(sideLength+interval)
+						p1 = p1x+","+p1y+" "
+						p2 = (p1x+sideLength)+","+p1y+" "
+						p3 = p1x+","+(p1y+sideLength)+" "
+						points+=p1+p2+p3
+						return points
+					}
+				);
+				//for all yin gua
+				var graph2 = graphExp.append('g');
+				graph2.selectAll('polygon').data(locationArr).enter()
+				.append('polygon').style('fill',colorList[0])
+				.attr('points',
+					function(d2,i){
+						points =""
+						p1x = (d2-1)%3*(sideLength+interval)
+						p1y =Math.floor((d2-1)/3)*(sideLength+interval)
+						p1 = (p1x+sideLength)+","+(p1y+sideLength)+" "
+						p2 = (p1x+sideLength)+","+p1y+" "
+						p3 = p1x+","+(p1y+sideLength)+" "
+						points+=p1+p2+p3
+						return points
+					}
+				);
+				// append the text
+				var shiftedDistance = 50
+				var explainText= graphExp.append('g').attr('transform',
+				d => {
+					return "translate("+150+","+0+")";
+				});
+
+				var textList =  ['4th','5th','top','initial','2nd','3rd']
+				var yingAndYang = ['nine','six']
+				explainText.append('g').selectAll('line').data(locationArr).enter().append('line')
+				.attr(
+					"x1",d=>{return (d-1)%3*(sideLength+interval)}
+				)
+				.attr('x2', d=>{return (d-1)%3*(sideLength+interval)+sideLength})
+				.attr('y1', d=>{return Math.floor((d-1)/3)*(sideLength+interval)+sideLength})
+				.attr('y2', d=>{return Math.floor((d-1)/3)*(sideLength+interval)})
+				.style('stroke','white')
+				.style('stroke-opacity',0.5)
+				;
+
+
+				// first line, upper
+				//first line lower
+				var shiftedDown = 10
+				var secondLevel = 20
+
+				explainText.append('g').selectAll('text').data(textList).enter()
+				.append('text')
+				.text((d,i)=>{
+					return textList[i]
+				})
+				.style('font-size',fontSize)
+				.style('fill-opacity',0.75)
+				.style('fill','white')
+				.attr('x', (d,i)=>{
+					return i%3*(sideLength+interval)
+				})
+				.attr('y', (d,i)=>{
+					return Math.floor((i)/3)*(sideLength+interval)+shiftedDown
+				});
+
+				explainText.append('g').selectAll('text').data(textList).enter()
+				.append('text')
+				.text((d,i)=>{
+					return yingAndYang[0]
+				})
+				.style('font-size',fontSize)
+				.style('fill-opacity',0.75)
+				.style('fill','white')
+				.attr('x', (d,i)=>{
+					return i%3*(sideLength+interval)
+				})
+				.attr('y', (d,i)=>{
+					return Math.floor((i)/3)*(sideLength+interval)+2*shiftedDown
+				})
+				
+				explainText.append('g').selectAll('text').data(textList).enter()
+				.append('text')
+				.text((d,i)=>{
+					return textList[i]
+				})
+				.style('font-size',fontSize)
+				.style('fill-opacity',0.75)
+				.style('fill','white')
+				.attr('x', (d,i)=>{
+					return i%3*(sideLength+interval)+secondLevel
+				})
+				.attr('y', (d,i)=>{
+					return Math.floor((i)/3)*(sideLength+interval)+shiftedDown+secondLevel
+				});
+				
+				explainText.append('g').selectAll('text').data(textList).enter()
+				.append('text')
+				.text((d,i)=>{
+					return yingAndYang[1]
+				})
+				.style('font-size',fontSize)
+				.style('fill-opacity',0.75)
+				.style('fill','white')
+				.attr('x', (d,i)=>{
+					return i%3*(sideLength+interval)+secondLevel
+				})
+				.attr('y', (d,i)=>{
+					return Math.floor((i)/3)*(sideLength+interval)+2*shiftedDown+secondLevel
+				})
+
+			}
+			// function for appending interactive gua
+			function renderGuaInteractive(){
+
+				var svgHeight = 400;
+				var svgWidth = 400;
+				var centerY = svgHeight/2;
+				var centerX = svgWidth/2;
+				var background = '#262626';
+				//draw rectangels based on the 吉，凶，中
+				
+				//create a svg canvas, move the graph to the center
+				var svg = d3.select('#BieGua').append('svg').style("background-color", background)
+				.attr('height',svgHeight+700).attr('width',svgWidth+600);
+
+				var graph = svg.append('g')
+				.attr("transform",
+					function(){
+						var result = "translate("+200+","+200+")";
+						return result;
+					}
+				);
+				// the length of the small square
+				var squareLength = 7;
+				// the interval between each rectangel
+				var interval = 1;
+				// the number of yao in each layer
+				var guaLayer = 3;
+				// the width of the layer
+				var layerWidth = 7;
+				// list of colors for ying and yang
+				// list to store all the subgraphs, in order for forcing translation 
+				// and rotations
+				subgraphList = [];
+				var radius = svgHeight/4;
+				//iterate over the array of guas and draw 6 rectangles representing yaos
+				hexagrams.forEach(function(data,iprime){
+					var angle = 360/64.0*iprime;
+					var subgraph = graph.append('g');
+					// rotate through the graph
+					subgraph.attr("transform",
+						function(){
+							var result = "rotate("+(1*angle)+","+centerX+","+centerY+") ";
+							result+="translate("+400+","+200+")"
+							return result;
+						}
+					);
+					//append the line according to the length of the sentence
+					var numberOfLayer1 = getNumOfLayer(iprime);
+					// var nextLayer = getNumOfLayer((iprime+1)%64);
+					// var previousLayer = getNumOfLayer((iprime+63)%64);
+					// the start of the arcs and the lines
+					var startX = guaLayer*squareLength+guaLayer*interval;
+					// var numberOfLayer = Math.max(numberOfLayer1,previousLayer);
+					// console.log(numberOfLayer);
+					var startY = -1;
+					var endY = -1;
+					var endX = startX+numberOfLayer1*layerWidth;
+					//gridborder color
+					var guaciColor = '#454545';
+
+					var moveToMid = (squareLength*2+interval)/2;
+					// append the line of the left
+
+					var yaoXian = subgraph.append('g')
+					.attr('transform',
+						function(){
+							var str = "translate("+0+","+-1*moveToMid+")";
+							return str;
+						}
+					);
+					// the line of the right and left
+					yaoXian.append('line')
+					.style('stroke',guaciColor)
+					.attr('x1',startX)
+					.attr('x2',endX)
+					.attr('y1',-1*interval)
+					.attr('y2',-1*interval);
+
+					// append the line of the right
+					yaoXian.append('line')
+					.style('stroke',guaciColor)
+					.attr('x1',startX)
+					.attr('x2',endX)
+					.attr('y1',2*layerWidth+interval+1)
+					.attr('y2',2*layerWidth+interval+1);
+
+					//connect to formulate the rectangles
+					var k = 0;
+					while(k<=numberOfLayer1){
+						var arcRadius = startX+k*layerWidth;
+						yaoXian.append('line')
+							.style('stroke',guaciColor)
+							.attr('x1',arcRadius)
+							.attr('x2',arcRadius)
+							.attr('y1',-1)
+							.attr('y2',2*layerWidth+interval+1);
+							k++;
+					}
+
+					//label out the 卦名
+					var guaminglayer = gua[iprime].length;
+					yaoXian.append('line')
+					.style('stroke',guaciColor)
+					.attr('x1',startX)
+					.attr('x2',startX+guaminglayer*layerWidth)
+					.attr('y1',-1)
+					.attr('y2',2*layerWidth+interval+1);
+
+					// create the rectangles of the gua
+					var rectanglesGraph = subgraph.append('g');
+					rectanglesGraph.attr('class','overview')
+					rectanglesGraph.selectAll('rect').data(data).enter().append('rect')
+					.attr('x',function(d,i){
+						return (i%guaLayer)*(squareLength+interval);
+					})
+					.attr('y',function(d,i){
+						return Math.floor(i/guaLayer)*(squareLength+interval)-moveToMid;
+					})
+					.attr('width',function(d,i){
+						return squareLength;
+					})
+					.attr('height',function(d,i){
+						return squareLength;
+					})
+					.style('fill', function(d,i){
+						// d is the index of the color
+						return colorList[d];
+					})
+					rectanglesGraph.on('click',
+						function(){
+							console.log('click, lock: '+ !hasdetails)
+							// console.log(hasdetails)
+							// register the current event
+							var currentEvent = d3.select(this);
+							if (currentEvent.attr('class')=='overview' && !hasdetails){
+								// not incurring details
+								currentEvent.attr('class','details');
+								// 只能展现一个detail
+								hasdetails=1;
+
+								
+								currentEvent.attr('transform', function(d,i){
+									var s = "translate("+(-50)+","+0+")";
+									return s;
+								});
+								// code for changing the size and the position of the tectangles
+								// remove the previous small rectangles and append new noes on it.
+
+
+								// var rectangles = currentEvent.selectAll('rect').remove();
+								// // draw new rectangles
+								// currentEvent.selectAll('rect').data(data).enter().append('rect')
+								// .attr('x',function(d,i){
+								// 	return (i%guaLayer)*(squareLength+interval);
+								// })
+								// .attr('y',function(d,i){
+								// 	return Math.floor(i/guaLayer)*(squareLength+interval);
+								// })
+								// .attr('width',function(d,i){
+								// 	return squareLength;
+								// })
+								// .attr('height',function(d,i){
+								// 	return squareLength;
+								// })
+								// .style('fill', function(d,i){
+								// 	// d is the index of the color
+								// 	return colorList[d];
+								// });
+								// console.log(rectangles);
+								var yaociDetail = currentEvent.append('g').attr('class','yaociDetail')
+								.attr('transform', function(d,i){
+									var s = "translate("+(0)+","+(-1*moveToMid)+")";
+									return s;
+								});
+								;
+								// yaociDetail.selectAll('line')
+								var width2 = 3; // layer width on the rectangles
+								var strokeWidth = 0.5;
+								yaociAll.forEach(function(yaoci,index){
+									var numOfXian = yaoci[iprime].length;
+									// get the number of yao xian
+									var currentGram = hexagrams[iprime]
+									// gua
+									// 
+									var color = colorList[currentGram[index]]
+									var lineYao = yaociDetail.append('g')
+									var x = (index%guaLayer)*(squareLength+interval);
+									var y;
+									var multiplier = 1;
+									if(index<3){
+										// 用 multiplier 来调整上下分卦的爻辞的stack方向
+										multiplier = -1
+										y = Math.floor(index/guaLayer)*(squareLength+interval);
+										
+									}else{
+										y = Math.floor(index/guaLayer)*(squareLength+interval)+squareLength;
+									}
+									lineYao.append('line')
+									.attr('x1', x)
+									.attr('y1',y)
+									.attr('y2',y+numOfXian*multiplier*width2)
+									.attr('x2',x)
+									.style('stroke',color)
+									.style('stroke-width',strokeWidth)
+									;
+
+									lineYao.append('line')
+									.attr('x1', x+squareLength)
+									.attr('y1',y)
+									.attr('y2',y+numOfXian*multiplier*width2)
+									.attr('x2',x+squareLength)
+									.style('stroke-width',strokeWidth)
+									.style('stroke',color);		
+									// append lines
+									// formulate the none-fill empty stacks
+									var k2 = 1;
+									while(k2<=numOfXian){
+										var startPos = y+(multiplier)*k2*width2;
+										lineYao.append('line')
+											.style('stroke',color)
+											.style('stroke-width',strokeWidth)
+											.attr('x1',x)
+											.attr('x2',x+squareLength)
+											.attr('y1',startPos)
+											.attr('y2',startPos);
+										k2++;
+									}
+								});
+								// var ength = iprime
+								// var text = 
+							}
+							else{
+								// if already incurring details
+								var event = d3.select('.details')
+								// var currentEvent = d3.select(this)
+								hasdetails--;
+								// console.log(hasdetails)
+								event.attr('class','overview');
+								event.attr('transform', null);
+								d3.select('.yaociDetail').remove()
+							}
+							// console.log(this)
+						}
+					)
+					/*************************************************/
+					// objects storing all the characters representing sentiments
+					var labelArr = [];
+					for (var m = 0; m<numberOfLayer1;m++){
+						labelArr.push(false)
+					}			
+					var adjustment = 0.5
+					// highlight the characters by sentiments
+					ci = guaci[iprime];
+					sentimentsArray.forEach(
+						function(d,i){
+							var color = colorForGua[sentimentTable[d['label']]];
+							var sentiment = d.id;
+							index = ci.indexOf(sentiment);
+							if (index>-1){
+								var coloredBefore = false;
+								j = index;
+								while (j<index+sentiment.length){
+									if(labelArr[j]){
+										coloredBefore = true;
+									}
+									j++;
+								}
+								if(!coloredBefore){
+									// update the count of the sentiments
+									key = findTranslation(sentiment)
+									sentimentsCount[key][2]++;
+									// update the
+									yaoXian.append('rect')
+									.attr('x',startX+layerWidth*index+0.5)
+									.attr('y',-0.5)
+									.attr('width',function(){
+										// return squareLength;
+										return layerWidth * sentiment.length-1;
+									})
+									.attr('height',function(){
+										// return squareLength;
+										return 2*layerWidth+interval+1;
+									})
+									.style('fill', function(){
+										return color;
+									})
+									var j2 = index;	
+									while (j2<index+sentiment.length){
+										labelArr[j2] = true;
+										j2++;
+									}
+								}
+							}
+						}
+					);
+
+
+					var shiftLeft = -15;
+					var shiftDown = 0;
+					// var
+					//append text to some gua and the dots 
+					if ((iprime+1)%8==0||(iprime+1)==1){
+
+						var adjust = 4
+						// append the text
+						subgraph.append('text')
+						.attr('x',shiftLeft-adjust)
+						.attr('y',shiftDown+adjust)
+						.style("font-size", "10px")
+						.style('fill', 'white')
+						// .attr("dy", ".35em")
+						// .attr("d", ".35em")
+						.text(function(){
+							if ((iprime+1)/10<1){
+								return "0"+(iprime+1);
+							}else{
+								return ""+(iprime+1);
+							}
+						})
+						.attr('transform',
+							function(){
+							var arr = [24,32,40,48]
+							var pivot = iprime+1
+							var value = arr.indexOf(pivot)>=0 ? 180:0
+							var result = "rotate("+value+","+(shiftLeft+1)+","+(shiftDown+adjust-3)+")";
+							return result;
+						});
+					}else{
+						// append the dots 
+						subgraph.append('circle')
+						.style('fill','white')
+						.attr('cx', shiftLeft)
+						.attr('cy',shiftDown)
+						.attr('r',1)
+					}
+					
+				});
+				//generate the arc, can also be used to generate the color, also add the characters in iterate	
+				// generate the d3 pack
+				// drawThemeClusters();
+				forceRadialThemeClusters();
+				renderTagCloudsForSentiments();
+
+			}
+
+			function popUpWindow(){
+				var modal = document.getElementById('myModal');
+			}
+
+
+			$(document).ready(function() {
+				// renderGua()
+				renderGuaInteractive()
+				appendLegends()
+				navigation()
+				appendHeader()
+			});
+			// call the render gua function
+			
+
+			// formuate left conrer navigation bar
+
+
+	
+		</script>
+		
+
+
+	</head>
+
+
+	<body id = "bodyContent" style = "background-color:none;">
+		<div id = "topNav">
+			
+		</div>
+
+		<div id = 'leftNav'>
+			<!-- <h4 class = "vertical-text"> Visualizing I-CHING</h4> -->
+
+		</div>
+
+		<div id = "legends">
+			
+
+		</div>
+
+		<div id = "BieGua">
+
+
+		</div>
+		<!--modal blocks  -->
+		<div id="myModal" class="modal">
+			<div class="modal-content" style = "background-color:#1e1f23" >
+		    <span class="close">&times;</span>
+		    <!-- Content goes here -->
+		    	<section id="main">
+				<div class="inner">
+					<div class="wrapper style1">
+						<div class="content">
+
+							<!-- Elements -->
+								<h2 id="elements">About this Project</h2>
+							<p>I-Ching is one of the most important books in Chinese history published in the late 9th century BC. While originally used as a divination system, I-Ching is also considered to have a direct inspiration to much of Chinese culture and philosophy including the famous Confucius and the Taoism founder Lao-Tzu.</p>
+							<p><span class="image left"><img src="images/guaExp.png" alt="" /></span>One unique attribute about I-Ching is that it uses graphic representations- the Hexagrams- to conceal the meaning of its oracular language. It is built around sixty-four hexagrams with a group of six lines for each. Each hexagram has a statement, and each of the six lines also contains comments that correspond to the six stages of a particular situation. The statements and comments provide a vast set of possible interpretations for I-Ching.</p>
+							<p>This project uses text mining and modern interactive data visualization techniques to reveal new patterning insights of I-Ching from both divinatory and philosophical perspectives. We consider the pattern of hexagrams and their relationships as a binary coding system. The lines in I-Ching describe life as cyclical movement, and each line represents one of the fundamental assertions of the Changes.</p>
+							<p>A hexagram in the original I-Ching is a formation of six straight or split lines representing the stages and combinations of Yin and Yang- the world of opposites. They are arranged in numerical order from one to sixty-four. Adding an additional dimension (from lines to forms) and another color channel to the graphic symbols can better reveal the sequence structures and the reverse orders (binary) and inverse orders (symmetry) of the patterns of the neighboring hexagrams.</p>
+							<span class="image fit"><img src="images/updatedHexagram.png" alt="" /></span>
+							<p>The Gua text, sometimes is called the "Decision", is analyzed by filtering out the divination-related keywords. The fortune-telling keywords are listed in three categories on the right panel of the screen: <strong>positive</strong> &#40;keywords indicate good fortunes&#41;, <strong>neutral</strong> &#40;keywords relate to a state that is neither pleasant nor painful&#41; , and <strong>negative</strong> &#40;keywords relates to danger, warning, and other unfortunate events&#41;. The contents of the Dicision is also classified into different themes: <strong>behavior</strong> &#40;actions should be taken&#41;, <strong>mindset</strong> &#40;psychological attitudes or faith related suggestions&#41;, <strong>journey</strong> &#40;the cycle of change or movements, it can be either physical or metaphorical&#41;, <strong>orientation</strong> &#40;when navigation system such as north, east, west, and south is mentioned&#41;, <strong>career</strong> &#40;often relates to seeing a superior&#41;, <strong>politics</strong>, <strong>family</strong>, and <strong>military</strong>. Each theme is connected to the corresponding Gua/Hexagrams to show connections and frequency.</p>
+							
+								
+							</div>
+
+						</div>
+					</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+		
+				<div class="copyright">
+					&copy; Visualizing I-Ching. All rights reserved. 
+				</div>
+			</footer>
+			
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+			<!-- Content goes here -->
+		  	</div >
+		</div>
+
+		<div id  = "mainText">
+			<div id = "Positive"></div>
+			<div id = "Neutral"></div>
+			<div id = "Negative"></div>
+
+			
+
+		</div>
+		
+	</body>
+
+
+</html>

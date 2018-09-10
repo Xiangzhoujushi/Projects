@@ -60,7 +60,6 @@ var sentimentsCount = {};
 // for (key in translation.keys){
 // 	value = translation[key]
 // 	sentimentsCount[key] = [0,value,]
-
 // }	
 // sort sentiment by length of the string
 sentimentsArray = []
@@ -274,7 +273,6 @@ function wordCloudHighChart(){
 	//click function call will render the highlight of the guaci's colors
 
 }
-
 // highlight the key word
 function highLightKeyWord(word){
 	// go over the hexagrams and color the rectangle
@@ -328,14 +326,14 @@ function highLightKeyWord(word){
 
 			highLight.append('rect')
 				.attr('x',startX+layerWidth*index+0.5)
-				.attr('y',-0.5)
+				.attr('y',-3.5)
 				.attr('width',function(){
 					// return squareLength;
 					return layerWidth * word.length-1;
 				})
 				.attr('height',function(){
 					// return squareLength;
-					return 2*layerWidth+interval+1;
+					return 2*layerWidth+interval+6.5;
 				})
 				.style('fill', function(){
 					// highlight using white
@@ -353,10 +351,11 @@ function unhighLightKeyWord(){
 }
 
 // render the word clouds
-function renderTagCloudsForSentiments(){
+function renderTagCloudsForSentiments(idStr){
 	positiveData =[];
 	neutralData =[];
 	negativeData =[];	
+	colorForGua = ['#8e8e8e','#5e5e5e','#000000']
 	for (var key in sentimentsCount){
 		// console.log(key)
 		if (sentimentsCount[key][1] == "positive"){
@@ -395,76 +394,102 @@ function renderTagCloudsForSentiments(){
 	//A link to the mouseover, mouse on events
 	AllData = positiveData.concat(neutralData,negativeData)
 	//http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/plotoptions/series-point-events-mouseover/
+
 	var fontSize = 14;
-	var width = 300;
-	var background = '#262626';
-	var height = 900;
+	var width = 250;
+	var background = '#1c1c1c';
+	var height = 700;
 	var space  = 5;
 	var margin = 30;
 	var marginLeft = 50;
 	var factor = 0;
 	// //Tag clouds For all chinese characters
-	var svg = d3.select('#MainText').append('svg')
+	var svg = d3.select('#'+idStr).append('svg')
 	// .style("background-color", background)
 	.attr('height',height).attr('width',width)
-	.style('opacity',0.95)
-	;
-	// get the counts for each elements in positive group
-	// var svg = d3.select()
-	// space between words
-	
+	.attr('class','switchSection')
+	.attr("transform",
+		function(){
+			var result = "translate("+200+","+(-300)+")";
+			return result;
+	})
+	.style('opacity',1)
+	.style("background-color", background)
 	var textGraph = svg.append('g').attr('transform',
-		'translate(20,20)'
-	)
+		'translate(20,5)'
+	);
+
 	var wordClouds = textGraph.selectAll('text')
 	.data(AllData).enter().append('text')
 	.text(function(d){
 		return d.name
 	})
 	.attr('x', d =>  {
-		x = Math.random()*(width*0.2);
+		// x start from 20
+		x = 20;
 		return x;
 	})
 	.attr('y', (d,i)=>{
 		// console.log(AllData[i-1])
+		// add the rectangels here
 		// var prevData = 
 		if (i<=0 || (AllData[i-1].tag!= d.tag)){
 			// labels for classification of keywords 
-			factor += 25;
+			factor += 27;
 			textGraph.append('rect')
-			.attr('x',width-width/2)
-			.attr('y',i*(fontSize+space)+factor-30)
-			.attr('height',15)
-			.attr('width',width/2)
+			.attr('x',-20)
+			.attr('y',i*(fontSize+space)+factor-33)
+			.attr('height',22)
+			.attr('width',width)
 			.style('fill',d.color);
 
 			textGraph.append('text')
-			.attr('x',width-width/2)
-			.attr('y',i*(fontSize+space)+factor-35/2)
+			.attr('x',-18)
+			.attr('y',i*(fontSize+space)+factor-35/2+1)
 			.style('fill','white')
 			.style('fill-opacity',0.8)
-			.text(sentimentClass[d.tag])
-			.style('font-size', fontSize-2)
-			factor += 4;
+			.text(sentimentClass[d.tag].toUpperCase())
+			.style('font-size', fontSize+2)
+			factor += 5;
 			// .attr('height',15)
 			// .attr('width',width/2)
 			// .style('fill',d.color);
 			// append the title
 		}
 		var  yPosition = i*(fontSize+space)+factor
+
+		var textColor = '#8c8c8c'
+		// append the rectangels in the front
+		var rectangle = textGraph
+		.append('rect')
+		.attr('x',-10)
+		.attr('y',yPosition-7)
+		.attr('height',8)
+		.attr('width',20)
+		.style('fill',d.color)
+		.on('mouseover',function(){
+			var name = d.chinese;
+			highLightKeyWord(name)
+
+	// console.log(d)
+		}).on('mouseout',function(){
+			unhighLightKeyWord();
+		});
 		// yPosition+=factor;
 		return yPosition;
 	})
-	.style('fill',d=> {return d.color})
+	.style('fill',d=> {return '#8c8c8c'})
 	.style('font-size', fontSize)
 	.on('mouseover',function(d){
-	var name = d.chinese;
-	highLightKeyWord(name)
+		var name = d.chinese;
+		highLightKeyWord(name)
+		d3.select(this).style('fill','white')
 	// console.log(d)
 	}).on('mouseout',function(d){
 		unhighLightKeyWord();
+		d3.select(this).style('fill','#8c8c8c')
 	});
 	// append the title for the key words
-				// append the 
+	// append the 
 }
 

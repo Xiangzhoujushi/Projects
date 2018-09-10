@@ -6,7 +6,6 @@
 		<link rel="stylesheet" href="about/assets/css/main.css" />
 		<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 		<style>
-
 			#bodyContent{
 				font-family: 'PT Sans', sans-serif;
 				background-color:none;
@@ -50,7 +49,7 @@
 			    background-color: #fefefe;
 			    margin: auto;
 			    padding: 20px;
-			    border: 1px solid #888;
+			   /* border: 1px solid #888;*/
 			    width: 80%;
 			}
 
@@ -73,7 +72,6 @@
 				font-size:10px;
 				 transform-origin: right;
     			transform: translate(100, 50%) rotate(-90deg) ;
-
 			}*/
 			/*the body and whole formatings*/
 
@@ -105,7 +103,7 @@
 				/*margin-left:0px:;*/
 				float:left;
 				left:50px;
-				width:1000px;
+				width:900px;
 				overflow: auto;
 				position:absolute;
 				/*background:grey;
@@ -125,24 +123,32 @@
 				display:block;
 				position: absolute;
 			}
+			div#toggleLegend{
+				left:0px;
+				position:absolute;
+				vertical-align: top;
+				display:block;
+				width:100px;
+				height:400px;
+			}
 			div#mainText{
 				/*overflow: auto*/
 				/*margin-left:100px:;*/
 				height:900px;
 				top:20px;
-				left:1000px;
+				left:900px;
 				/*width*/
 				position:absolute;
 				text-align:left;
 				vertical-align: top;
 				/*border-left: 1px  solid grey;*/
 				/*left:1000px;*/
-				background: linear-gradient(#262626, #5c5c5c);
+				background: #262626;
 				/*margin-left:50px;*/
 				float:left;
 				display:block;
 				position:absolute;
-				width:300px;
+				width:450px;
 				margin:0 auto;
 			}
 
@@ -152,8 +158,6 @@
 				width:600px;
 			}
 		</style>
-
-
 		<!-- External Library Used for the file Jquery, D3 currently included -->
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -165,200 +169,36 @@
 		<script src="data.js"></script>
 		<!-- keywords related 数据 -->
 		<script src = "keyword.js"></script>
-
+		<!-- themes related 数据 -->
 		<script src= "themes.js"></script>
-
+		<!-- side and head bars -->
 		<script src= "header.js"></script>
 		<!-- Main functions -->
+		<script src = "legends.js"></script>
+		<!-- the toggle legends for selections -->
+		<script src = "explanationOfGeo.js"></script>
+		<script src = "geoPatterns.js"></script>
+
+		<!-- 必须在最后，因为要叫前面的方程 -->
+		<script src = "toggleLegends.js"></script>
+		<script src = "yaoText.js"></script>
+
+
+
 		<script>
+
 			// Can apply trigram of fuxi to generate the hexagram of fuxi
 			var hasdetails =  0;
 			
-			// function renderYaoCi(){
-
-			// }
-			// draw all details on themes
-
-				
-
 			function getNumOfLayer(i){
 				return guaci[i].length;
 			}
-			// }
 
-
+			// the arrows in the center
 			function normalizeCount(count){
 				// return
 				var weight = Math.log2(count+20)/Math.log2(5)
 				return weight
-			}
-			// generating the pop up window
-			function popUpWindow(){
-
-			}
-
-			// function for appending the legends
-			function appendLegends(){
-				//fomulate a list
-				var width = 200
-				var interval = 100
-				var locationArr = [1,2,3,4,5,6]
-				var svg = d3.select('#BieGua>svg');
-				var fontSize = 8
-				var locX = 600
-				var locY = 10
-
-				var graphExp = svg.append('g').attr('transform',
-				() => {
-					return "translate("+locX+","+locY+")";
-				});
-				var w = 300
-				var boxPadding = 10
-				var boxL = 320
-				var boxW = 120
-				var frameBox = graphExp.append('g')
-				.append('rect').style('fill','rgb(0,0,0,0.5)')
-				.attr('x',(0-boxPadding))
-				.attr('y',(0-boxPadding))
-				.attr('width',(boxL-boxPadding))
-				.attr('height',(boxW-boxPadding))
-				// appedn the graphExp
-				graph1 = graphExp.append('g')
-				// appends the side length fo the graph
-				var sideLength = 40
-				var interval = 10
-				graph1.selectAll('rect')
-				.data(locationArr).enter().append('rect')
-				.attr('x',d =>
-				{
-					return (d-1)%3*(sideLength+interval)
-				})
-				.attr('y',
-				d =>{
-					return Math.floor((d-1)/3)*(sideLength+interval)
-				})
-				.attr('width',sideLength)
-				.attr('height',sideLength)
-				.style('fill','green');
-
-				//use the svg path to draw the right angle rectangles. using polygons
-				//for yang gua
-				graph1.selectAll('polygon').data(locationArr).enter()
-				.append('polygon').style('fill',colorList[1])
-				.attr('points',
-					function(d2,i){
-						points =""
-						p1x = (d2-1)%3*(sideLength+interval)
-						p1y =Math.floor((d2-1)/3)*(sideLength+interval)
-						p1 = p1x+","+p1y+" "
-						p2 = (p1x+sideLength)+","+p1y+" "
-						p3 = p1x+","+(p1y+sideLength)+" "
-						points+=p1+p2+p3
-						return points
-					}
-				);
-				//for all yin gua
-				var graph2 = graphExp.append('g');
-				graph2.selectAll('polygon').data(locationArr).enter()
-				.append('polygon').style('fill',colorList[0])
-				.attr('points',
-					function(d2,i){
-						points =""
-						p1x = (d2-1)%3*(sideLength+interval)
-						p1y =Math.floor((d2-1)/3)*(sideLength+interval)
-						p1 = (p1x+sideLength)+","+(p1y+sideLength)+" "
-						p2 = (p1x+sideLength)+","+p1y+" "
-						p3 = p1x+","+(p1y+sideLength)+" "
-						points+=p1+p2+p3
-						return points
-					}
-				);
-				// append the text
-				var shiftedDistance = 50
-				var explainText= graphExp.append('g').attr('transform',
-				d => {
-					return "translate("+150+","+0+")";
-				});
-
-				var textList =  ['4th','5th','top','initial','2nd','3rd']
-				var yingAndYang = ['nine','six']
-				explainText.append('g').selectAll('line').data(locationArr).enter().append('line')
-				.attr(
-					"x1",d=>{return (d-1)%3*(sideLength+interval)}
-				)
-				.attr('x2', d=>{return (d-1)%3*(sideLength+interval)+sideLength})
-				.attr('y1', d=>{return Math.floor((d-1)/3)*(sideLength+interval)+sideLength})
-				.attr('y2', d=>{return Math.floor((d-1)/3)*(sideLength+interval)})
-				.style('stroke','white')
-				.style('stroke-opacity',0.5)
-				;
-
-
-				// first line, upper
-				//first line lower
-				var shiftedDown = 10
-				var secondLevel = 20
-
-				explainText.append('g').selectAll('text').data(textList).enter()
-				.append('text')
-				.text((d,i)=>{
-					return textList[i]
-				})
-				.style('font-size',fontSize)
-				.style('fill-opacity',0.75)
-				.style('fill','white')
-				.attr('x', (d,i)=>{
-					return i%3*(sideLength+interval)
-				})
-				.attr('y', (d,i)=>{
-					return Math.floor((i)/3)*(sideLength+interval)+shiftedDown
-				});
-
-				explainText.append('g').selectAll('text').data(textList).enter()
-				.append('text')
-				.text((d,i)=>{
-					return yingAndYang[0]
-				})
-				.style('font-size',fontSize)
-				.style('fill-opacity',0.75)
-				.style('fill','white')
-				.attr('x', (d,i)=>{
-					return i%3*(sideLength+interval)
-				})
-				.attr('y', (d,i)=>{
-					return Math.floor((i)/3)*(sideLength+interval)+2*shiftedDown
-				})
-				
-				explainText.append('g').selectAll('text').data(textList).enter()
-				.append('text')
-				.text((d,i)=>{
-					return textList[i]
-				})
-				.style('font-size',fontSize)
-				.style('fill-opacity',0.75)
-				.style('fill','white')
-				.attr('x', (d,i)=>{
-					return i%3*(sideLength+interval)+secondLevel
-				})
-				.attr('y', (d,i)=>{
-					return Math.floor((i)/3)*(sideLength+interval)+shiftedDown+secondLevel
-				});
-				
-				explainText.append('g').selectAll('text').data(textList).enter()
-				.append('text')
-				.text((d,i)=>{
-					return yingAndYang[1]
-				})
-				.style('font-size',fontSize)
-				.style('fill-opacity',0.75)
-				.style('fill','white')
-				.attr('x', (d,i)=>{
-					return i%3*(sideLength+interval)+secondLevel
-				})
-				.attr('y', (d,i)=>{
-					return Math.floor((i)/3)*(sideLength+interval)+2*shiftedDown+secondLevel
-				})
-
 			}
 			// function for appending interactive gua
 			function renderGuaInteractive(){
@@ -372,7 +212,7 @@
 				
 				//create a svg canvas, move the graph to the center
 				var svg = d3.select('#BieGua').append('svg').style("background-color", background)
-				.attr('height',svgHeight+700).attr('width',svgWidth+600);
+				.attr('height',svgHeight+500).attr('width',svgWidth+500);
 
 				var graph = svg.append('g')
 				.attr("transform",
@@ -380,7 +220,7 @@
 						var result = "translate("+200+","+200+")";
 						return result;
 					}
-				);
+				)
 				// the length of the small square
 				var squareLength = 7;
 				// the interval between each rectangel
@@ -395,9 +235,49 @@
 				subgraphList = [];
 				var radius = svgHeight/4;
 				//iterate over the array of guas and draw 6 rectangles representing yaos
+
+				// the lines with the paragraphs
+				p1 = [-170,200]
+			    p2 = [620,200]
+
+			    // var end = 1*r+14
+			    // drawCenterArrows(meridianGraph,p1,p2)
+			    // the horizontal lines with the arrow heads
+
+			    var opa = 0.1
+			    var meridian = graph.append('g')
+			    meridian.append('g')
+				.append('line')
+				.style("stroke", "white") 
+				.attr('stroke-dasharray', '6,18,20,18')
+			    .attr('stroke-linecap', 'butt')
+			    .attr('stroke-opacity',opa)
+			    .attr('stroke-width', '5') 
+			  	.attr("x1", p1[0])     
+			    .attr("y1", p1[1])     
+			    .attr("x2", p2[0])     
+			    .attr("y2", p2[1])
+				// var p = 
+				point = p2
+				size = 10
+				p4 = (point[0]-size/2)+','+(point[1]+size)
+				p2 = (point[0]-size/2)+','+(point[1]-size)
+				p3 = (point[0]+2*size)+','+(point[1])
+				p1 = point[0]+','+point[1]
+
+				meridian.append('polygon')
+				.attr('points',
+					function(){
+						return p1+','+p2+','+p3+','+p4;
+					}
+				)
+				.style('fill','white')
+				.style('fill-opacity',opa)
+
 				hexagrams.forEach(function(data,iprime){
 					var angle = 360/64.0*iprime;
-					var subgraph = graph.append('g');
+					var subgraph = graph.append('g')
+					.attr('id','Gua_'+iprime)
 					// rotate through the graph
 					subgraph.attr("transform",
 						function(){
@@ -488,6 +368,29 @@
 						// d is the index of the color
 						return colorList[d];
 					})
+
+					// if (document.getElementById("themeDetails") ){
+					// 	console.log(document.getElementById("themeDetails"))
+					// }
+					// if (d3.select('.graphDisplayInCenter').attr('id')=='themeDeta'){
+					// 	console.log('okkkkk')
+					// }
+					rectanglesGraph.on('mouseover',function(){
+						if (document.getElementById("themeDetails") ){
+							highlightByGua(iprime+1)
+							// console.log(document.getElementById("themeDetails"))
+						}
+					}).on('mouseout',function(){
+						if (document.getElementById("themeDetails") ){
+							unhighlightByGua(iprime+1)
+							// console.log(document.getElementById("themeDetails"))
+						}
+					})
+					// the themes rectangles
+					// if (document.getElementById("themeDetails")){
+					// 	console.log('trigger')
+						
+					// }
 					rectanglesGraph.on('click',
 						function(){
 							console.log('click, lock: '+ !hasdetails)
@@ -499,16 +402,12 @@
 								currentEvent.attr('class','details');
 								// 只能展现一个detail
 								hasdetails=1;
-
-								
 								currentEvent.attr('transform', function(d,i){
 									var s = "translate("+(-50)+","+0+")";
 									return s;
 								});
 								// code for changing the size and the position of the tectangles
 								// remove the previous small rectangles and append new noes on it.
-
-
 								// var rectangles = currentEvent.selectAll('rect').remove();
 								// // draw new rectangles
 								// currentEvent.selectAll('rect').data(data).enter().append('rect')
@@ -656,7 +555,6 @@
 						}
 					);
 
-
 					var shiftLeft = -15;
 					var shiftDown = 0;
 					// var
@@ -700,110 +598,104 @@
 				//generate the arc, can also be used to generate the color, also add the characters in iterate	
 				// generate the d3 pack
 				// drawThemeClusters();
-				forceRadialThemeClusters();
-				renderTagCloudsForSentiments();
-
+				// renderTagCloudsForSentiments();
 			}
-
 			function popUpWindow(){
 				var modal = document.getElementById('myModal');
 			}
-
-
 			$(document).ready(function() {
 				// renderGua()
 				renderGuaInteractive()
-				appendLegends()
+				explanText();
+				// appendLegends()
 				navigation()
 				appendHeader()
+				addToggleLegends()
+				// default to 显示爻辞的details
+				
+				appendYaoText('mainText')
+				// appendGeoPattern('mainText')
 			});
-			// call the render gua function
-			
-
+			// call the render gua function		
 			// formuate left conrer navigation bar
-
-
-	
 		</script>
-		
-
-
 	</head>
-
-
 	<body id = "bodyContent" style = "background-color:none;">
 		<div id = "topNav">
-			
 		</div>
 
 		<div id = 'leftNav'>
 			<!-- <h4 class = "vertical-text"> Visualizing I-CHING</h4> -->
-
 		</div>
 
 		<div id = "legends">
-			
-
 		</div>
 
 		<div id = "BieGua">
-
-
 		</div>
+		<!-- <div id = 'explanText'>
+		</div> -->
 		<!--modal blocks  -->
 		<div id="myModal" class="modal">
-			<div class="modal-content" style = "background-color:#1e1f23" >
+			<div class="modal-content" style = "background-color:#1e1f23;opacity:0.8" >
 		    <span class="close">&times;</span>
 		    <!-- Content goes here -->
 		    	<section id="main">
 				<div class="inner">
 					<div class="wrapper style1">
 						<div class="content">
-
 							<!-- Elements -->
 								<h2 id="elements">About this Project</h2>
-							<p>I-Ching is one of the most important books in Chinese history published in the late 9th century BC. While originally used as a divination system, I-Ching is also considered to have a direct inspiration to much of Chinese culture and philosophy including the famous Confucius and the Taoism founder Lao-Tzu.</p>
-							<p><span class="image left"><img src="images/guaExp.png" alt="" /></span>One unique attribute about I-Ching is that it uses graphic representations- the Hexagrams- to conceal the meaning of its oracular language. It is built around sixty-four hexagrams with a group of six lines for each. Each hexagram has a statement, and each of the six lines also contains comments that correspond to the six stages of a particular situation. The statements and comments provide a vast set of possible interpretations for I-Ching.</p>
-							<p>This project uses text mining and modern interactive data visualization techniques to reveal new patterning insights of I-Ching from both divinatory and philosophical perspectives. We consider the pattern of hexagrams and their relationships as a binary coding system. The lines in I-Ching describe life as cyclical movement, and each line represents one of the fundamental assertions of the Changes.</p>
-							<p>A hexagram in the original I-Ching is a formation of six straight or split lines representing the stages and combinations of Yin and Yang- the world of opposites. They are arranged in numerical order from one to sixty-four. Adding an additional dimension (from lines to forms) and another color channel to the graphic symbols can better reveal the sequence structures and the reverse orders (binary) and inverse orders (symmetry) of the patterns of the neighboring hexagrams.</p>
+							<p>I-Ching is one of the most important books in Chinese history published in the late 9th century BC. While originally used as a divination system, I-Ching is also considered to have a direct inspiration to much of Chinese culture and philosophy including the famous Confucius and the Taoism founder Lao-Tzu. The goal of the project is to overcome cultural and language barriers, and investigate more innovative methods to objectively analyze and interpret I-Ching than language translations. </p>
+							<p><span class="image left"><img src="images/guaExp.png" alt="" /></span>One unique attribute about I-Ching is that it uses graphic representations- the Hexagrams- to conceal the meaning of its oracular language. It is built around sixty-four hexagrams with a group of six lines for each. Each hexagram has a statement, and each of the six lines also contains comments that correspond to the six stages of a particular situation. The statements and comments provide a vast set of possible interpretations for I-Ching. Although there have been many versions of translations, from modern Chinese (ancient Chinese language is known to be extremely concise with many possible interpretations) to western languages, it can be a lifetime endeavor to reveal the linkage among all elements and the sequences of structures in I-Ching.</p>
+							<p>This project uses text mining and modern interactive data visualization techniques to reveal new patterning insights of I-Ching from both divinatory and philosophical perspectives. We consider the pattern of hexagrams and their relationships as a binary coding system. The lines in I-Ching describe life as cyclical movement, and each line represents one of the fundamental assertions of the Changes. A hexagram in the original I-Ching is a formation of six straight or split lines representing the stages and combinations of Yin and Yang- the world of opposites. They are arranged in numerical order from one to sixty-four. Adding an additional dimension (from lines to forms) and another color channel to the graphic symbols can better reveal the sequence structures and the inverse and opposite patterns of the neighboring hexagrams. </p>
 							<span class="image fit"><img src="images/updatedHexagram.png" alt="" /></span>
-							<p>The Gua text, sometimes is called the "Decision", is analyzed by filtering out the divination-related keywords. The fortune-telling keywords are listed in three categories on the right panel of the screen: <strong>positive</strong> &#40;keywords indicate good fortunes&#41;, <strong>neutral</strong> &#40;keywords relate to a state that is neither pleasant nor painful&#41; , and <strong>negative</strong> &#40;keywords relates to danger, warning, and other unfortunate events&#41;. The contents of the Dicision is also classified into different themes: <strong>behavior</strong> &#40;actions should be taken&#41;, <strong>mindset</strong> &#40;psychological attitudes or faith related suggestions&#41;, <strong>journey</strong> &#40;the cycle of change or movements, it can be either physical or metaphorical&#41;, <strong>orientation</strong> &#40;when navigation system such as north, east, west, and south is mentioned&#41;, <strong>career</strong> &#40;often relates to seeing a superior&#41;, <strong>politics</strong>, <strong>family</strong>, and <strong>military</strong>. Each theme is connected to the corresponding Gua/Hexagrams to show connections and frequency.</p>
+							<p>The visualization approach and research process investigate four aspects of I-Ching: <b>the cyclical movements among different stages, the thematic categories of the Decisions, the occurrences of keywords related to divination, </b>and <b>the geometrical patterns of the Hexagrams.</b> Users may browse through the four tabs listed on the right side of the window panel to explore. A brief explanation of the four approaches is explained below:</p>
+							<li>Yao Texts</li>
+							<p>The Yao Texts（爻辞）are originally composed by the Duke of Zhou. They are analysis of each of the six individual squares (the six lines from the original Hexagram), which correspond to the six stages of a particular situation. One of the most important messages from I-Ching is that <i>everything is in a process of continous change, rising and falling in a progressive evoutionary advancement.</i> Therefore, we intend to identify the moment when the transition from one extreme to another occurs using the keywords in the Yao Texts. <br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The three most frequently occured characters in all Yao texts are 无咎(no misfortune)，吉 (auspicious)，and 凶(ominous)，and they happen to represent the three stages from the favorable to the unfvaorable time and situation. When each of the keywords occur next to the other is when the transition of fortune occurs. These transitions are highlighted with user interactions. </p>
+							<li>Themes of the Decisions</li>
+							<p>The sixty-four Decisions (Gua text 卦辞) are brief summaries of the meaning of each gua, dense in symbolic meaning. They are King Wen's own assessment of the situation together with moral advice. The themes are generated from the Gua text (the Decisions) based on semantics of the sentences and keywords. <br />
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The category of <b>Mindset</b> relates to situations or advices relate to psychological attitudes and faith. The <b>Behavior</b> category is about actions and activities. <b>Journey</b> is both physical and metaphorical. It's the cycle of movements and change. The <b>Orientation</b> theme includes Guas in which the navigational direcitons are mentioned, such as east, west, south, and north. The category of <b>Relatioship</b> relates to the communication and connections with other human being. Some themes are almost solely relying on specific keywords. 家人 means households or family members, thus it is in the catogory of <b>Family</b>. 大人 means a superior or authority who is in a powerful position, and it relates to <b>Career</b>. 利建侯 translates to "establishing fuedal lords", so it goes into the <b>Politics</b> category. The character 师 means <b>Military</b>. Most Decisions contain more than one defined themes. Each theme is connected to the corresponding Gua/Hexagrams to show connections and frequency.</p>
 							
-								
+							<li>Divination Keywords</li>
+						  <p>The Gua text, sometimes is called the "Decision", is analyzed by filtering out the divination-related keywords. The fortune-telling keywords are categorized into three groups: <strong>positive</strong> &#40;keywords indicate good fortunes&#41;, <strong>neutral</strong> &#40;keywords relate to a state that is neither pleasant nor painful&#41;, and <strong>negative</strong> &#40;keywords relates to danger, warning, and other unfortunate events&#41;.</p>
+							<li>Geometrical Patterns</li>
+							<p>Each Gua consists of six Yao. In Chinese, Yang Yao are represented by the number 9, Yin Yao by the number 6. For instance, a solid line at the second place is called Second Nine. The first part of the Geometrical Pattern visual analysis reveals the cases when Yin or Yang Yao appears at the the same position in a Gua.<br />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Each Gua can be divided into two parts - the upper (outer) and the lower (inner). Fu Xi drew only eight Gua and each of the eight Gua consists of only three lines. These original Gua (the Trigrams) have corresponding names that become the basic elements of Yin and Yang. Later, these eight Gua were combined with one another and thereby a new system of sixty-four Gua was obtained. Thus, the eight Gua were known as the Primary Gua. The second part of the Geometrical Pattern visual analysis intends to highlight these Primary Guas.<br />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The third part of the Geometrical Pattern visual analysis points out the connections between the Gua. Some are <b>opposite</b> to one another: the positions of the Yin and Yang Yaos are exchanged; some are <b>inversed</b>: the lower and upper trigrams flip the spot and results in a mirror effect.  
+							</p>
 							</div>
-
 						</div>
 					</div>
 			</section>
-
 		<!-- Footer -->
 			<footer id="footer">
-		
 				<div class="copyright">
 					&copy; Visualizing I-Ching. All rights reserved. 
 				</div>
 			</footer>
-			
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.poptrox.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-
 			<!-- Content goes here -->
 		  	</div >
 		</div>
 
-		<div id  = "mainText">
-			<div id = "Positive"></div>
-			<div id = "Neutral"></div>
-			<div id = "Negative"></div>
-
-			
-
-		</div>
 		
+		<div id  = "mainText">
+			<div id = 'toggleLegend'>
+
+			</div>
+			<!-- <div id = "Positive"></div>
+			<div id = "Neutral"></div>
+			<div id = "Negative"></div> -->
+		</div>	
+		<!-- the section for all interactive features -->
+		<div id = "interactiveSection">
+			
+		</div>
 	</body>
-
-
 </html>

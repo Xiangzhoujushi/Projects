@@ -1,6 +1,6 @@
 
 function navigation(){
-	var h = 1000;
+	var h = 900;
 	var w =50;
 	var fontSize = 25
 	// background color
@@ -10,8 +10,8 @@ function navigation(){
 	.attr('height',h)
 	.style('fill',bgc);
 
-	var text1 = svg.append('g').attr('transform','translate(30,-240)')
-	text1.append('text').text('Visualizing')
+	var text1 = svg.append('g').attr('transform','translate(30,-180)')
+	text1.append('text').text('VISUALIZING')
 	.style('fill','black')
 	.style('font-size',fontSize)
 	.attr('x',0)
@@ -21,7 +21,7 @@ function navigation(){
 	;
 
 
-	var text2 = svg.append('g').attr('transform','translate(30,-370)');
+	var text2 = svg.append('g').attr('transform','translate(30,-330)');
 	text2.append('text').text('I-CHING')
 	.style('fill','black')
 	.style('font-weight','bold')
@@ -81,25 +81,24 @@ function navigation(){
 
 function appendHeader(){
 	var background = "black"
-	var svg = d3.select('#topNav').append('svg').attr('width',1250)
+	var svg = d3.select('#topNav').append('svg').attr('width',1300)
 	.attr('x',0)
 	.attr('y',-20)
 	.attr('height',20)
 	.style("background-color", background);
+	// var label1 = svg.append('g').attr('transform','translate(600,0)');
+	// label1.append('text').text('HEXAGRAMS & THE STATEMENT (GUA)')
+	// .style('fill','white')
+	// .style('fill-opacity','0.8')
+	// .attr('x',0)
+	// .attr('y',15)
+	// .style('font-size',10);
 
-	var label1 = svg.append('g').attr('transform','translate(600,0)');
-	label1.append('text').text('HEXAGRAMS & THE STATEMENT (GUA)')
-	.style('fill','white')
-	.style('fill-opacity','0.8')
-	.attr('x',0)
-	.attr('y',15)
-	.style('font-size',10);
-
-	var label2 = svg.append('g').attr('transform','translate(1100,0)');
-	label2.append('text').text('DIVINATION KEYWORDS')
-	.style('fill','white')
-	// .style('fill-opacity','')
-	.attr('x',0)
-	.attr('y',15)
-	.style('font-size',10)
+	// var label2 = svg.append('g').attr('transform','translate(1100,0)');
+	// label2.append('text').text('DIVINATION KEYWORDS')
+	// .style('fill','white')
+	// // .style('fill-opacity','')
+	// .attr('x',0)
+	// .attr('y',15)
+	// .style('font-size',10)
 }

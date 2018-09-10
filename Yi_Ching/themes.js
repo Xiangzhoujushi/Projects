@@ -1,3 +1,5 @@
+
+var guaToThemes = {}
 var themes = {
 	name: "theme", value:91,
 	children:[
@@ -134,16 +136,109 @@ var themes = {
 	]
 }
 
-function forceRadialThemeClusters(){
+function setUpThemesPanel(panelID){
+	themesCategories = [
+		{name:'behavior',chinese:'行为'},
+		{name:'mindset',chinese:'心态'},
+		{name:'journey',chinese:'旅程'},
+		{name:'relationship',chinese:'人际'},
+		{name:'politics',chinese:'政治'},
+		{name:'career',chinese:'事业'},
+		{name:'military',chinese:'军事'},
+		{name:'orientation',chinese:'方向'},
+		{name:'family',chinese:'家庭'},
+	]
 
+	// the gua to themes
+	
+	var background = '#1c1c1c'
+	var ht = 350
+	var wd = 250
+
+	var graphTags = d3.select('div#'+panelID).append('svg')
+	.attr('height', function(){
+		return ht;
+	})
+	.style("background-color", background)
+	.attr('width',function(){
+		return wd;
+	})
+	.attr('class','switchSection')
+	.attr("transform",
+		function(){
+			var result = "translate("+200+","+(-300)+")";
+			return result;
+	}).append('g');
+	// append the text
+	var slotSize = (ht)/themesCategories.length
+
+	graphTags.selectAll('text').data(themesCategories)
+	.enter().append('text')
+	.text(function(d){
+		return d.name+' '+d.chinese
+	})
+	.attr('x',
+		function(d,i){
+			return 30
+		})
+	.attr('y',function(d,i){
+		return (slotSize*i)+(slotSize+5)/2
+
+	})
+	.style("font-size", "15px")
+	.style('font-weight',10)
+	.style('fill', 'white')
+	.style('fill-opacity','0.5')
+	.on('mouseover',function(d){
+    	// console.log(d.name)
+    	highlightLineByID(d.name)
+    	d3.select(this).style('fill-opacity','0.9')
+    })
+    .on('mouseout',function(d){
+    	// console.log(d.name)
+    	unhighlightLineByID(d.name)
+    	d3.select(this).style('fill-opacity','0.5')
+    })
+
+
+	lgth = themesCategories.length-1
+	var texts = graphTags.selectAll('line').data(themesCategories.slice(0,lgth)).enter()
+	.append('line')
+	.style("stroke", "grey")  
+	.attr('stroke-dasharray', '2,3')
+    .attr('stroke-linecap', 'butt')
+    .attr('stroke-width', '2')
+    .attr("x1", function(d,i){
+    	return 0
+    })     // x position of the first end of the line
+    .attr("y1", function(d,i){
+    	return slotSize*(i+1)
+    })      // y position of the first end of the line
+    .attr("x2", function(d,i){
+    	return wd
+    })     // x position of the second end of the line
+    .attr("y2", function(d,i){
+    	return slotSize*(i+1)
+    })
+	// append the dotted lines
+	// implement the themes in the middle of all hexagram representations.
+	forceRadialThemeClusters(panelID)
+	//用户hover over text 点亮对应的graph
+}
+
+function forceRadialThemeClusters(panelID){
+	d3.select('.graphDisplayInCenter').remove();
+	// can remove the theme first then adding the panels
 	var graph = d3.select('#BieGua>svg').append('g').attr("transform",
 		function(){
 			var result = "translate("+200+","+200+")";
 			return result;
 		}
-	)
+	).attr('class','graphDisplayInCenter')
+	.attr('id','themeDetails')
+	// the graph in the center of the main plots
 	var numberOfClusters = themes.children.length;
-	console.log(numberOfClusters);
+	// console.log(numberOfClusters);
 	// all themes
 
 	var centerX = 200
@@ -156,6 +251,7 @@ function forceRadialThemeClusters(){
 	themesObject.forEach(function(d,i){
 		// the angle of the rotation
 		var angle = Math.PI*2/numberOfClusters*i;
+		// use classes as a classification
 		var subgraph = graph.append('g');
 		// may not use rotation
 		subgraph.attr("transform",
@@ -174,7 +270,7 @@ function forceRadialThemeClusters(){
 		var len = 200-15;
 
 		// apply line gnerator on all of the lines
-		console.log("current theme: "+name);
+		// console.log("current theme: "+name);
 		var current = d.children; // current object 
 		// console.log(len(current))
 		// console.log(d.children)
@@ -185,7 +281,7 @@ function forceRadialThemeClusters(){
 				var y1 = 0;
 				// the x1 and x2 in some cases
 				var num = d_line.name;
-				console.log(d_line)
+				// console.log(d_line)
 				var unshiftHorizontal = -1*Math.cos(angle)*rad;
 				var unshiftVertical = -1* Math.sin(angle)*rad;
 				var shiftHorizontal = len*Math.cos((num-1)/64*2*Math.PI);
@@ -195,7 +291,7 @@ function forceRadialThemeClusters(){
 				// var x = -250+400+(200)*Math.cos((num-1)/64*2*Math.PI);
 				// var y = -250+400+(200)*Math.sin((num-1)/64*2*Math.PI);
 				// x points and y points
-				console.log('')
+				// console.log('')
 				// xs =[x1,x2];
 				// ys =[y1,y2];
 				// console.log([x1,y1])
@@ -216,15 +312,29 @@ function forceRadialThemeClusters(){
 				.y(function(d3){
 					return d3.y;
 				});
-				// draw the line
+
+				// the line ID
+				var lineID = d.name+'_'+d_line.name
+
+
 				lineGraph.append('path').datum(lineData)
 				.attr('d',lineGenerator)
 				.style('stroke-width',0.1) // the stroke width
 				.style('stroke','white')
 				.style('fill','none')
-				.style('stroke-opacity',0.5); // the color
-				
+				.style('stroke-opacity',0.5)
+				.attr('id',lineID)
+				 // the color
+				// resolve mapping from gua toThemes, 
+				if (num in guaToThemes){
+					guaToThemes[num].push(d.name)
+				}else{
+					guaToThemes[num] = []
+					guaToThemes[num].push(d.name)
+				}
 		});
+
+
 
 		subgraph.append('circle')
 		.attr('r',radius)
@@ -265,19 +375,69 @@ function forceRadialThemeClusters(){
 		.style('font-size',10)
 		.style('fill-opacity',0.5);
 
-
-
+		subgraph.attr('id',()=>{
+			return d.name
+		})
 		subgraph.select('text').on('mouseover',highlightLine).on('mouseout',unhighlightLine);
-
 		subgraph.select('circle').on('mouseover',highlightLine).on('mouseout',unhighlightLine);
 		// subgraph.append('text').
 		// attr('r',radius)
+		// add gua and select
 		// .attr()
+		// d3.select('')
 	});
-
+	console.log(guaToThemes)
 }
 
+// the highlightByGua
 
+function highlightByGua(guaName){
+	if (guaName in guaToThemes){
+		var themeArr = guaToThemes[guaName]
+		themeArr.forEach(function(theme,i){
+			// console.log(theme)
+			var selectedID = '#'+theme+'_'+guaName
+			d3.select(selectedID)
+			.style('stroke-width',0.4) // the stroke width
+			// .style('stroke','white')
+			.style('stroke-opacity',1.0); // the color
+
+			d3.select('#'+theme+'>'+'circle')
+			.style('stroke-opacity',1.0)
+			.style('fill','#ffffff')
+			.style('stroke','white')
+			.style('stroke-width',0.6);
+
+			d3.select('#'+theme+'>'+"text")
+			.style('font-size',12)
+			.style('fill-opacity',1.0);
+		})
+	}
+}
+
+function unhighlightByGua(guaName){
+	if (guaName in guaToThemes){
+		var themeArr = guaToThemes[guaName]
+		themeArr.forEach(function(theme,i){
+			var selectedID = '#'+theme+'_'+guaName
+
+			d3.select(selectedID)
+			.style('stroke-width',0.1) // the stroke width
+			.style('stroke-opacity',0.5); // the color
+
+			d3.select('#'+theme+'>'+'circle')
+			.style('fill',
+			function(){
+				return 'grey'
+			})
+			.style('stroke','none')
+			;
+
+			d3.select('#'+theme+'>'+"text")
+			.style('font-size',10)
+			.style('fill-opacity',0.5);})
+	}
+}
 
 function drawArcs(d3Object,x1,y1,x2,y2,n,k){
   var cx = (x1+x2)/2;
@@ -311,11 +471,34 @@ function highlightLine(){
 	.style('stroke','white')
 	.style('stroke-width',0.6);
 
-	d3.select(parent).select('text').style('font-size',10)
+	d3.select(parent).select('text')
 	.style('font-size',12)
 	.style('fill-opacity',1.0);
 
 }
+
+function highlightLineByID(idString){
+	// console.log(idString) 
+	node = d3.selectAll('g#'+idString)
+
+	node.selectAll('path')
+	.style('stroke-width',0.4) // the stroke width
+	.style('stroke','white')
+	.style('stroke-opacity',1.0); // the color
+
+	node.select('circle')
+	.style('stroke-opacity',1.0)
+	.style('fill','#ffffff')
+	.style('stroke','white')
+	.style('stroke-width',0.6);
+
+	node.select('text')
+	.style('font-size',12)
+	.style('fill-opacity',1.0);
+
+}
+
+
 function unhighlightLine(){
 	var parent = this.parentNode;
 	d3.select(parent).selectAll('path')
@@ -334,7 +517,31 @@ function unhighlightLine(){
 	// .style('stroke','blue')
 	// .style('stroke-width',0.6);
 
-	d3.select(parent).select('text').style('font-size',10)
+	d3.select(parent).select('text')
+	.style('font-size',10)
+	.style('fill-opacity',0.5);
+}
+
+function unhighlightLineByID(idString){
+
+	var node = d3.selectAll('g#'+idString)
+	node.selectAll('path')
+	.style('stroke-width',0.1) // the stroke width
+	.style('stroke','white')
+	.style('stroke-opacity',0.5); // the color
+
+	node.select('circle')
+	.style('fill',
+		function(){
+			return 'grey'
+	})
+	.style('stroke','none')
+	;
+	// .style('stroke-opacity',1.0)
+	// .style('stroke','blue')
+	// .style('stroke-width',0.6);
+
+	node.select('text')
 	.style('font-size',10)
 	.style('fill-opacity',0.5);
 }
@@ -342,10 +549,9 @@ function unhighlightLine(){
 
 
 
-
 // the hiearchical cluster using pack
 function PackStylehemeClusters(){
-	// all themes
+	// all cion
 	// var sumReducer = (accum,d)=> {accum+d.count;}
 	// var numberOfClusters = themes.reduce(sumReducer,0);
 	// Add force, 

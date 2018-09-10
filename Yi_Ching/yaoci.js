@@ -1,5 +1,4 @@
-
-
+	
 var yaoci_chu = [
 '潛龍勿用',
 '履霜堅冰至',
@@ -74,10 +73,10 @@ var yaoci_er = [
 ]
 
 var yaoci_san=[
-'君子終日乾乾夕惕若厲旡咎','含章可貞或從王事无成有終','即鹿无虞惟入于林中君子幾不如舍往吝','勿用取女見金夫不有躬无攸利','需于泥致寇至','食舊德貞厲終吉或從王事无成','師或輿尸凶','比之匪人','輿說輻夫妻反目','眇能視跛能履履虎尾咥人凶武人為于大君','无平不陂无往不復艱貞无咎勿恤其孚于食有福','包羞','伏戎于莽升其高陵三歲不興','公用亨于天子小人弗克','勞謙君子有終吉','盱豫悔遲有悔','係丈夫失小子隨有求得利居貞','幹父之蠱小有悔无大咎','甘臨无攸利既憂之无咎','觀我生進退','噬腊肉遇毒小吝无咎','賁如濡如永貞吉','剝之无咎','頻復厲无咎','无妄之災或繫之牛行人之得邑人之災','良馬逐利艱貞曰閑輿衛利有攸往','拂頤貞凶十年勿用无攸利','棟橈凶','來之坎坎險且枕入于坎窞勿用','日昃之離不鼓缶而歌則大耋之嗟凶','咸其股執其隨往吝','不恒其德或承之羞貞吝','係遯有疾厲畜臣妾吉','小人用壯君子用罔貞厲羝羊觸藩羸其角','眾允悔亡','明夷于南狩得其大首不可疾貞','家人嗃嗃悔厲吉婦子嘻嘻終吝','見輿曳其牛掣其人天且劓无初有終','往蹇來反','負且乘致寇至貞吝','三人行則損一人一人行則得其友','益之用凶事无咎有孚中行告公用圭','壯于頄有凶君子夬夬獨行遇雨若濡有慍无咎','臀无膚其行次且厲无大咎','萃如嗟如无攸利往无咎小吝','升虛邑','困于石據于蒺蔾入于其宮不見其妻凶','井渫不食為我心惻可用汲王明並受其福','征凶貞厲革言三就有孚','鼎耳革其行塞雉膏不食方雨虧悔終吉','震蘇蘇震行无眚','艮其限列其夤厲薰心','鴻漸于陸夫征不復婦孕不育凶利禦寇','歸妹以須反歸以娣','豐其沛日中見沬折其右肱无咎','旅焚其次喪其童僕貞厲','頻巽吝','來兌凶','渙其躬无悔','不節若則嗟若无咎','得敵或鼓或罷或泣或歌','弗過防之從或戕之凶','高宗伐鬼方三年克之小人勿用','未濟征凶利涉大川'
+'君子終日乾乾夕惕若厲无咎','含章可貞或從王事无成有終','即鹿无虞惟入于林中君子幾不如舍往吝','勿用取女見金夫不有躬无攸利','需于泥致寇至','食舊德貞厲終吉或從王事无成','師或輿尸凶','比之匪人','輿說輻夫妻反目','眇能視跛能履履虎尾咥人凶武人為于大君','无平不陂无往不復艱貞无咎勿恤其孚于食有福','包羞','伏戎于莽升其高陵三歲不興','公用亨于天子小人弗克','勞謙君子有終吉','盱豫悔遲有悔','係丈夫失小子隨有求得利居貞','幹父之蠱小有悔无大咎','甘臨无攸利既憂之无咎','觀我生進退','噬腊肉遇毒小吝无咎','賁如濡如永貞吉','剝之无咎','頻復厲无咎','无妄之災或繫之牛行人之得邑人之災','良馬逐利艱貞曰閑輿衛利有攸往','拂頤貞凶十年勿用无攸利','棟橈凶','來之坎坎險且枕入于坎窞勿用','日昃之離不鼓缶而歌則大耋之嗟凶','咸其股執其隨往吝','不恒其德或承之羞貞吝','係遯有疾厲畜臣妾吉','小人用壯君子用罔貞厲羝羊觸藩羸其角','眾允悔亡','明夷于南狩得其大首不可疾貞','家人嗃嗃悔厲吉婦子嘻嘻終吝','見輿曳其牛掣其人天且劓无初有終','往蹇來反','負且乘致寇至貞吝','三人行則損一人一人行則得其友','益之用凶事无咎有孚中行告公用圭','壯于頄有凶君子夬夬獨行遇雨若濡有慍无咎','臀无膚其行次且厲无大咎','萃如嗟如无攸利往无咎小吝','升虛邑','困于石據于蒺蔾入于其宮不見其妻凶','井渫不食為我心惻可用汲王明並受其福','征凶貞厲革言三就有孚','鼎耳革其行塞雉膏不食方雨虧悔終吉','震蘇蘇震行无眚','艮其限列其夤厲薰心','鴻漸于陸夫征不復婦孕不育凶利禦寇','歸妹以須反歸以娣','豐其沛日中見沬折其右肱无咎','旅焚其次喪其童僕貞厲','頻巽吝','來兌凶','渙其躬无悔','不節若則嗟若无咎','得敵或鼓或罷或泣或歌','弗過防之從或戕之凶','高宗伐鬼方三年克之小人勿用','未濟征凶利涉大川'
 ]
 
-var yaoci_si = ['或躍在淵旡咎','括囊无咎无譽','乘馬班如求婚媾往吉无不利','困蒙吝','需于血出自穴','不克訟復即命渝安貞吉','師左次无咎','外比之貞吉','有孚血去惕出无咎','履虎尾愬愬終吉','翩翩不富以其鄰不戒以孚','有命无咎疇離祉','乘其墉弗克攻吉','匪其彭无咎','无不利撝謙','由豫大有得勿疑朋盍簪','隨有獲貞凶有孚在道以明何咎','裕父之蠱往見吝','至臨无咎','觀國之光利用賓于王','噬乾胏得金矢利艱貞吉','賁如皤如白馬翰如匪寇婚媾','剝床以膚凶','中行獨復','可貞无咎','童牛之牿元吉','顛頤吉虎視眈眈其欲逐逐无咎','棟隆吉有它吝','樽酒簋貳用缶納約自牖終无咎','突如其來如焚如死如棄如','貞吉悔亡憧憧往來朋從爾思','田无禽','好遯君子吉小人否','貞吉悔亡藩決不羸壯于大輿之輹','晉如鼫鼠貞厲','入于左腹獲明夷之心于出門庭','富家大吉','睽孤遇元夫交孚厲无咎','往蹇來連','解而拇朋至斯孚','損其疾使遄有喜无咎','中行告公從利用為依遷國','臀无膚其行次且牽羊悔亡聞言不信','包无魚起凶','大吉无咎','王用亨于岐山吉无咎','來徐徐困于金車吝有終','井甃无咎','悔亡有孚改命吉','鼎折足覆公餗其形渥凶','震遂泥','艮其身无咎','鴻漸于木或得其桷无咎','歸妹愆期遲歸有時','豐其蔀日中見斗遇其夷主吉','旅于處得其資斧我心不快','悔亡田獲三品','商兌未寧介疾有喜','渙其群元吉渙有丘匪夷所思','安節亨','月幾望馬匹亡无咎','无咎弗過遇之往厲必戒勿用永貞','繻有衣袽終日戒','貞吉悔亡震用伐鬼方三年有賞于大國'
+var yaoci_si = ['或躍在淵无咎','括囊无咎无譽','乘馬班如求婚媾往吉无不利','困蒙吝','需于血出自穴','不克訟復即命渝安貞吉','師左次无咎','外比之貞吉','有孚血去惕出无咎','履虎尾愬愬終吉','翩翩不富以其鄰不戒以孚','有命无咎疇離祉','乘其墉弗克攻吉','匪其彭无咎','无不利撝謙','由豫大有得勿疑朋盍簪','隨有獲貞凶有孚在道以明何咎','裕父之蠱往見吝','至臨无咎','觀國之光利用賓于王','噬乾胏得金矢利艱貞吉','賁如皤如白馬翰如匪寇婚媾','剝床以膚凶','中行獨復','可貞无咎','童牛之牿元吉','顛頤吉虎視眈眈其欲逐逐无咎','棟隆吉有它吝','樽酒簋貳用缶納約自牖終无咎','突如其來如焚如死如棄如','貞吉悔亡憧憧往來朋從爾思','田无禽','好遯君子吉小人否','貞吉悔亡藩決不羸壯于大輿之輹','晉如鼫鼠貞厲','入于左腹獲明夷之心于出門庭','富家大吉','睽孤遇元夫交孚厲无咎','往蹇來連','解而拇朋至斯孚','損其疾使遄有喜无咎','中行告公從利用為依遷國','臀无膚其行次且牽羊悔亡聞言不信','包无魚起凶','大吉无咎','王用亨于岐山吉无咎','來徐徐困于金車吝有終','井甃无咎','悔亡有孚改命吉','鼎折足覆公餗其形渥凶','震遂泥','艮其身无咎','鴻漸于木或得其桷无咎','歸妹愆期遲歸有時','豐其蔀日中見斗遇其夷主吉','旅于處得其資斧我心不快','悔亡田獲三品','商兌未寧介疾有喜','渙其群元吉渙有丘匪夷所思','安節亨','月幾望馬匹亡无咎','无咎弗過遇之往厲必戒勿用永貞','繻有衣袽終日戒','貞吉悔亡震用伐鬼方三年有賞于大國'
 ]
 
 var yaoci_wu = [
@@ -89,3 +88,136 @@ var yaoci_shang = [
 ]
 
 var yaociAll = [yaoci_chu,yaoci_er,yaoci_san,yaoci_si,yaoci_wu,yaoci_shang]
+
+//吉<=>无咎
+var jw = [
+ {number:2,  firstPos:4,secondPos:5},
+ {number:5,  firstPos:1,secondPos:2},
+ {number:7,  firstPos:2,secondPos:2},
+ {number:8,  firstPos:1,secondPos:1},
+ {number:9,  firstPos:2,secondPos:4},
+ {number:10,  firstPos:1,secondPos:2},
+ {number:11,  firstPos:1,secondPos:3},
+ {number:11,  firstPos:3,secondPos:5},
+ {number:12,  firstPos:2,secondPos:4},
+ {number:12,  firstPos:4,secondPos:5},
+ {number:13,  firstPos:1,secondPos:4},
+ {number:14,  firstPos:4,secondPos:5},
+ {number:16,  firstPos:2,secondPos:6},
+ {number:19,  firstPos:2,secondPos:3},
+ {number:19,  firstPos:4,secondPos:5},
+ {number:19,  firstPos:6,secondPos:6},
+ {number:21,  firstPos:3,secondPos:4},
+ {number:21,  firstPos:4,secondPos:5},
+ {number:22,  firstPos:5,secondPos:6},
+ {number:24,  firstPos:2,secondPos:3},
+ {number:25,  firstPos:1,secondPos:4},
+ {number:28,  firstPos:4,secondPos:5},
+ {number:30,  firstPos:1,secondPos:2},
+ {number:30,  firstPos:5,secondPos:6},
+ {number:35,  firstPos:1,secondPos:1},
+ // {number:35,  firstPos:1,secondPos:2},
+ {number:35,  firstPos:5,secondPos:6},
+ {number:38,  firstPos:4,secondPos:6},
+ {number:40,  firstPos:1,secondPos:2},
+ {number:41,  firstPos:4,secondPos:5},
+ {number:41,  firstPos:5,secondPos:6},
+ {number:41,  firstPos:6,secondPos:6},
+ {number:42,  firstPos:1,secondPos:1},
+ // {number:42,  firstPos:1,secondPos:2},
+ {number:45,  firstPos:3,secondPos:4},
+ {number:45,  firstPos:4,secondPos:4},
+ {number:46,  firstPos:1,secondPos:2},
+ {number:46,  firstPos:2,secondPos:4},
+ {number:46,  firstPos:4,secondPos:4},
+ {number:46,  firstPos:4,secondPos:5},
+ {number:48,  firstPos:4,secondPos:6},
+ {number:49,  firstPos:2,secondPos:2},
+ {number:50,  firstPos:1,secondPos:2},
+ {number:53,  firstPos:1,secondPos:2},
+ {number:53,  firstPos:4,secondPos:5},
+ {number:55,  firstPos:1,secondPos:2},
+ {number:55,  firstPos:2,secondPos:3},
+ {number:57,  firstPos:2,secondPos:2},
+ {number:59,  firstPos:4,secondPos:5},
+ {number:60,  firstPos:3,secondPos:5},
+ {number:61,  firstPos:1,secondPos:4},
+ {number:64,  firstPos:5,secondPos:6},
+]
+
+//凶<=>吉
+var jx = [
+	{number:3,  firstPos:5,secondPos:5},
+	{number:7,  firstPos:1,secondPos:2},
+	{number:8,  firstPos:5,secondPos:6},
+	{number:10,  firstPos:2,secondPos:3},
+	{number:10,  firstPos:3,secondPos:4},
+	{number:16,  firstPos:1,secondPos:2},
+	{number:17,  firstPos:1,secondPos:4},
+	{number:17,  firstPos:4,secondPos:5},
+	{number:27,  firstPos:3,secondPos:4},
+	{number:28,  firstPos:3,secondPos:4},
+	{number:30,  firstPos:2,secondPos:3},
+	{number:30,  firstPos:3,secondPos:5},
+	{number:31,  firstPos:2,secondPos:2},
+	{number:32,  firstPos:1,secondPos:5},
+	{number:32,  firstPos:5,secondPos:5},
+	{number:34,  firstPos:1,secondPos:2},
+	{number:41,  firstPos:2,secondPos:6},
+	{number:42,  firstPos:2,secondPos:3},
+	{number:42,  firstPos:5,secondPos:6},
+	{number:44,  firstPos:1,secondPos:1},
+	{number:47,  firstPos:3,secondPos:6},
+	{number:49,  firstPos:3,secondPos:4},
+	{number:49,  firstPos:4,secondPos:6},
+	{number:50,  firstPos:3,secondPos:4},
+	{number:50,  firstPos:4,secondPos:6},
+	{number:51,  firstPos:1,secondPos:6},
+	{number:53,  firstPos:2,secondPos:3},
+	{number:55,  firstPos:5,secondPos:6},
+	{number:57,  firstPos:5,secondPos:6},
+	{number:58,  firstPos:2,secondPos:3},
+	{number:60,  firstPos:5,secondPos:6},
+	{number:64,  firstPos:2,secondPos:3},
+	{number:64,  firstPos:3,secondPos:4},
+]	
+
+//凶<=>无咎
+var xw = [
+	{number:7,  firstPos:2,secondPos:3},
+	{number:7,  firstPos:5,secondPos:5},
+	{number:9,  firstPos:4,secondPos:6},
+	{number:21,  firstPos:6,secondPos:6},
+	{number:23,  firstPos:2,secondPos:3},
+	{number:23,  firstPos:3,secondPos:4},
+	{number:24,  firstPos:3,secondPos:6},
+	{number:28,  firstPos:1,secondPos:3},
+	{number:28,  firstPos:5,secondPos:6},
+	{number:28,  firstPos:6,secondPos:6},
+	{number:29,  firstPos:1,secondPos:4},
+	{number:41,  firstPos:1,secondPos:2},
+	{number:41,  firstPos:2,secondPos:4},
+	{number:42,  firstPos:3,secondPos:3},
+	{number:42,  firstPos:3,secondPos:6},
+	{number:43,  firstPos:3,secondPos:3},
+	{number:43,  firstPos:5,secondPos:6},
+	{number:44,  firstPos:1,secondPos:2},
+	{number:44,  firstPos:2,secondPos:4},
+	{number:44,  firstPos:4,secondPos:6},
+	{number:47,  firstPos:2,secondPos:2},
+	{number:47,  firstPos:3,secondPos:2},
+	{number:49,  firstPos:2,secondPos:3},
+	{number:51,  firstPos:6,secondPos:6},
+	// {number:52,  firstPos:4,secondPos:6},
+	{number:53,  firstPos:3,secondPos:4},
+	{number:55,  firstPos:3,secondPos:6},
+	{number:60,  firstPos:1,secondPos:2},
+	{number:60,  firstPos:2,secondPos:3},
+	{number:61,  firstPos:5,secondPos:6},
+	{number:62,  firstPos:1,secondPos:2},
+	{number:62,  firstPos:2,secondPos:3},
+	{number:62,  firstPos:3,secondPos:4},
+	{number:62,  firstPos:4,secondPos:6},
+]
+//the 
+var allTransitions = [jw,jx,xw]
