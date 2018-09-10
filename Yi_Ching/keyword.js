@@ -424,12 +424,15 @@ function renderTagCloudsForSentiments(idStr){
 	.text(function(d){
 		return d.name
 	})
+	.style('fill',d=> {return '#8c8c8c'})
+	.style('font-size', fontSize)
 	.attr('x', d =>  {
 		// x start from 20
 		x = 20;
 		return x;
 	})
-	.attr('y', (d,i)=>{
+	.attr('y', function (d,i){
+		var ob = d3.select(this)
 		// console.log(AllData[i-1])
 		// add the rectangels here
 		// var prevData = 
@@ -459,6 +462,7 @@ function renderTagCloudsForSentiments(idStr){
 		var  yPosition = i*(fontSize+space)+factor
 
 		var textColor = '#8c8c8c'
+		// console.log(ob)
 		// append the rectangels in the front
 		var rectangle = textGraph
 		.append('rect')
@@ -470,16 +474,15 @@ function renderTagCloudsForSentiments(idStr){
 		.on('mouseover',function(){
 			var name = d.chinese;
 			highLightKeyWord(name)
-
+			ob.style('fill','white');
 	// console.log(d)
 		}).on('mouseout',function(){
 			unhighLightKeyWord();
+			ob.style('fill','#8c8c8c')
 		});
 		// yPosition+=factor;
 		return yPosition;
 	})
-	.style('fill',d=> {return '#8c8c8c'})
-	.style('font-size', fontSize)
 	.on('mouseover',function(d){
 		var name = d.chinese;
 		highLightKeyWord(name)
