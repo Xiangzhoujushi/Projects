@@ -386,13 +386,19 @@ function forceRadialThemeClusters(panelID){
 		// .attr()
 		// d3.select('')
 	});
-	console.log(guaToThemes)
+	// console.log(guaToThemes)
 }
 
 // the highlightByGua
 
 function highlightByGua(guaName){
+
+	var rectse = d3.select('#Gua_'+(guaName-1))
+		// console.log(rectse)
+	rectse.selectAll('.overview>rect').style('fill-opacity',1) 
+
 	if (guaName in guaToThemes){
+		// the stuff
 		var themeArr = guaToThemes[guaName]
 		themeArr.forEach(function(theme,i){
 			// console.log(theme)
@@ -416,7 +422,13 @@ function highlightByGua(guaName){
 }
 
 function unhighlightByGua(guaName){
+
+	var rectse = d3.select('#Gua_'+(guaName-1))
+		// console.log(rectse)
+	rectse.selectAll('.overview>rect').style('fill-opacity',0.75) 
+	
 	if (guaName in guaToThemes){
+		// the staff
 		var themeArr = guaToThemes[guaName]
 		themeArr.forEach(function(theme,i){
 			var selectedID = '#'+theme+'_'+guaName

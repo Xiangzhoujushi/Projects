@@ -84,43 +84,19 @@ function drawYaoDetails(){
 					return '#262626';
 				}
 			});
+			var opac = 1
 			var sz = 0.5
 			for (var n = 0; n<words.length;n++){
 				px = indicies[n]*(sideLength+hInterval)+sz
 				py = sz
 				arr = [px,py]
 				if (indicies[n]>=0){
-					if (n == 0) drawCircle(arr,rectGroups,sz)
-					if (n == 1) drawTriangle2(arr,rectGroups,sz)
-					if (n == 2) drawCross(arr,rectGroups,sz,0.2)
+					if (n == 0) drawCircle(arr,rectGroups,sz,1,'ji')
+					if (n == 1) drawTriangle2(arr,rectGroups,sz,1,'wujiu')
+					if (n == 2) drawCross(arr,rectGroups,sz,0.25,1,'xiong')
 				}
 			}
-			// if (index>=0){
-			// 	var sz = 0.5
-			// 	
-			// 	// console.log(px)
-			// 	switch(keyWordId){
-			// 	case 1: 
-			// 		drawCircle([px,py],rectGroups,sz)
-			// 		break;
-			// 	case 2:
-			// 		drawTriangle2([px,py],rectGroups,sz)
-			// 		break;
-			// 	case 3:
-			// 		// divination key words
-			// 		drawCross([px,py],rectGroups,sz,0.2)
-			// 		break;
-			// 	default:
-			// 		// doing nothing
-			// 		break;
-			// 	}
-
-			// }
-			// update that part
 			shifted += (interval+sideLength)
-			// then for each of the graphs, we deal with that
-			// edition on the ji xiong wujiu.
-
 		}
 	});
 	if (d3.select('.graphDisplayInCenter').attr('id') == 'yaoDetails'){
@@ -134,7 +110,6 @@ function drawYaoDetails(){
 			.on('mouseout',function(){
 				unhighlightTrans(object,d2)
 			})
-			//object, transitionID,interval,hInterval,sideLength
 		})
 		// the details on the graph, our gua
 	}
@@ -147,7 +122,7 @@ function highlightTrans(object, transitionID,interval,hInterval,sideLength){
 	// the selected rectangles, the highlighting effects
 	rects = d3.select('rect.trans'+transitionID)
 	// console.log(rects)
-	rects.style('fill','grey')
+	rects.style('fill','#333333')
 
 	// 6 个爻
 	var numberOfYao = 6
@@ -296,8 +271,6 @@ function appendYaoText(idStr){
 	var wd = 250
 	var textIndent = 35
 	var lineInterval = 15
-	
-
 	// 设置背景图案
 	var graph = d3.select('div#'+idStr).append('svg')
 	.attr('height', function(){
@@ -342,12 +315,10 @@ function appendYaoText(idStr){
 	.attr('x',textIndent)
 	.attr('y',2*lineInterval)
 	.style('fill-opacity',0.6)
-
-
 	var texts = [
-		{name: 'auspicious', chinese: '吉'},
-		{name: 'no misfortune', chinese: '无咎'},
-		{name: 'ominous',chinese:'凶'}
+		{name: 'auspicious', chinese: '吉',className:'ji'},
+		{name: 'no misfortune', chinese: '无咎',className:'wujiu'},
+		{name: 'ominous',chinese:'凶',className:'xiong'}
 	]
 	// hover over 方块或者里面的字的时候，
 	//我们 highligh 对应的transition。
@@ -363,6 +334,7 @@ function appendYaoText(idStr){
 	});
 	// the rectangles
 
+	// draw rectangles for the texts and all stuff
 	texts.forEach(function(d,i){
 		var subgraph = sentimentLegends.append('g')
 		.attr("transform",
@@ -371,8 +343,18 @@ function appendYaoText(idStr){
 			return result;
 		});
 
+		subgraph.append('rect')
+		.attr('x',0)
+		.attr('y',-5)
+		.attr('height',lenOfHeads+5)
+		.attr('width',widOfHeads)
+		.style('fill',background)
+		.attr('class',d.className)
+		// .attr()
+
 		subgraph.append('text')
 		.text(d.chinese+' '+d.name)
+		.attr('class',d.className)
 		.attr('x',textIndent)
 		.attr('y',lineInterval)
 		.style('fill','white')
@@ -391,16 +373,18 @@ function appendYaoText(idStr){
 		fillOpac = 1
 		var p = [0,0]
 		if (i==0){
-			drawCircle(p,legendPattern,4,fillOpac,'ji')
+			drawCircle(p,legendPattern,4,fillOpac,d.className)
 		}else if(i==1){
 			// draw triangle
 			// var p1 = [0,0]
-			drawTriangle2(p,legendPattern,4,fillOpac,'wujiu')
+			drawTriangle2(p,legendPattern,4,fillOpac,d.className)
 		}else{
-			drawCross(p,legendPattern,4,1,fillOpac,'xiong')
+			drawCross(p,legendPattern,4,1,fillOpac,d.className)
 			//draw 
 		}
 	});
+	// the graph of the project
+
 	var currentG = graph.append('g')
 	.attr("transform",
 		function(){
@@ -422,7 +406,7 @@ function appendYaoText(idStr){
 	// draw the transitions 
 	// finally the number of yaoci text,
 	currentG.append('text')
-	.text('stages of fortune are connected')
+	.text('stages of fortune within a gua are')
 	.style('fill','white')
 	.style('font-size',12)
 	// .style('font-weight','bold')
@@ -431,7 +415,7 @@ function appendYaoText(idStr){
 	.attr('y',lineInterval*2)
 
 	currentG.append('text')
-	.text('and represented by the following:')
+	.text('represented by the following:')
 	.style('fill','white')
 	.style('font-size',12)
 	// .style('font-weight','bold')
@@ -462,6 +446,7 @@ function appendYaoText(idStr){
 		.attr('height',lenOfHeads+5)
 		.attr('width',widOfHeads)
 		.style('fill',background)
+
 		var transitionGraph = subgraph.append('g')
 		// .on('mouseover',function(d,i){
 		// 	// mouse over highlight functionality
@@ -586,9 +571,104 @@ function appendYaoText(idStr){
 		    .attr("y2", len2+35*i); 
 	});
 
+    highLightFortunes()
 	// finally deal with the mouse over
 
 }
+
+function highLightFortunes(){
+	var classes = ['ji','wujiu','xiong']
+	classes.forEach(function(d,i){
+		var className = d
+		var lv1 = d3.selectAll('.switchSection')
+		var lv2 = lv1.selectAll('.'+className).
+		on('mouseover',function(){
+
+			lv1.select('rect'+'.'+d).style('fill','#333333')
+			// console.log('possible')
+			var sz1 = 0.5
+			var size1 = 2
+			var sw1 = 1
+			if (i==0) d3.select('#yaoDetails').selectAll('.'+className).attr('r',size1)
+			if (i==1) {
+				d3.select('#yaoDetails').selectAll('polygon.'+className)
+				.each(function(d){
+					var arr = d3.select(this).attr('points').split(',')	
+					px = parseInt(arr[4])
+					py = parseInt(arr[5])+sz1
+					var p1 = (px-size1)+','+(py+size1)
+					var p2 = (px+size1)+','+(py+size1)
+					var p3 = px+','+(py-size1)
+					newStr = p1+','+p2+','+p3;
+					d3.select(this).attr('points',newStr)
+				})	
+			}
+			if (i==2){
+				d3.select('#yaoDetails').selectAll('line.'+className+'_1')
+				.each(function(d,i2){
+					var ox = parseInt(d3.select(this).attr('x1'))+sz1
+					var oy = parseInt(d3.select(this).attr('y1'))+sz1
+					d3.select(this).attr('x1',ox-size1).attr('y1',oy-size1).
+					attr('x2',ox+size1).attr('y2',oy+size1).attr('stroke-width',sw1)
+				})
+
+				d3.select('#yaoDetails').selectAll('line.'+className+'_2')
+				.each(function(d,i3){
+					ox = parseInt(d3.select(this).attr('x1'))-sz1
+					oy = parseInt(d3.select(this).attr('y1'))+sz1
+					d3.select(this).attr('x1',ox+size1).attr('y1',oy-size1).
+					attr('x2',ox-size1).attr('y2',oy+size1).attr('stroke-width',sw1)
+					// console.log('x1: '+i3+': '+ox)
+					// console.log('y1: '+i3+': '+oy)
+				})
+			}
+			// if (i==1) d3.select('#yaoDetails').selectAll('.'+className).attr('d')
+		})
+		.on('mouseout',function(){
+			var sz2 = 2
+			var size2 = 0.5
+			var sw2 = 0.25
+			lv1.select('rect'+'.'+d).style('fill','#1c1c1c')
+			// console.log('possible')
+			if (i==0) d3.select('#yaoDetails').selectAll('.'+className).attr('r',size2)
+			if (i==1) {
+				d3.select('#yaoDetails').selectAll('polygon.'+className)
+				.each(function(d,i){
+					var arr = d3.select(this).attr('points').split(',')	
+					px = parseInt(arr[4])
+					py = parseInt(arr[5])+sz2
+					var p1 = (px-size2)+','+(py+size2)
+					var p2 = (px+size2)+','+(py+size2)
+					var p3 = px+','+(py-size2)
+					newStr = p1+','+p2+','+p3;
+					d3.select(this).attr('points',newStr)
+				})
+			}
+			if (i==2){
+				d3.select('#yaoDetails').selectAll('line.'+className+'_1')
+				.each(function(d,i2){
+					var ox1 = parseInt(d3.select(this).attr('x1'))+sz2+0.5
+					var oy1 = parseInt(d3.select(this).attr('y1'))+sz2-0.5
+					d3.select(this).attr('x1',ox1-size2).attr('y1',oy1-size2).
+					attr('x2',ox1+size2).attr('y2',oy1+size2).attr('stroke-width',sw2)
+				})
+
+				d3.select('#yaoDetails').selectAll('line.'+className+'_2')
+				.each(function(d,i3){
+					ox = parseInt(d3.select(this).attr('x1'))-sz2+0.5
+					oy = parseInt(d3.select(this).attr('y1'))+sz2-0.5
+					d3.select(this).attr('x1',ox+size2).attr('y1',oy-size2).
+					attr('x2',ox-size2).attr('y2',oy+size2).attr('stroke-width',sw2)
+					// console.log('x2: '+i3+': '+ox)
+					// console.log('y2: '+i3+': '+oy)
+				})
+			}
+		})
+		
+	})
+}
+
+
 
 function drawCircle(origin,currentObject,size,opac,className){
 	currentObject.append('circle')
@@ -617,29 +697,29 @@ function drawTriangle2(point,currentObject,size,opac,className){
 }
 
 function drawCross(p,currentObject,size,swidth,opac,className){
+
+	// var newObject = currentObjec
+
 	currentObject.append('line')
 	.style("stroke", "white")  
-	// .attr('stroke-dasharray', '2,3')
-    // .attr('stroke-linecap', 'butt')
     .attr('stroke-width', swidth)
     .attr("x1", p[0]-size)     // x position of the first end of the line
     .attr("y1", p[1]-size)      // y position of the first end of the line
     .attr("x2", p[0]+size)     // x position of the second end of the line
     .attr("y2", p[1]+size)
     .style('stroke-opacity',opac)
-    .attr('class',className)
+    .attr('class',className+'_1')
 
-	currentObject.append('line')
+	 currentObject.append('line')
 	.style("stroke", "white") 
 	.style('stroke-opacity',opac) 
-	// .attr('stroke-dasharray', '2,3')
-    // .attr('stroke-linecap', 'butt')
     .attr('stroke-width', swidth)
     .attr("x1", p[0]+size)     // x position of the first end of the line
     .attr("y1", p[1]-size)      // y position of the first end of the line
     .attr("x2", p[0]-size)    // x position of the second end of the line
     .attr("y2", p[1]+size)
-    .attr('class',className)
+    .attr('class',className+'_2')
+    
     //
 }
 function drawDoubleArrows(p, currentObject,size,swidth,opac,className){

@@ -348,6 +348,7 @@
 					.attr('y1',-1)
 					.attr('y2',2*layerWidth+interval+1);
 
+					var fillop = 0.75
 					// create the rectangles of the gua
 					var rectanglesGraph = subgraph.append('g');
 					rectanglesGraph.attr('class','overview')
@@ -367,7 +368,7 @@
 					.style('fill', function(d,i){
 						// d is the index of the color
 						return colorList[d];
-					})
+					}).style('fill-opacity',fillop)
 
 					// if (document.getElementById("themeDetails") ){
 					// 	console.log(document.getElementById("themeDetails"))
@@ -377,11 +378,13 @@
 					// }
 					rectanglesGraph.on('mouseover',function(){
 						if (document.getElementById("themeDetails") ){
+							// d3.select(this).style('fill-opaicity',1) 
 							highlightByGua(iprime+1)
 							// console.log(document.getElementById("themeDetails"))
 						}
 					}).on('mouseout',function(){
 						if (document.getElementById("themeDetails") ){
+							// d3.select(this).style('fill-opaicity',fillop) 
 							unhighlightByGua(iprime+1)
 							// console.log(document.getElementById("themeDetails"))
 						}
@@ -393,7 +396,7 @@
 					// }
 					rectanglesGraph.on('click',
 						function(){
-							console.log('click, lock: '+ !hasdetails)
+							// console.log('click, lock: '+ !hasdetails)
 							// console.log(hasdetails)
 							// register the current event
 							var currentEvent = d3.select(this);
@@ -427,7 +430,7 @@
 								// 	// d is the index of the color
 								// 	return colorList[d];
 								// });
-								// console.log(rectangles);
+								// console.log2(rectangles);
 								var yaociDetail = currentEvent.append('g').attr('class','yaociDetail')
 								.attr('transform', function(d,i){
 									var s = "translate("+(0)+","+(-1*moveToMid)+")";
@@ -637,7 +640,7 @@
 		</div> -->
 		<!--modal blocks  -->
 		<div id="myModal" class="modal">
-			<div class="modal-content" style = "background-color:#1e1f23;opacity:0.8" >
+			<div class="modal-content" style = "background-color:#1e1f23;opacity:0.85" >
 		    <span class="close">&times;</span>
 		    <!-- Content goes here -->
 		    	<section id="main">

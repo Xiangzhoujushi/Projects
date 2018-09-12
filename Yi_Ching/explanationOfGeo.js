@@ -1,3 +1,6 @@
+
+var textOpac = 0.7
+
 function drawCenterArrows(object,point1,point2){
 	// console.log(point2)
 	// console.log(point1)
@@ -110,6 +113,7 @@ var explanText = function(){
 	.style('fill',function(d,i){
 		return 'white'
 	})
+	.style('fill-opacity',textOpac)
 	.style('font-size',function(d,i){
 		return '10px'
 	});
@@ -164,6 +168,7 @@ var explanText = function(){
 	.style('fill',function(d,i){
 		return 'white'
 	})
+	.style('fill-opacity',textOpac)
 	.style('font-size',function(d,i){
 		return '10px'
 	});
@@ -184,6 +189,7 @@ var explanText = function(){
 	.style('fill',function(d,i){
 		return 'white';
 	})
+	.style('fill-opacity',textOpac)
 	.style('font-size',function(d,i){
 		return '9px';
 	})
@@ -261,7 +267,7 @@ var explanText = function(){
 	.style("font-size", "10px")
 	.style('font-weight',10)
 	.style('fill', 'white')
-	.style('fill-opacity','0.5')
+	.style('fill-opacity',textOpac)
 
 	wordCount.append('text')
 	.attr('x',countLength*7-30)
@@ -270,7 +276,7 @@ var explanText = function(){
 	.style("font-size", "10px")
 	.style('fill', 'white')
 	.style('font-weight',10)
-	.style('fill-opacity','0.5')
+	.style('fill-opacity',textOpac)
 	// var str3 = 
 
 	// sentiment part for the gua interpretation
@@ -319,7 +325,7 @@ var explanText = function(){
 	.style("font-size", "10px")
 	.style('fill', 'white')
 	.style('font-weight',10)
-	.style('fill-opacity','0.5')
+	.style('fill-opacity',textOpac)
 	// .style('stroke-width',function(d,i){
 	// 	return 1
 	// });
@@ -391,6 +397,7 @@ var explanText = function(){
     .attr('x','40')
     .attr('y','3')
     .text('The Meridian')
+    .style('fill-opacity',textOpac)
 	.style('font-size','10px')
 	.style('fill',function(d,i){
 		return 'white'
@@ -446,7 +453,7 @@ var explanText = function(){
 	graph.append('path').attr('d', 'M'+(startX)+","+(startY)+" V"+(startY-10)+" H"+(startX+40))
 	.style('fill','None')
 	.attr("stroke-width",1).attr("stroke", "white")
-	.attr('stroke-opacity','0.6')
+	.attr('stroke-opacity','0.7')
 
 	graph.append('g')
 	.attr("transform",
@@ -457,6 +464,7 @@ var explanText = function(){
 	.attr('x','5')
 	.attr('y','3')
 	.style('font-size','10px')
+	.style('fill-opacity',textOpac)
 	.style('fill',function(d,i){
 		return 'white'
 	})
@@ -465,7 +473,7 @@ var explanText = function(){
 	graph.append('path').attr('d', 'M'+(startX)+","+(startY)+" V"+(startY+10)+" H"+(startX+40))
 	.style('fill','None')
 	.attr("stroke-width",1).attr("stroke", "white")
-	.attr('stroke-opacity','0.6')
+	.attr('stroke-opacity','0.7')
 
 	graph.append('g')
 	.attr("transform",
@@ -476,6 +484,7 @@ var explanText = function(){
 	.attr('x','5')
 	.attr('y','3')
 	.style('font-size','10px')
+	.style('fill-opacity',textOpac)
 	.style('fill',function(d,i){
 		return 'white'
 	})

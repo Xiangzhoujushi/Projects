@@ -1,5 +1,5 @@
 // console.log('ofo')
-
+var colorList = ['#0CCCD6','#FF3E14']
 function highlightAll(token_str){
 	var token_arr = token_str.split('_')
 	var symbol;
@@ -42,7 +42,46 @@ function highlightSingle(guaOrder){
 		result+="translate("+(400+shiftPlacement)+","+200+")"
 		return result;
 	});
+	data = hexagrams[guaOrder]
+
 	// the attribute of the graph
+	// var rects = subgraph.selectAll('.overview>rect').remove()
+	var squareLength = parseInt(subgraph.select('.overview>rect').attr('height'))*1.25
+	var interval = 1
+	var guaLayer = 3
+	var moveToMid = (squareLength*2+interval)/2;
+	var rects = subgraph.selectAll('.overview').remove()
+	var rectanglesGraph = subgraph.append('g');
+	rectanglesGraph.attr('class','overview')
+	rectanglesGraph.selectAll('rect').data(data).enter().append('rect')
+	.attr('x',function(d,i){
+		return (i%guaLayer)*(squareLength+interval);
+	})
+	.attr('y',function(d,i){
+		return Math.floor(i/guaLayer)*(squareLength+interval)-moveToMid;
+	})
+	.attr('width',function(d,i){
+		return squareLength;
+	})
+	.attr('height',function(d,i){
+		return squareLength;
+	})
+	.style('fill', function(d,i){
+		// d is the index of the color
+		return colorList[d];
+	}).style('fill-opacity',1)
+	// .style('fill-opacity',1)
+	// augl = sidel*1.25
+	// var diff = augl-sidel
+	// rects.style('fill-opacity',1)
+	// rects.attr('height',augl).attr('width',augl)
+	// .attr('x',function(){
+	// 	var prevX = d3.select(this).attr('x')
+
+	// })
+	// .attr('y',function(){
+
+	// })
 	// subgraph.append('g')
 }
 
@@ -56,6 +95,36 @@ function unhighlightSingle(guaOrder){
 		result+="translate("+400+","+200+")"
 		return result;
 	});
+
+	data = hexagrams[guaOrder]
+
+	// the attribute of the graph
+	// var rects = subgraph.selectAll('.overview>rect').remove()
+	var squareLength = 7
+	var interval = 1
+	var guaLayer = 3
+	var moveToMid = (squareLength*2+interval)/2;
+	var rects = subgraph.selectAll('.overview').remove()
+	var rectanglesGraph = subgraph.append('g');
+	rectanglesGraph.attr('class','overview')
+	rectanglesGraph.selectAll('rect').data(data).enter().append('rect')
+	.attr('x',function(d,i){
+		return (i%guaLayer)*(squareLength+interval);
+	})
+	.attr('y',function(d,i){
+		return Math.floor(i/guaLayer)*(squareLength+interval)-moveToMid;
+	})
+	.attr('width',function(d,i){
+		return squareLength;
+	})
+	.attr('height',function(d,i){
+		return squareLength;
+	})
+	.style('fill', function(d,i){
+		// d is the index of the color
+		return colorList[d];
+	}).style('fill-opacity',0.8)
+
 }
 
 function appendGeoPattern(idStr){
@@ -239,7 +308,7 @@ function appendGeoPattern(idStr){
 		d3.selectAll('.'+str)
 		.on('mouseover',function(){
 	    	var className = str
-	    	d3.select('rect'+'.'+str).style('fill','#262626')
+	    	d3.select('rect'+'.'+str).style('fill','#333333')
 	    	// console.log(className)
 	    	highlightAll(className)
 	    })

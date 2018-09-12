@@ -65,33 +65,7 @@ function addToggleLegends(){
 		}else{
 			return colors[1]
 		}
-		// not chosen, then we append the small triangle
-		// var co = toggleG.append('g').attr('class','not-chosen');
-		// var cs = d3.select(this).attr('class');
-		// var y = i*(recht+fis);
-		// // console.log(cs)
-		// // change based on the cs information
-		// if(cs.length == 1){
-		// 	var p1 = ""+recwid+","+y+"";
-		// 	var p2 = ""+recwid+","+(y+tl)+"";
-		// 	var p3 = ""+(recwid-tl)+","+y+"";
-		// 	drawTriangle(p1,p2,p3,co,'white');
-		// 	return color;
-		// }else{
-		// 	x = d3.select(this).attr('x')
-		// 	y = d3.select(this).attr('y')
-		// 	ht = d3.select(this).attr('height')
-		// 	var p1 = ""+recwid+','+(y+tl)+""
-		// 	var p2 = ""+recwid+","+(y-tl+ht)+"";
-		// 	var mid = ((2*y)+ht)/2
-		// 	var p3 = ""+(recwid-20)+","+mid+"";
-		// 	drawTriangle(p1,p2,p3,co,'#1c1c1c')
-		// 	// console.log('not append tri')
-		// 	return 'white'
-		// }
 	})
-	// mouse on and off for showing the button is able to recept the 
-	// the click command
 	.on('click', function(d,i){
 		var chosen = d.id;
 		// console.log(chosen)
@@ -125,6 +99,8 @@ function addToggleLegends(){
 			unhighlightlegends(d)
 		}
 	})
+
+	highlightlegends(toggleArr[0])
 	// append the selection features using class attribute
 	var toggleText = toggleG.selectAll('text')
 	.data(toggleArr).enter().append('text')
@@ -252,9 +228,8 @@ function highlightlegends(d){
 			var result = "translate("+(-20)+","+20+")";
 			return result;
 		}
-	)
-	.attr('class','trianglePointer')
-	drawTriangle(p1,p2,p3,g,'black')
+	).attr('class','trianglePointer_'+d.id)
+	drawTriangle(p1,p2,p3,g,'#1c1c1c')
 }
 
 function unhighlightlegends(d){
@@ -274,7 +249,7 @@ function unhighlightlegends(d){
 	.style('fill', function(){
 		return colors[1]
 	});
-	d3.select('.trianglePointer').remove()
+	d3.selectAll('.trianglePointer_'+d.id).remove()
 }
 // remove the main text
 function removeMainPart(){
