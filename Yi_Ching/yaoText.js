@@ -304,7 +304,7 @@ function appendYaoText(idStr){
 	// .style('font-weight','bold')
 	.style('fill-opacity',0.6)
 	.attr('x',textIndent)
-	.attr('y',lineInterval)
+	.attr('y',lineInterval+10)
 
 	graph.append('text')
 	.text('occurred characters are:')
@@ -313,7 +313,7 @@ function appendYaoText(idStr){
 	.style('font-size',12)
 	// .style('font-weight','bold')
 	.attr('x',textIndent)
-	.attr('y',2*lineInterval)
+	.attr('y',2*lineInterval+10)
 	.style('fill-opacity',0.6)
 	var texts = [
 		{name: 'auspicious', chinese: '吉',className:'ji'},

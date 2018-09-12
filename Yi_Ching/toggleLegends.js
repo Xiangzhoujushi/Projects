@@ -46,7 +46,7 @@ function addToggleLegends(){
 		}
 	})
 	.attr('y',function(d,i){
-		return i*(recht+fis);
+		return i*(recht+fis)+20;
 	})
 	.attr('width',function(d){
 		if (d.select){
@@ -115,7 +115,7 @@ function addToggleLegends(){
 		return 40;
 	})
 	.attr('y',function(d,i){
-		return i*(recht+fis)+recht/2+5;
+		return i*(recht+fis)+recht/2+25;
 	})
 	.style("font-size", "12px")
 	.style('fill', function(d,i){

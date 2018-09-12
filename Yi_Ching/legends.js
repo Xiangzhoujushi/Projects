@@ -91,12 +91,11 @@ function appendLegends(){
 	.attr('y1', d=>{return Math.floor((d-1)/3)*(sideLength+interval)+sideLength})
 	.attr('y2', d=>{return Math.floor((d-1)/3)*(sideLength+interval)})
 	.style('stroke','white')
-	.style('stroke-opacity',0.5)
-	;
+	.style('stroke-opacity',0.5);
 
 
-	// first line, upper
-	//first line lower
+	//first line,upper
+	//first line,lower
 	var shiftedDown = 10
 	var secondLevel = 20
 
@@ -144,7 +143,7 @@ function appendLegends(){
 	.attr('y', (d,i)=>{
 		return Math.floor((i)/3)*(sideLength+interval)+shiftedDown+secondLevel
 	});
-	
+
 	explainText.append('g').selectAll('text').data(textList).enter()
 	.append('text')
 	.text((d,i)=>{

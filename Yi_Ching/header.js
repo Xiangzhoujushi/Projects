@@ -4,15 +4,18 @@ function navigation(){
 	var w =50;
 	var fontSize = 25
 	// background color
-	var bgc = 'silver'
+	var bgc = '#262626'
+
 	var svg = d3.select('#leftNav').append('svg')
 	.attr('width',w)
 	.attr('height',h)
-	.style('fill',bgc);
+	.style('fill','black');
 
-	var text1 = svg.append('g').attr('transform','translate(30,-180)')
+	var shiftDown = - 160
+	var text1 = svg.append('g').attr('transform','translate(30,-160)')
 	text1.append('text').text('VISUALIZING')
-	.style('fill','black')
+	// .style('font-weight','bold')
+	.style('fill','white')
 	.style('font-size',fontSize)
 	.attr('x',0)
 	.attr('y',h/2)
@@ -21,9 +24,9 @@ function navigation(){
 	;
 
 
-	var text2 = svg.append('g').attr('transform','translate(30,-330)');
+	var text2 = svg.append('g').attr('transform','translate(30,-310)');
 	text2.append('text').text('I-CHING')
-	.style('fill','black')
+	.style('fill','white')
 	.style('font-weight','bold')
 	.style('font-size',fontSize)
 	.attr('x',0)
@@ -32,7 +35,7 @@ function navigation(){
 	.attr('transform-origin','left')
 	;
 
-	var text3 = svg.append('g').attr('transform','translate(0,150)')
+	var text3 = svg.append('g').attr('transform','translate(0,-220)')
 	.on('click',function(){
 		var modal = document.getElementById('myModal');
 		var span = document.getElementsByClassName("close")[0];
@@ -50,30 +53,36 @@ function navigation(){
 
 	text3.append('rect')
 	.attr('x',0)
-	.attr('y',h/4)
+	.attr('y',h/4-5)
 	.style('fill','black')
-	.attr('height',50)
+	.attr('height',40)
 	.attr('width',50)
 
 	text3.append('text').text('About')
 	.style('fill','white')
-	.style('font-size',15)
+	.style('font-size',13)
 	.style('font-weight','bold')
+	.attr('x',6)
+	.attr('y',h/4+20);
+
+	text3.append('rect')
 	.attr('x',0)
-	.attr('y',h/4+18)
-	;
+	.attr('y',h/4+30)
+	.style('fill','white')
+	.attr('height',5)
+	.attr('width',50)
 
 	var side = 10
-	text3.append('polygon')
-	.attr('points',
-		function(){
-			var p1 = "50,"+(h/4+50)+", ";
-			var p2 = (50-side)+","+(h/4+50)+", ";
-			var p3 = "50,"+(h/4+50-side)+"";
-			return p1+p2+p3
-		}
-	)
-	.style('fill','white');
+	// text3.append('polygon')
+	// .attr('points',
+	// 	function(){
+	// 		var p1 = "50,"+(h/4+50)+", ";
+	// 		var p2 = (50-side)+","+(h/4+50)+", ";
+	// 		var p3 = "50,"+(h/4+50-side)+"";
+	// 		return p1+p2+p3
+	// 	}
+	// )
+	// .style('fill','white');
 	// .stroke('fill','white')
 	// .stroke('')
 
@@ -81,11 +90,11 @@ function navigation(){
 
 function appendHeader(){
 	var background = "black"
-	var svg = d3.select('#topNav').append('svg').attr('width',1300)
-	.attr('x',0)
-	.attr('y',-20)
-	.attr('height',20)
-	.style("background-color", background);
+	// var svg = d3.select('#topNav').append('svg').attr('width',1300)
+	// .attr('x',0)
+	// .attr('y',-20)
+	// .attr('height',20)
+	// .style("background-color", background);
 	// var label1 = svg.append('g').attr('transform','translate(600,0)');
 	// label1.append('text').text('HEXAGRAMS & THE STATEMENT (GUA)')
 	// .style('fill','white')

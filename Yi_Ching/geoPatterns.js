@@ -33,7 +33,7 @@ function unhighlightAll(token_str){
 }
 
 function highlightSingle(guaOrder){
-	var shiftPlacement = 20
+	var shiftPlacement = 35
 	var angle = 360/64.0*guaOrder
 	subgraph = d3.select('#'+'Gua_'+guaOrder)
 	.attr("transform",
@@ -169,10 +169,6 @@ function appendGeoPattern(idStr){
 	var down = 0 // shifted down
 	// var hLines =
 
-	// draw rectangles for highlight the backgrounds.
-	
-
-	// var paddingHt = 
 	// var colors = ['black','#262626']
 	// draw the sparation line
 	tokens.forEach((d,i)=>{
