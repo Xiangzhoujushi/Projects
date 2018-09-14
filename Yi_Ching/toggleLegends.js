@@ -170,18 +170,18 @@ function triggerItems(chosen){
 		// console.log(chosen)
 		switch(chosen){
 			case 'Y': 
-				appendYaoText('mainText')
+				appendYaoText('informationPannel')
 				break;
 			case 'T':
-				setUpThemesPanel('mainText');
+				setUpThemesPanel('informationPannel');
 				break;
 			case 'D':
 				// divination key words
-				renderTagCloudsForSentiments('mainText')
+				renderTagCloudsForSentiments('informationPannel')
 				break;
 			case 'G':
 				// geo patterns
-				appendGeoPattern('mainText')
+				appendGeoPattern('informationPannel')
 				break;
 			default:
 				// doing nothing

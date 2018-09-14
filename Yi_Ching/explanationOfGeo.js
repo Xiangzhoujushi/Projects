@@ -33,19 +33,18 @@ function drawPolygonsArrows(object,point,size){
 }
 
 var explanText = function(){
-
 	var yinAndYang = ['#FF3E14','#0CCCD6']
 	//the expediate
 	var height = 300
 	var width = 450
-	var explan = d3.select('#maintext').append('svg')
+	var explan = d3.select('div#legendExplan').append('svg')
 	.style("background-color", '#262626')
 	.attr('height',height)
 	.attr('width',width)
 	.style('opacity',0.9)
 	.attr("transform",
 		function(){
-			var result = "translate("+0+","+500+")";
+			var result = "translate("+0+","+0+")";
 			return result;
 		}
 	);

@@ -85,7 +85,7 @@
 				background-color:black;
 			}
 			/*左侧的navigation side*/
-			#leftNav{
+			div#leftNav{
 				overflow: auto;
 				height:900px;
 				top:0px;
@@ -116,7 +116,7 @@
 				/*position:absolute;*/
 			}
 
-			#legends{
+			div#legends{
 				left:800px;
 				text-align: left;
 				float:left;
@@ -128,8 +128,22 @@
 				position:absolute;
 				vertical-align: top;
 				display:block;
-				width:100px;
+				width:200px;
 				height:400px;
+			}
+			div#legendExplan{
+				vertical-align: top;
+				position:absolute;
+				display:block;
+				left:0px;
+				top:500px;
+			}
+			div#informationPannel{
+				vertical-align: top;
+				position:absolute;
+				left:200px;
+				top:0px;
+				position:absolute;
 			}
 			div#mainText{
 				/*overflow: auto*/
@@ -145,7 +159,7 @@
 				/*left:1000px;*/
 				background: #262626;
 				/*margin-left:50px;*/
-				float:left;
+				/*float:left;*/
 				display:block;
 				position:absolute;
 				width:450px;
@@ -615,7 +629,7 @@
 				addToggleLegends()
 				// default to 显示爻辞的details
 				
-				appendYaoText('mainText')
+				appendYaoText('informationPannel')
 				// appendGeoPattern('mainText')
 			});
 			// call the render gua function		
@@ -691,12 +705,19 @@
 			<div id = 'toggleLegend'>
 
 			</div>
+
+			<div id = 'legendExplan'>
+				
+			</div>
+			
+
+			<div id='informationPannel'>
+				
+
+			</div>
 			<!-- <div id = "Positive"></div>
 			<div id = "Neutral"></div>
 			<div id = "Negative"></div> -->
-		</div>	
-		<!-- the section for all interactive features -->
-		<div id = "interactiveSection">
 			
 		</div>
 	</body>

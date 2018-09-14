@@ -410,7 +410,7 @@ function renderTagCloudsForSentiments(idStr){
 	.attr('class','switchSection')
 	.attr("transform",
 		function(){
-			var result = "translate("+200+","+(-300)+")";
+			var result = "translate("+0+","+(0)+")";
 			return result;
 	})
 	.style('opacity',1)
