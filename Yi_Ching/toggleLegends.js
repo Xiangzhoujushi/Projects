@@ -10,7 +10,7 @@ var toggleArr = [
 		{select:true,token:'YAO Text',id:'Y'},
 		{select:false,token:'Themes of the Decisions',id:'T'},
 		{select:false,token:'Divination keywords',id:'D'},
-		{select:false,token:'Geomretrical Patterns',id:'G'}
+		{select:false,token:'Geometrical Patterns',id:'G'}
 ];
 function addToggleLegends(){
 	//the update on the file
