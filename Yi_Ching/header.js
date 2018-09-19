@@ -1,6 +1,5 @@
 
 function navigation(){
-
 	var h = 900;
 	var w = 50;
 	var fontSize = 25
