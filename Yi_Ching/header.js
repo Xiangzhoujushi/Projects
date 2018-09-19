@@ -1,7 +1,8 @@
 
 function navigation(){
+
 	var h = 900;
-	var w =50;
+	var w = 50;
 	var fontSize = 25
 	// background color
 	var bgc = '#262626'
@@ -11,29 +12,7 @@ function navigation(){
 	.attr('height',h)
 	.style('fill','black');
 
-	var shiftDown = - 160
-	var text1 = svg.append('g').attr('transform','translate(30,-160)')
-	text1.append('text').text('VISUALIZING')
-	// .style('font-weight','bold')
-	.style('fill','white')
-	.style('font-size',fontSize)
-	.attr('x',0)
-	.attr('y',h/2)
-	.attr('transform','rotate(-90)')
-	.attr('transform-origin','left')
-	;
-
-
-	var text2 = svg.append('g').attr('transform','translate(30,-310)');
-	text2.append('text').text('I-CHING')
-	.style('fill','white')
-	.style('font-weight','bold')
-	.style('font-size',fontSize)
-	.attr('x',0)
-	.attr('y',h/2)
-	.attr('transform','rotate(-90)')
-	.attr('transform-origin','left')
-	;
+	// var shiftDown = - 160
 
 	var text3 = svg.append('g').attr('transform','translate(0,-220)')
 	.on('click',function(){
@@ -48,8 +27,7 @@ function navigation(){
 		        modal.style.display = "none";
 		    }
 		}
-	})
-	;
+	});
 
 	text3.append('rect')
 	.attr('x',0)
@@ -85,16 +63,33 @@ function navigation(){
 	// .style('fill','white');
 	// .stroke('fill','white')
 	// .stroke('')
-
 }
 
 function appendHeader(){
-	var background = "black"
-	// var svg = d3.select('#topNav').append('svg').attr('width',1300)
-	// .attr('x',0)
-	// .attr('y',-20)
-	// .attr('height',20)
-	// .style("background-color", background);
+	
+	var fontSize = 30
+	var background = "#262626"
+	// background = 'black'
+	var svg = d3.select('#topNav').append('svg').attr('width',1100)
+	.attr('x',0)
+	.attr('y',0)
+	.attr('height',40)
+	.style("background-color", background);
+
+	var text1 = svg.append('g')
+	text1.append('text').text('VISUALIZING')
+	.style('fill','white')
+	.style('font-size',fontSize)
+	.attr('x',20)
+	.attr('y',30);
+
+	var text2 = svg.append('g')
+	text2.append('text').text('I-CHING')
+	.style('fill','white')
+	.style('font-weight','bold')
+	.style('font-size',fontSize)
+	.attr('x',200)
+	.attr('y',30);
 	// var label1 = svg.append('g').attr('transform','translate(600,0)');
 	// label1.append('text').text('HEXAGRAMS & THE STATEMENT (GUA)')
 	// .style('fill','white')

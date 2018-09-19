@@ -1,5 +1,51 @@
 // console.log('ofo')
 var colorList = ['#0CCCD6','#FF3E14']
+
+function arraysEqual(a1,a2) {
+    /* WARNING: arrays must not contain {objects} or behavior may be undefined */
+
+    // console.log(JSON.stringify(a1))
+    // console.log(JSON.stringify(a2))
+    return a1.join('_')==a2.join('_');
+}
+
+function flipArray(a1){
+	a2 =  []
+	for(var i = 0; i< a1.length;i++){
+		a2.push(1-parseInt(a1[i]))
+	}
+}
+
+function highlightAllNature(dataStr){
+
+	dataArr = dataStr.split('s').slice(1)
+	// console.log(dataArr)
+	hexagrams.forEach(function(d,i){
+		upper = d.slice(0,3)
+		lower = d.slice(3,6)
+		if (arraysEqual(upper,dataArr)||arraysEqual(lower,dataArr)){
+			highlightSingle(i)
+		}
+	})
+}
+
+function unhighlightAllNature(dataStr){
+	// console.log(dataStr)
+	dataArr = dataStr.split('s').slice(1)
+	hexagrams.forEach(function(d,i){
+		upper = d.slice(0,3)
+		lower = d.slice(3,6)
+		if (arraysEqual(upper,dataArr)||arraysEqual(lower,dataArr)){
+			unhighlightSingle(i)
+		}
+
+	})
+}
+
+// function unhighlightAllNature(dataArr){
+
+// }
+
 function highlightAll(token_str){
 	var token_arr = token_str.split('_')
 	var symbol;
@@ -52,6 +98,8 @@ function highlightSingle(guaOrder){
 	var moveToMid = (squareLength*2+interval)/2;
 	var rects = subgraph.selectAll('.overview').remove()
 	var rectanglesGraph = subgraph.append('g');
+
+
 	rectanglesGraph.attr('class','overview')
 	rectanglesGraph.selectAll('rect').data(data).enter().append('rect')
 	.attr('x',function(d,i){
@@ -69,20 +117,7 @@ function highlightSingle(guaOrder){
 	.style('fill', function(d,i){
 		// d is the index of the color
 		return colorList[d];
-	}).style('fill-opacity',1)
-	// .style('fill-opacity',1)
-	// augl = sidel*1.25
-	// var diff = augl-sidel
-	// rects.style('fill-opacity',1)
-	// rects.attr('height',augl).attr('width',augl)
-	// .attr('x',function(){
-	// 	var prevX = d3.select(this).attr('x')
-
-	// })
-	// .attr('y',function(){
-
-	// })
-	// subgraph.append('g')
+	}).style('fill-opacity',1)	
 }
 
 function unhighlightSingle(guaOrder){
@@ -106,6 +141,8 @@ function unhighlightSingle(guaOrder){
 	var moveToMid = (squareLength*2+interval)/2;
 	var rects = subgraph.selectAll('.overview').remove()
 	var rectanglesGraph = subgraph.append('g');
+
+	// the 
 	rectanglesGraph.attr('class','overview')
 	rectanglesGraph.selectAll('rect').data(data).enter().append('rect')
 	.attr('x',function(d,i){
@@ -123,7 +160,21 @@ function unhighlightSingle(guaOrder){
 	.style('fill', function(d,i){
 		// d is the index of the color
 		return colorList[d];
-	}).style('fill-opacity',0.8)
+	}).style('fill-opacity',0.8);
+
+	rectanglesGraph.on('mouseover',function(){
+		if (document.getElementById("themeDetails") ){
+			// d3.select(this).style('fill-opaicity',1) 
+			highlightByGua(guaOrder+1)
+			// console.log(document.getElementById("themeDetails"))
+		}
+	}).on('mouseout',function(){
+		if (document.getElementById("themeDetails") ){
+			// d3.select(this).style('fill-opaicity',fillop) 
+			unhighlightByGua(guaOrder+1)
+			// console.log(document.getElementById("themeDetails"))
+		}
+	});
 
 }
 
@@ -161,14 +212,13 @@ function appendGeoPattern(idStr){
 	var guaLayer2 = 3
 	var squareLength = 12
 	var interval = 5
-	var yinAndYang = ['#FF3E14','#0CCCD6']
+	var yinAndYang = ['#0CCCD6','#FF3E14']
 
 	var strokWidth = 1
 	//vertical lines
 	var right = 0 // shifted right
 	var down = 0 // shifted down
 	// var hLines =
-
 	// var colors = ['black','#262626']
 	// draw the sparation line
 	tokens.forEach((d,i)=>{
@@ -200,9 +250,9 @@ function appendGeoPattern(idStr){
 	    .attr('stroke-width', strokWidth)
 	    .attr('class',str)
 	   
-
 		// all legends
 		g2.append('g')
+		// .class('')
 		.selectAll('rect')
 		.data(guadata).enter()
 		.append('rect')
@@ -316,24 +366,23 @@ function appendGeoPattern(idStr){
 	    });
 
 	});
-
 	// draw boarder lines
 	// draw the next level of the geometircal patterns
 	var naturesArr = [
-		{name:'heaven', data:[0,0,0]},
-		{name:'earth', data:[1,1,1]},
-		{name:'water', data:[1,0,1]},
-		{name:'thunder', data:[1,1,0]},
-		{name:'mountain', data:[1,0,1]},
-		{name:'fire', data:[0,1,0]},
-		{name:'wind',data:[0,0,1]},
-		{name:'lake', data:[1,0,0]}
+		{name:'heaven', data:[1,1,1]},
+		{name:'earth', data:[0,0,0]},
+		{name:'water', data:[0,1,0]},
+		{name:'thunder', data:[1,0,0]},
+		{name:'mountain', data:[0,0,1]},
+		{name:'fire', data:[1,0,1]},
+		{name:'wind',data:[1,1,0]},
+		{name:'lake', data:[0,1,1]}
 	]
 	var guaLayer3 = 2
 	var guaLayer4 = 3
 	len1 = 30
 	len2 = 120
-	naturesArr.forEach((d,i)=>{
+	naturesArr.forEach(function(d,i){
 		var h = Math.floor((i/guaLayer3))*len1+40
 		var w = (i%guaLayer3)*len2+20
 		var g3 = graph.append('g').attr("transform",
@@ -341,6 +390,32 @@ function appendGeoPattern(idStr){
 				var result = "translate("+w+","+(h+300)+")";
 				return result;
 		});
+
+		var className = 's'+d.data.join('s')
+		// the background rectangle
+		g3.append('g').append('rect')
+		.attr('x',function(d,i){
+			return -19
+		})
+		.attr('y',function(d,i){
+			return -10
+		})
+		.attr('width',function(d2,i2){
+			return wd/2;
+		})
+		.attr('height',function(d2,i2){
+			return 30;
+		})
+		.style('fill',function(d2,i2){
+			return background
+		})
+		.style("stroke", "grey")  
+		.attr('stroke-dasharray', '2,3')
+	    // .attr('stroke-linecap', 'butt')
+	    .attr('stroke-width', strokWidth)
+		.attr('class',className)
+
+		// the rectangles.
 
 		g3.append('g')
 		.selectAll('rect')
@@ -358,17 +433,15 @@ function appendGeoPattern(idStr){
 		.attr('height',function(d2,i2){
 			return squareLength;
 		})
-		// .style('stroke', function(d2,i2){
-		// // d is the index of the color
-		// 	return 'grey';
-		// })
 		.style('fill',function(d2,i2){
 			return yinAndYang[d2]
 		})
 		// .style('stroke-width',function(d2,i2){
 		// 	return 1
 		// })
-		.style('fill-opacity','1');
+		.style('fill-opacity','1')
+
+		.attr('class',className);
 
 		g3.append('g').append('text')
 		.text(function(){
@@ -380,46 +453,57 @@ function appendGeoPattern(idStr){
 		.style('font-weight',10)
 		.style('fill', 'white')
 		.style('fill-opacity','0.5')
+		.attr('class',className);
+
+		d3.selectAll('.'+className)
+		.on('mouseover',function(){
+	    	d3.select('rect'+'.'+className).style('fill','#333333')
+	    	highlightAllNature(className)
+	    })
+	    .on('mouseout',function(){
+	    	d3.select('rect'+'.'+className).style('fill','#1c1c1c')
+	    	unhighlightAllNature(className)
+	    });
 
 		// dotted lines
-		if (i == 0){
-			// horizontal line
-			g3.append('line')
-			.style("stroke", "grey")  
-			.attr('stroke-dasharray', '2,3')
-		    // .attr('stroke-linecap', 'butt')
-		    .attr('stroke-width', strokWidth)
-		    .attr("x1", -30)     // x position of the first end of the line
-		    .attr("y1", -7)      // y position of the first end of the line
-		    .attr("x2", 250)     // x position of the second end of the line
-		    .attr("y2", -7); 
-		    // the vertical line
-		    g3.append('line')
-			.style("stroke", "grey")  
-			.attr('stroke-dasharray', '2,3')
-		    // .attr('stroke-linecap', 'butt')
-		    .attr('stroke-width', strokWidth)
-		    .attr("x1", 105)     // x position of the first end of the line
-		    .attr("y1", -7)      // y position of the first end of the line
-		    .attr("x2", 105)     // x position of the second end of the line
-		    .attr("y2", 110); 
-		}
-		if (i%2 == 0){
-			g3.append('line')
-			.style("stroke", "grey")  
-			.attr('stroke-dasharray', '2,3')
-		    // .attr('stroke-linecap', 'butt')
-		    .attr('stroke-width', strokWidth)
-		    .attr("x1", -30)     // x position of the first end of the line
-		    .attr("y1", 20)      // y position of the first end of the line
-		    .attr("x2", 250)     // x position of the second end of the line
-		    .attr("y2", 20); 
-		}
+		// if (i == 0){
+		// 	// horizontal line
+		// 	g3.append('line')
+		// 	.style("stroke", "grey")  
+		// 	.attr('stroke-dasharray', '2,3')
+		//     // .attr('stroke-linecap', 'butt')
+		//     .attr('stroke-width', strokWidth)
+		//     .attr("x1", -30)     // x position of the first end of the line
+		//     .attr("y1", -7)      // y position of the first end of the line
+		//     .attr("x2", 250)     // x position of the second end of the line
+		//     .attr("y2", -7); 
+		//     // the vertical line
+		//     g3.append('line')
+		// 	.style("stroke", "grey")  
+		// 	.attr('stroke-dasharray', '2,3')
+		//     // .attr('stroke-linecap', 'butt')
+		//     .attr('stroke-width', strokWidth)
+		//     .attr("x1", 105)     // x position of the first end of the line
+		//     .attr("y1", -7)      // y position of the first end of the line
+		//     .attr("x2", 105)     // x position of the second end of the line
+		//     .attr("y2", 110); 
+		// }
+		// if (i%2 == 0){
+		// 	g3.append('line')
+		// 	.style("stroke", "grey")  
+		// 	.attr('stroke-dasharray', '2,3')
+		//     // .attr('stroke-linecap', 'butt')
+		//     .attr('stroke-width', strokWidth)
+		//     .attr("x1", -30)     // x position of the first end of the line
+		//     .attr("y1", 20)      // y position of the first end of the line
+		//     .attr("x2", 250)     // x position of the second end of the line
+		//     .attr("y2", 20); 
+		// }
 	})
 
 	var pairsDivision = [
-		{name:'Opposite Pairs', dt:[[0,0,0,0,0,0],[1,1,1,1,1,1]]},
-		{name: 'Inverse Pairs',dt:[[1,0,1,0,0,0],[0,0,0,1,0,1]]}
+		{name:'Opposite Pairs', dt:[[1,1,1,1,1,1],[0,0,0,0,0,0]]},
+		{name: 'Inverse Pairs',dt:[[0,1,0,1,1,1],[1,1,1,0,1,0]]}
 	]
 
 	pairsDivision.forEach((d,i)=>{
