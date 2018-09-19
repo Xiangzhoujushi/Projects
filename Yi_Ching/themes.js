@@ -335,7 +335,6 @@ function forceRadialThemeClusters(panelID){
 		});
 
 
-
 		subgraph.append('circle')
 		.attr('r',radius)
 		.attr('cx',

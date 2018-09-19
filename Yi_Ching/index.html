@@ -234,6 +234,7 @@
 						return result;
 					}
 				)
+				.attr('id','guaClusters')
 				// the length of the small square
 				var squareLength = 7;
 				// the interval between each rectangel
@@ -361,7 +362,6 @@
 					.attr('y1',-1)
 					.attr('y2',2*layerWidth+interval+1);
 
-					// 
 					var fillop = 0.75
 					// create the rectangles of the gua
 					var rectanglesGraph = subgraph.append('g');

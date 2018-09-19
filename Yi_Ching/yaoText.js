@@ -36,7 +36,6 @@ function drawYaoDetails(){
 				result+="translate("+400+","+200+")"
 				return result;
 		});
-
 		//then draw those small yao texts,阴阳的小 yao text
 		var numberOfYao = yaociAll.length
 		var shifted = -1*((numberOfYao-1)*interval+sideLength*numberOfYao)/2

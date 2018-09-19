@@ -1,6 +1,83 @@
 // console.log('ofo')
 var colorList = ['#0CCCD6','#FF3E14']
 
+function highlightSinglePair(p1,p2,object){
+	// var classP1 = 'Gua_'+p1
+	// var classP2 = 'Gua_'+p2
+	// var c1 = d3.select('#'+classP1)
+	// var c2 = d3.select('#'+classP2)
+	// .attr()
+	console.log(p1)
+	console.log(p2)
+	var radius = 200-15
+	var num1 = parseInt(p1)
+	var num2 = parseInt(p2)
+	var lineGraph = object.append('g')
+	var angle1 = num1/64.0*Math.PI*2;
+	var angle2 = num2/64.0*Math.PI*2;
+	x1 =  radius*Math.cos(angle1)
+	y1 =  radius*Math.sin(angle1)
+	x2 =  radius*Math.cos(angle2)
+	y2 =  radius*Math.sin(angle2)
+
+	var xmid = (x1+x2)/2+5
+	var ymid = (y1+y2)/2
+
+	let lineData = [
+		{'x':x1,'y':y1},
+		// {'x':xmid,'y':ymid},
+		{'x':x2,'y':y2}
+	];
+
+	var lineGenerator = d3.line().curve(d3.curveNatural)
+	.x(function(d){
+		return d.x;
+	})
+	.y(function(d){
+		return d.y;
+	});
+
+	lineGraph.append('path').datum(lineData)
+	.attr('d',lineGenerator)
+	.style('stroke-width',1) // the stroke width
+	.style('stroke','white')
+	.style('fill','none')
+	.style('stroke-opacity',1)
+}
+
+
+function highlightOpositePairs(){
+	var g1 = d3.select('g#guaClusters')
+	var g = g1.append('g').attr('id','pairLineConnections').attr('transform','translate(200,200)')
+	for(var i = 0; i<hexagrams.length-1; i+=2){
+		j = i+1;
+		arr1 = hexagrams[i]
+		arr2 = hexagrams[j].reverse()
+		if (!arraysEqual(arr1,arr2)){
+			highlightSinglePair(i,j,g)
+		}
+		hexagrams[j].reverse()
+	}
+
+}
+function unhighlightPairs(){
+	d3.select('g#pairLineConnections').remove()
+}
+
+function highlightInversePairs(){
+	var g1 = d3.select('g#guaClusters')
+	var g = g1.append('g').attr('id','pairLineConnections').attr('transform','translate(200,200)')
+	for(var i = 0; i<hexagrams.length-1; i+=2){
+		j = i+1;
+		arr1 = hexagrams[i]
+		arr2 = hexagrams[j].reverse()
+		if (arraysEqual(arr1,arr2)){
+			highlightSinglePair(i,j,g)
+		}
+		hexagrams[j].reverse()
+	}
+}
+
 function arraysEqual(a1,a2) {
     /* WARNING: arrays must not contain {objects} or behavior may be undefined */
 
@@ -513,14 +590,29 @@ function appendGeoPattern(idStr){
 		var guaLayer5 = 1
 		var h = Math.floor((i/guaLayer5))*len1+170
 		var w = (i%guaLayer5)*len2+10
+
 		var g4 = graph.append('g').attr("transform",
 			function(){
 				var result = "translate("+150+","+(h+310)+")";
 				return result;
 		});
 
-		interval = 2
+		var className = d.name.split(' ')[0]
+		console.log(className)
+		g4.append('g')
+	    .append('rect')
+	    .attr('x',-149)
+	    .attr('y',-15)
+	    .attr('width',wd-5)
+	    .attr('height',len1)
+	    .style('fill',background)
+	    .style("stroke", "grey")  
+		.attr('stroke-dasharray', '2,3')
+		    // .attr('stroke-linecap', 'butt')
+		.attr('stroke-width', strokWidth)
+		.attr('class',className)
 
+		interval = 2
 		// the text
 		g4.append('g')
 		.attr("transform",
@@ -538,13 +630,18 @@ function appendGeoPattern(idStr){
 		.style('font-weight',13)
 		.style('fill', 'white')
 		.style('fill-opacity','0.5')
+		.attr('class',className)
 
 		g4.append('line')          // attach a line
 	    .style("stroke", "grey")  // colour the line
 	    .attr("x1", 40)     // x position of the first end of the line
 	    .attr("y1", 10)      // y position of the first end of the line
 	    .attr("x2", 50)     // x position of the second end of the line
-	    .attr("y2", 10); 
+	    .attr("y2", 10)
+	    .attr('class',className)
+
+
+	    // the background rectangle
 
 		// first pair
 		g4.append('g')
@@ -566,6 +663,7 @@ function appendGeoPattern(idStr){
 		.style('fill',function(d2,i2){
 			return yinAndYang[d2]
 		})
+		.attr('class',className)
 		.style('fill-opacity','1');
 
 		// the second pair
@@ -592,41 +690,56 @@ function appendGeoPattern(idStr){
 		.style('fill',function(d2,i2){
 			return yinAndYang[d2]
 		})
+		.attr('class',className)
 		.style('fill-opacity','1');
 
+
+		d3.selectAll('.'+className)
+		.on('mouseover',function(){
+	    	d3.select('rect'+'.'+className).style('fill','#333333')
+	    	if (className == 'Opposite'){
+	    		highlightOpositePairs()
+	    	}else{
+	    		highlightInversePairs()
+	    	}
+	    })
+	    .on('mouseout',function(){
+	    	d3.select('rect'+'.'+className).style('fill','#1c1c1c')
+	    	unhighlightPairs()
+	    	// unhighlightAllNature(className)
+	    });
 		// dotted lines
-		if (i == 0){
-			// horizontal line
-			g4.append('line')
-			.style("stroke", "grey")  
-			.attr('stroke-dasharray', '2,3')
-		    // .attr('stroke-linecap', 'butt')
-		    .attr('stroke-width', strokWidth)
-		    .attr("x1", -150)     // x position of the first end of the line
-		    .attr("y1", -15)      // y position of the first end of the line
-		    .attr("x2", 200)     // x position of the second end of the line
-		    .attr("y2", -15); 
-		    // the vertical line
-		 //    g4.append('line')
-			// .style("stroke", "grey")  
-			// .attr('stroke-dasharray', '2,3')
-		 //    .attr('stroke-linecap', 'butt')
-		 //    .attr('stroke-width', '2')
-		 //    .attr("x1", (-200+175))     // x position of the first end of the line
-		 //    .attr("y1", -20)      // y position of the first end of the line
-		 //    .attr("x2", (-200+175))     // x position of the second end of the line
-		 //    .attr("y2", 110); 
-		}
+		// if (i == 0){
+		// 	// horizontal line
+		// 	g4.append('line')
+		// 	.style("stroke", "grey")  
+		// 	.attr('stroke-dasharray', '2,3')
+		//     // .attr('stroke-linecap', 'butt')
+		//     .attr('stroke-width', strokWidth)
+		//     .attr("x1", -150)     // x position of the first end of the line
+		//     .attr("y1", -15)      // y position of the first end of the line
+		//     .attr("x2", 200)     // x position of the second end of the line
+		//     .attr("y2", -15); 
+		//     // the vertical line
+		//  //    g4.append('line')
+		// 	// .style("stroke", "grey")  
+		// 	// .attr('stroke-dasharray', '2,3')
+		//  //    .attr('stroke-linecap', 'butt')
+		//  //    .attr('stroke-width', '2')
+		//  //    .attr("x1", (-200+175))     // x position of the first end of the line
+		//  //    .attr("y1", -20)      // y position of the first end of the line
+		//  //    .attr("x2", (-200+175))     // x position of the second end of the line
+		//  //    .attr("y2", 110); 
+		// }
 		
-		g4.append('line')
-		.style("stroke", "grey")  
-		.attr('stroke-dasharray', '2,3')
-	    // .attr('stroke-linecap', 'butt')
-	    .attr('stroke-width', strokWidth)
-	    .attr("x1", -150)     // x position of the first end of the line
-	    .attr("y1", 35)      // y position of the first end of the line
-	    .attr("x2", 200)     // x position of the second end of the line
-	    .attr("y2", 35); 
+		// g4.append('line')
+		// .style("stroke", "grey")  
+		// .attr('stroke-dasharray', '2,3')
+	 //    .attr('stroke-width', strokWidth)
+	 //    .attr("x1", -150)     // x position of the first end of the line
+	 //    .attr("y1", 35)      // y position of the first end of the line
+	 //    .attr("x2", 200)     // x position of the second end of the line
+	 //    .attr("y2", 35); 
 		
 	})
 
