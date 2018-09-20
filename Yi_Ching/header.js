@@ -6,13 +6,12 @@ function navigation(){
 	// background color
 	var bgc = '#262626'
 
+
 	var svg = d3.select('#leftNav').append('svg')
 	.attr('width',w)
 	.attr('height',h)
 	.style('fill','black');
-
 	// var shiftDown = - 160
-
 	var text3 = svg.append('g').attr('transform','translate(0,-220)')
 	.on('click',function(){
 		var modal = document.getElementById('myModal');
@@ -26,28 +25,59 @@ function navigation(){
 		        modal.style.display = "none";
 		    }
 		}
-	});
+	})
+	.on("mouseover",function(){
+		d3.select(this).select('text').style('fill','black')
+		d3.select(this).select('#first_rect').style('fill','grey')
+		// d3.select(this).select('#second_rect').style('fill','grey')
+	})
+	.on("mouseout",function(){
+		d3.select(this).select('text').style('fill','white')
+		d3.select(this).select('#first_rect').style('fill','black')
+		// d3.select(this).select('#second_rect').style('fill','white')
+	})
 
 	text3.append('rect')
+	.attr('id','first_rect')
 	.attr('x',0)
 	.attr('y',h/4-5)
 	.style('fill','black')
 	.attr('height',40)
 	.attr('width',50)
+	// .on("mouseover",function(){
+	// 	d3.select(this).style('fill','white')
+	// })
+	// .on("mouseout",function(){
+	// 	d3.select(this).style('fill','black')
+	// })
 
-	text3.append('text').text('About')
+	text3.append('text')
+	.text('About')
 	.style('fill','white')
 	.style('font-size',13)
 	.style('font-weight','bold')
 	.attr('x',6)
-	.attr('y',h/4+20);
+	.attr('y',h/4+20)
+	// .on("mouseover",function(){
+	// 	d3.select(this).style('fill','black')
+	// })
+	// .on("mouseout",function(){
+	// 	d3.select(this).style('fill','white')
+	// })
 
 	text3.append('rect')
+	.attr('id','second_rect')
 	.attr('x',0)
 	.attr('y',h/4+30)
 	.style('fill','white')
 	.attr('height',5)
 	.attr('width',50)
+	// .on("mouseover",function(){
+	// 	d3.select(this).style('fill','black')
+	// })
+	// .on("mouseout",function(){
+	// 	d3.select(this).style('fill','white')
+	// })
 
 	var side = 10
 	// text3.append('polygon')
@@ -63,6 +93,8 @@ function navigation(){
 	// .stroke('fill','white')
 	// .stroke('')
 }
+
+
 
 function appendHeader(){
 	
