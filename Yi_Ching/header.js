@@ -28,7 +28,7 @@ function navigation(){
 	})
 	.on("mouseover",function(){
 		d3.select(this).select('text').style('fill','black')
-		d3.select(this).select('#first_rect').style('fill','grey')
+		d3.select(this).select('#first_rect').style('fill','white')
 		// d3.select(this).select('#second_rect').style('fill','grey')
 	})
 	.on("mouseout",function(){
