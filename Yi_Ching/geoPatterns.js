@@ -598,7 +598,7 @@ function appendGeoPattern(idStr){
 		});
 
 		var className = d.name.split(' ')[0]
-		console.log(className)
+		// console.log(className)
 		g4.append('g')
 	    .append('rect')
 	    .attr('x',-149)

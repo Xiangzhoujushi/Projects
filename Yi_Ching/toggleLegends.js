@@ -100,7 +100,64 @@ function addToggleLegends(){
 		}
 	})
 
-	highlightlegends(toggleArr[0])
+	var toggleTri = toggleG.selectAll('polygon').
+	data(toggleArr).enter().append('polygon')
+	.attr('points', function(d,i){
+		// var length = parseInt(selectedRect.attr('height'))
+		length = recht
+		p1y = i*(recht+fis)+20
+		p2y = length+p1y
+		p3y = length/2+p1y
+		var p1x = defaultStart+recwid
+		// console.log(p1x)
+		var p3x = p1x - length/2
+		var p1 = p1x+','+p1y
+		var p2 = p1x+','+p2y
+		var p3 = p3x+','+p3y
+		var str = p1+','+p2+','+p3;
+		return str
+	})
+	.style('fill',function(d,i){
+		return 'black'
+	})
+	.attr('class', function(d){
+		return d.id
+	})
+	.on('click', function(d,i){
+		var chosen = d.id;
+		// console.log(chosen)
+		if (!d.select){
+			// remove first 
+			removeMainPart()
+			triggerItems(chosen)
+			// toggleArr[i].select = true
+			for (var j = 0; j<toggleArr.length;j++){
+				if (j!=i){
+					toggleArr[j].select = false
+					unhighlightlegends(toggleArr[j])
+				}
+				else{
+					toggleArr[i].select = true
+				}
+			}
+			// console.log(className)
+		}else{
+			// not equal to one
+			removeMainPart()
+			d3.select(this).attr('class',d.id)
+			toggleArr[i].select = false
+		}
+	})
+	.on('mouseover', function(d,i){
+		 highlightlegends(d)
+	})
+	.on ('mouseout',function(d,i){
+		if (!d.select){
+			unhighlightlegends(d)
+		}
+	});
+
+
 	// append the selection features using class attribute
 	var toggleText = toggleG.selectAll('text')
 	.data(toggleArr).enter().append('text')
@@ -157,6 +214,8 @@ function addToggleLegends(){
 			unhighlightlegends(d)
 		}
 	})
+
+	highlightlegends(toggleArr[0])
 }
 
 // function flipSelection(avoid){
@@ -196,6 +255,7 @@ function triggerItems(chosen){
 function highlightlegends(d){
 	selectedRect = d3.selectAll('rect.'+d.id)
 	selectedText = d3.selectAll('text.'+d.id)
+	selectedTri = d3.selectAll('polygon.'+d.id)
 	// console.log('Class: '+d.id)
 	selectedRect
 	.attr('x',function(){
@@ -211,30 +271,36 @@ function highlightlegends(d){
 	.style('fill', function(){
 		return colors[0]
 	});	
+
+	selectedTri.style('fill',function(){
+		return '#1c1c1c'
+	})
 	// append a triangle
-	var length = parseInt(selectedRect.attr('height'))
-	p1y = parseInt(selectedRect.attr('y'))
-	p2y = length+p1y
-	p3y = length/2+p1y
-	var p1x = parseInt(selectedRect.attr('x'))+parseInt(selectedRect.attr('width'))
-	// console.log(p1x)
-	var p3x = parseInt(selectedRect.attr('x'))+parseInt(selectedRect.attr('width')) - length/2
-	var p1 = p1x+','+p1y
-	var p2 = p1x+','+p2y
-	var p3 = p3x+','+p3y
-	var g = d3.select('#toggleLegend>svg').append('g')
-	.attr("transform",
-		function(){
-			var result = "translate("+(-20)+","+20+")";
-			return result;
-		}
-	).attr('class','trianglePointer_'+d.id)
-	drawTriangle(p1,p2,p3,g,'#1c1c1c')
+	// var length = parseInt(selectedRect.attr('height'))
+	// p1y = parseInt(selectedRect.attr('y'))
+	// p2y = length+p1y
+	// p3y = length/2+p1y
+	// var p1x = parseInt(selectedRect.attr('x'))+parseInt(selectedRect.attr('width'))
+	// // console.log(p1x)
+	// var p3x = parseInt(selectedRect.attr('x'))+parseInt(selectedRect.attr('width')) - length/2
+	// var p1 = p1x+','+p1y
+	// var p2 = p1x+','+p2y
+	// var p3 = p3x+','+p3y
+	// var g = d3.select('#toggleLegend>svg').append('g')
+	// .attr("transform",
+	// 	function(){
+	// 		var result = "translate("+(-20)+","+20+")";
+	// 		return result;
+	// 	}
+	// ).attr('class','trianglePointer_'+d.id)
+
+	// drawTriangle(p1,p2,p3,g,'#1c1c1c',d)
 }
 
 function unhighlightlegends(d){
 	selectedRect = d3.selectAll('rect.'+d.id)
 	selectedText = d3.selectAll('text.'+d.id)
+	selectedTri = d3.selectAll('polygon.'+d.id)
 	selectedRect
 	.attr('x',function(){
 		return defaultStart
@@ -249,7 +315,10 @@ function unhighlightlegends(d){
 	.style('fill', function(){
 		return colors[1]
 	});
-	d3.selectAll('.trianglePointer_'+d.id).remove()
+	selectedTri.style('fill',function(){
+		return 'black'
+	});
+	// d3.selectAll('.trianglePointer_'+d.id).remove()
 }
 // remove the main text
 function removeMainPart(){
@@ -258,13 +327,51 @@ function removeMainPart(){
 
 }
 // draw triangles 直角
-function drawTriangle(p1,p2,p3,currentobject,color){
+function drawTriangle(p1,p2,p3,currentobject,color,d){
 	// console.log('triangle')
+	i = -1
+	for (var k=0;k<toggleArr.length;k++){
+		if (toggleArr[k].id ==  d.id){
+			i = k
+		}
+	}
 	currentobject.append('polygon')
 	.attr('points',
 		function(){
 			return p1+','+p2+','+p3;
 		}
 	)
-	.style('fill',color);
+	.style('fill',color)
+	.on('click', function(){
+		var chosen = d.id;
+		// console.log(chosen)
+		if (!d.select){
+			// remove first 
+			removeMainPart()
+			triggerItems(chosen)
+			// toggleArr[i].select = true
+			for (var j = 0; j<toggleArr.length;j++){
+				if (j!=i){
+					toggleArr[j].select = false
+					unhighlightlegends(toggleArr[j])
+				}
+				else{
+					toggleArr[i].select = true
+				}
+			}
+			// console.log(className)
+		}else{
+			removeMainPart()
+			d3.select(this).attr('class',d.id)
+			toggleArr[i].select = false
+		}
+	})
+	.on('mouseover', function(){
+		highlightlegends(d)
+	})
+	.on ('mouseout',function(){
+		if (!d.select){
+			unhighlightlegends(d)
+		}
+	})
 }
