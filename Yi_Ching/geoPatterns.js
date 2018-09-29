@@ -52,13 +52,19 @@ function highlightOpositePairs(){
 	for(var i = 0; i<hexagrams.length-1; i+=2){
 		j = i+1;
 		arr1 = hexagrams[i]
-		arr2 = hexagrams[j].reverse()
-		if (!arraysEqual(arr1,arr2)){
+		arr2 = hexagrams[j]
+		var bool = true
+		for (var k = 0; k<arr1.length;k++){
+			if (arr1[k]==arr2[k]){
+				bool = false
+			}
+		}
+		// arr2 = hexagrams[j].reverse()
+		if (bool){
 			highlightSinglePair(i,j,g)
 		}
-		hexagrams[j].reverse()
+		// hexagrams[j].reverse()
 	}
-
 }
 function unhighlightPairs(){
 	d3.select('g#pairLineConnections').remove()
@@ -350,7 +356,7 @@ function appendGeoPattern(idStr){
 			return 'grey';
 		})
 		.style('fill',function(d2,i2){
-			if (i2 == d[2]) return yinAndYang[Math.floor(i/6)]
+			if (i2 == d[2]) return yinAndYang[(Math.floor(i/6)+1)%2]
 			else return 'none'
 		})
 		.style('stroke-width',function(d2,i2){
