@@ -405,7 +405,7 @@ function appendYaoText(idStr){
 	// draw the transitions 
 	// finally the number of yaoci text,
 	currentG.append('text')
-	.text('stages of fortune within a Hexagram')
+	.text('stages of fortune within a gua are')
 	.style('fill','white')
 	.style('font-size',12)
 	// .style('font-weight','bold')
@@ -414,7 +414,7 @@ function appendYaoText(idStr){
 	.attr('y',lineInterval*2)
 
 	currentG.append('text')
-	.text('are represented by the following:')
+	.text('represented by the following:')
 	.style('fill','white')
 	.style('font-size',12)
 	// .style('font-weight','bold')

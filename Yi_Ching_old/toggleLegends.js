@@ -8,8 +8,8 @@ var fis = 20
 var tl = 10
 var toggleArr = [
 		{select:true,token:'YAO Text',id:'Y'},
-		{select:false,token:'Commentary Subjects',id:'T'},
-		{select:false,token:'Divinatory keywords',id:'D'},
+		{select:false,token:'Themes of the Decisions',id:'T'},
+		{select:false,token:'Divination keywords',id:'D'},
 		{select:false,token:'Geometrical Patterns',id:'G'}
 ];
 function addToggleLegends(){

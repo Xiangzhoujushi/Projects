@@ -163,7 +163,7 @@ var explanText = function(){
 	.attr('y',function(d,i){
 		return 8
 	})
-	.text('Hexagram/the Gua')
+	.text('Hexagram / the Gua')
 	.style('fill',function(d,i){
 		return 'white'
 	})
@@ -184,7 +184,7 @@ var explanText = function(){
 	.attr('y',function(d,i){
 		return 18;
 	})
-	.text('Composed of six stages of Yin and Yang')
+	.text('Composed of six stages of Yin or Yang')
 	.style('fill',function(d,i){
 		return 'white';
 	})
@@ -257,7 +257,7 @@ var explanText = function(){
 	});
 
 	var str1 = 'word count of the Decision'
-	var str2 = 'King Wen\'s interpretation of the meaning of the gua'
+	var str2 = 'King Wen\'s explanation of the Hexagram'
 
 	wordCount.append('text')
 	.attr('x',countLength*7-30)
@@ -308,8 +308,8 @@ var explanText = function(){
 	});
 
 	//keywords explanations 
-	var dt4 = ['Keyword for Positive meanings'
-	, 'Keyword for Neutral meanings', 'Keyword for Negative meanings']
+	var dt4 = ['Keyword with Positive meanings'
+	, 'Keyword with Neutral meanings', 'Keyword with Negative meanings']
 	
 	sentiment.selectAll('text')
 	.data(dt4).enter().append('text')
@@ -459,7 +459,7 @@ var explanText = function(){
 		function(){
 			return "translate("+(startX+40)+","+(startY-10)+")"
 		})
-	.append('text').text('Upper Gua')
+	.append('text').text('Upper Hexagram')
 	.attr('x','5')
 	.attr('y','3')
 	.style('font-size','10px')
@@ -479,7 +479,7 @@ var explanText = function(){
 		function(){
 			return "translate("+(startX+40)+","+(startY+10)+")"
 		})
-	.append('text').text('Lower Gua')
+	.append('text').text('Lower Hexagram')
 	.attr('x','5')
 	.attr('y','3')
 	.style('font-size','10px')

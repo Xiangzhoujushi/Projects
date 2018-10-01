@@ -54,8 +54,8 @@ function navigation(){
 	text3.append('text')
 	.text('About')
 	.style('fill','white')
-	.style('font-size',15)
-	.style('font-weight','normal')
+	.style('font-size',13)
+	.style('font-weight','bold')
 	.attr('x',6)
 	.attr('y',h/4+20)
 	// .on("mouseover",function(){
@@ -98,13 +98,13 @@ function navigation(){
 
 function appendHeader(){
 	
-	var fontSize = 38
+	var fontSize = 30
 	var background = "#262626"
 	// background = 'black'
 	var svg = d3.select('#topNav').append('svg').attr('width',1100)
 	.attr('x',0)
 	.attr('y',0)
-	.attr('height',38)
+	.attr('height',40)
 	.style("background-color", background);
 
 	var text1 = svg.append('g')
@@ -112,15 +112,15 @@ function appendHeader(){
 	.style('fill','white')
 	.style('font-size',fontSize)
 	.attr('x',20)
-	.attr('y',36);
+	.attr('y',30);
 
 	var text2 = svg.append('g')
 	text2.append('text').text('I-CHING')
 	.style('fill','white')
 	.style('font-weight','bold')
 	.style('font-size',fontSize)
-	.attr('x',260)
-	.attr('y',36);
+	.attr('x',200)
+	.attr('y',30);
 	// var label1 = svg.append('g').attr('transform','translate(600,0)');
 	// label1.append('text').text('HEXAGRAMS & THE STATEMENT (GUA)')
 	// .style('fill','white')
