@@ -264,7 +264,7 @@ function setUpThemesPanel(panelID){
 		{name:'things-artifiact',chinese:'物件'},
 		{name:'affairs-social',chinese:'社交'},
 		{name:'affairs-politics',chinese:'政治'},
-		{name:'affairs-wafare',chinese:'军事'},
+		{name:'affairs-warfare',chinese:'军事'},
 		{name:'affairs-family',chinese:'家事'},
 		{name:'ideas-mindset',chinese:'心态'},
 		{name:'ideas-emotion',chinese:'情感'},
