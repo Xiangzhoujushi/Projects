@@ -3,7 +3,7 @@ var guaToThemes = {}
 var themes = {
 	name: "theme", value:175,
 	children:[
-		{name:"things|nature",value:48,
+		{name:"things-nature",value:48,
 		children:[
 			{name:1,value:1},
 			{name:2,value:1},
@@ -55,7 +55,7 @@ var themes = {
 			{name:64,value:1}
 		]	
 		},
-			{name:"things|artifiact",value:19,
+			{name:"things-artifiact",value:19,
 			children:[
 				{name:5,value:1},
 				{name:8,value:1},
@@ -96,7 +96,7 @@ var themes = {
 				// {name:61,value:1},
 				// {name:62,value:1}
 			]},
-			{name:"affairs|social",value:21,
+			{name:"affairs-social",value:21,
 			children:[
 				{name:2,value:1},
 				{name:4,value:1},
@@ -128,7 +128,7 @@ var themes = {
 
 				]
 			},
-		{name:"affairs|politics",value:12, 
+		{name:"affairs-politics",value:12, 
 			children:[
 				{name:3,value:1},
 				{name:16,value:1},
@@ -145,13 +145,13 @@ var themes = {
 				{name:61,value:1}
 			]
 		},
-		{name:"affairs|warfare",value:2,
+		{name:"affairs-warfare",value:2,
 			children:[
 				{name:9,value:1},
 				{name:16,value:1}
 			]
 		},
-		{name:"affairs|family",value:13,
+		{name:"affairs-family",value:13,
 			children: [
 				{name:3,value:1},
 				{name:4,value:1},
@@ -168,7 +168,7 @@ var themes = {
 				{name:54,value:1},
 			]
 		},
-		{name:"ideas|mindset",value:5,
+		{name:"ideas-mindset",value:5,
 			children:[
 				{name:2,value:1},
 				{name:4,value:1},
@@ -221,7 +221,7 @@ var themes = {
 
 		]
 		},
-		{name:"ideas|emotion",value:13,
+		{name:"ideas-emotion",value:13,
 			children:
 			[
 				{name:6,value:1},
@@ -239,7 +239,7 @@ var themes = {
 				{name:60,value:1}
 			]
 		},
-		{name:"ideas|senses",value:10,
+		{name:"ideas-senses",value:10,
 			children:
 			[
 				{name:10,value:1},
@@ -260,15 +260,15 @@ var themes = {
 
 function setUpThemesPanel(panelID){
 	themesCategories = [
-		{name:'things|nature',chinese:'自然'},
-		{name:'things|artifiact',chinese:'物件'},
-		{name:'affairs|social',chinese:'社交'},
-		{name:'affairs|politics',chinese:'政治'},
-		{name:'affairs|wafare',chinese:'军事'},
-		{name:'affairs|family',chinese:'家事'},
-		{name:'ideas|mindset',chinese:'心态'},
-		{name:'ideas|emotion',chinese:'情感'},
-		{name:'ideas|senses',chinese:'感官'},
+		{name:'things-nature',chinese:'自然'},
+		{name:'things-artifiact',chinese:'物件'},
+		{name:'affairs-social',chinese:'社交'},
+		{name:'affairs-politics',chinese:'政治'},
+		{name:'affairs-wafare',chinese:'军事'},
+		{name:'affairs-family',chinese:'家事'},
+		{name:'ideas-mindset',chinese:'心态'},
+		{name:'ideas-emotion',chinese:'情感'},
+		{name:'ideas-senses',chinese:'感官'},
 	]
 
 	// the gua to themes
